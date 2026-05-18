@@ -137,6 +137,12 @@ p {
     color: var(--text-secondary);
 }
 
+.resume-updated {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -172,9 +178,9 @@ ul {
 }
 
 .primary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    opacity: 0.9;
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    opacity: 0.95;
 }
 
 .secondary-btn {
@@ -186,7 +192,8 @@ ul {
 
 .secondary-btn:hover {
     background-color: rgba(134, 134, 139, 0.1);
-    transform: translateY(-2px);
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .icon-btn {
@@ -306,6 +313,7 @@ ul {
     flex-direction: column;
     justify-content: center;
     padding-top: 8rem;
+    padding-bottom: 3rem;
 }
 
 .hero-container {
@@ -353,7 +361,7 @@ ul {
     font-size: clamp(3rem, 5vw, 4.5rem);
     font-weight: 700;
     line-height: 1.1;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     letter-spacing: -0.03em;
 }
 
@@ -362,7 +370,7 @@ ul {
     font-weight: 500;
     color: var(--text-secondary);
     line-height: 1.4;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
 }
 
 .subheadline .highlight {
@@ -372,14 +380,14 @@ ul {
 
 .intro-text {
     font-size: 1.05rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .hero-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 .hero-badge {
@@ -404,7 +412,7 @@ ul {
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.75rem;
 }
 
 .hero-social-links {
@@ -414,6 +422,7 @@ ul {
 }
 
 .hero-social-icon {
+    position: relative; /* needed for tooltip positioning */
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -430,10 +439,88 @@ ul {
     background-color: rgba(134, 134, 139, 0.2);
 }
 
+/* ===== TOOLTIP SYSTEM ===== */
+/* Shared styles for any element with data-tooltip */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    z-index: 9999;
+}
+
+/* Arrow under the tooltip */
+[data-tooltip]::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    border: 4px solid transparent;
+    border-top-color: var(--glass-border);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9999;
+}
+
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Floating mail button tooltip: appears to the LEFT */
+.floating-mail-btn[data-tooltip]::before {
+    bottom: auto;
+    top: 50%;
+    left: auto;
+    right: calc(100% + 14px);
+    transform: translateY(-50%) translateX(-4px);
+}
+
+.floating-mail-btn[data-tooltip]::after {
+    bottom: auto;
+    top: 50%;
+    left: auto;
+    right: calc(100% + 6px);
+    transform: translateY(-50%) translateX(-4px);
+    border-top-color: transparent;
+    border-left-color: var(--glass-border);
+}
+
+.floating-mail-btn[data-tooltip]:hover::before {
+    transform: translateY(-50%) translateX(0);
+}
+
+.floating-mail-btn[data-tooltip]:hover::after {
+    transform: translateY(-50%) translateX(0);
+}
+
 
 
 .hero-quote-container {
-    margin-top: 5rem;
+    margin-top: 2.5rem;
 }
 
 .hero-quote {
@@ -513,38 +600,42 @@ ul {
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 1.5rem;
+    align-items: start; /* KEY: cards size to content, no stretching */
 }
 
 .skill-card {
-    padding: 2.5rem;
+    padding: 2.25rem;
     border-radius: var(--border-radius-md);
-    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
     background: var(--glass-bg);
     display: flex;
     flex-direction: column;
+    gap: 0; /* controlled by individual margins below */
 }
 
 .skill-card:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+    background: rgba(255, 255, 255, 0.88);
 }
 
 [data-theme="dark"] .skill-card:hover {
-    background: rgba(40, 40, 42, 0.9);
+    background: rgba(44, 44, 46, 0.88);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
 .skill-icon-wrapper {
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="dark"] .skill-icon-wrapper {
@@ -552,50 +643,59 @@ ul {
 }
 
 .skill-icon {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
 }
 
 .skill-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: var(--text-primary);
+    letter-spacing: -0.01em;
 }
 
 .skill-desc {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
 }
 
 .skill-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    margin-top: auto;
+    /* NO margin-top: auto — chips now sit naturally below description */
 }
 
 .skill-chip {
-    padding: 0.3rem 0.8rem;
-    background-color: var(--text-primary);
-    color: var(--bg-base);
-    border-radius: 4px;
-    font-size: 0.85rem;
+    padding: 0.3rem 0.85rem;
+    /* Glass-tinted chip: subtle, elegant, premium */
+    background: rgba(134, 134, 139, 0.1);
+    color: var(--text-primary);
+    border: 1px solid rgba(134, 134, 139, 0.18);
+    border-radius: 999px;
+    font-size: 0.82rem;
     font-weight: 500;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .skill-chip:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+    background: rgba(134, 134, 139, 0.18);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
 .skill-chip.highlight {
-    background-color: var(--accent-blue);
-    color: #ffffff;
+    background: rgba(0, 113, 227, 0.12);
+    color: var(--accent-blue);
+    border-color: rgba(0, 113, 227, 0.25);
+    font-weight: 600;
 }
 
 .primary-card {
@@ -609,7 +709,7 @@ ul {
 }
 
 .subtle-card {
-    opacity: 0.75;
+    opacity: 0.72;
 }
 
 .subtle-card:hover {
@@ -620,13 +720,14 @@ ul {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: #10b981;
     background-color: rgba(16, 185, 129, 0.1);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
 }
 
 /* Projects Section */
@@ -645,6 +746,11 @@ ul {
 
 .project-card:hover {
     transform: translateY(-5px);
+}
+
+.project-card.flagship {
+    box-shadow: 0 12px 40px rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.3);
 }
 
 .project-image {
@@ -721,16 +827,16 @@ ul {
 
 .project-title {
     font-size: 1.8rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .project-description {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     font-size: 1.05rem;
 }
 
 .project-features {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .project-features h4 {
@@ -747,17 +853,17 @@ ul {
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
 }
 
 .tech-stack span {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    padding: 0.25rem 0.75rem;
+    padding: 0.35rem 0.85rem;
     background-color: var(--text-primary);
     color: var(--bg-base);
-    border-radius: 4px;
+    border-radius: 999px;
 }
 
 .project-links {
@@ -976,5 +1082,14 @@ ul {
     
     .contact-headline {
         font-size: 2rem;
+    }
+
+    /* Tooltip appears above on mobile too, hide arrow for cleanliness */
+    .floating-mail-btn[data-tooltip]::after {
+        display: none;
+    }
+    .floating-mail-btn[data-tooltip]::before {
+        right: calc(100% + 10px);
+        font-size: 0.72rem;
     }
 }
