@@ -1553,3 +1553,9 @@ ul {
         font-size: 0.72rem;
     }
 }
+
+/* Elastic Stretch Container */
+#scroll-stretch-wrapper {
+    will-change: transform;
+    transform-origin: center top;
+}
