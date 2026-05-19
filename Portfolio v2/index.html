@@ -38,8 +38,7 @@
                 <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
                     <i class="ph ph-moon"></i>
                 </button>
-                <a href="assets/resume.pdf" class="btn nav-btn" target="_blank" rel="noopener noreferrer">Download
-                    Resume</a>
+                <a href="#contact" class="btn nav-btn">Open to Work ↗</a>
 
                 <button class="mobile-menu-toggle icon-btn" aria-label="Toggle Menu">
                     <i class="ph ph-list"></i>
@@ -76,8 +75,7 @@
                     </h2>
 
                     <p class="intro-text">
-                        I build practical systems through Java, Spring Boot, REST APIs, and strong problem-solving fundamentals.<br>
-                        Backed by 2+ years of programming experience and a foundation in embedded systems.
+                        I build practical, high-performance systems through Java, Spring Boot, REST APIs, and strong algorithmic problem-solving fundamentals.
                     </p>
 
                     <div class="hero-badges">
@@ -112,14 +110,32 @@
                     </div>
                 </div>
 
+                <!-- Code Visual Panel -->
+                <div class="hero-visual reveal-up delay-2">
+                    <div class="code-window glass">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="code-title">ExpenseController.java</span>
+                        </div>
+                        <div class="code-body">
+                            <pre><code><span class="keyword">@RestController</span>
+<span class="keyword">@RequestMapping</span>(<span class="string">"/api/v1/expenses"</span>)
+<span class="keyword">public class</span> <span class="class-name">ExpenseController</span> {
 
-            </div>
-
-            <div class="container hero-quote-container reveal-up delay-3">
-                <blockquote class="hero-quote glass">
-                    “Each keystroke I make today is a quiet rebellion — against my past, my fears, and the version of me
-                    that settles. I build not just to create, but to rise.”
-                </blockquote>
+    <span class="keyword">@PostMapping</span>
+    <span class="keyword">public</span> ResponseEntity&lt;ExpenseResponse&gt; <span class="method">createExpense</span>(
+        <span class="keyword">@Valid @RequestBody</span> ExpenseRequest req
+    ) {
+        log.info(<span class="string">"Creating expense: {}"</span>, req.getDescription());
+        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.CREATED)
+            .body(expenseService.save(req));
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -128,55 +144,69 @@
             <div class="container">
                 <h2 class="section-title reveal-up">About Me</h2>
 
-                <div class="about-card glass reveal-up">
-                    <div class="about-text">
-                        <p>I’m a 7th-semester Electronics & Telecommunication Engineering student at Jabalpur
-                            Engineering College with a growing focus on Java backend development, Spring Boot, REST
-                            APIs, and scalable software fundamentals.</p>
-                        <p>My engineering journey started with electronics, RF communication, PCB experimentation, and
-                            embedded systems — building practical hardware projects that strengthened my understanding
-                            of logic, debugging, and problem-solving.</p>
-                        <p>Today, I’m channeling that engineering mindset into backend development, actively
-                            strengthening my skills in Java, Data Structures & Algorithms, SQL, Object-Oriented
-                            Programming, and Spring Boot while building meaningful software systems.</p>
-                        <p>Alongside this, I’ve also explored Salesforce as a complementary business-technology
-                            ecosystem, while keeping backend engineering as my primary direction.</p>
-                        <p class="core-goal"><strong>At the core of everything is a simple goal: build meaningful
-                                systems, achieve financial stability, and create a future where my family never feels
-                                limited again.</strong></p>
+                <div class="about-layout reveal-up">
+                    <div class="about-left">
+                        <div class="about-card glass">
+                            <div class="about-text">
+                                <p>I’m a 7th-semester Electronics & Telecommunication Engineering student at <strong>Jabalpur Engineering College</strong> with a strong focus on Java backend development, Spring Boot, REST APIs, and database design.</p>
+                                <p>My engineering journey began with hardware prototyping, RF communication, and embedded systems — building practical projects that built a solid foundation for structural logic, low-level debugging, and problem-solving. Today, I channel that developer mindset entirely into building robust, scalable backend architectures and mastering algorithmic challenges.</p>
+                                <p class="core-goal" style="margin-bottom: 0;"><strong>At the core of everything is a simple goal: build meaningful systems, achieve financial stability, and create a future where my family never feels limited again.</strong></p>
+                            </div>
+                            
+                            <blockquote class="about-quote" style="margin: 2rem 0 0 0; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 3px solid var(--accent-blue); padding-left: 1.5rem; font-size: 0.95rem; padding-top: 0.25rem; padding-bottom: 0.25rem;">
+                                “Each keystroke I make today is a quiet rebellion — against my past, my fears, and the version of me
+                                that settles. I build not just to create, but to rise.”
+                            </blockquote>
+                        </div>
                     </div>
-                </div>
-
-                <div class="education-card glass reveal-up"
-                    style="margin-bottom: 3rem; padding: 2rem; display: flex; align-items: center; gap: 1.5rem; border-radius: var(--border-radius-lg);">
-                    <div class="edu-icon"
-                        style="font-size: 2.5rem; color: var(--text-primary); display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: rgba(134, 134, 139, 0.1); border-radius: 50%; flex-shrink: 0;">
-                        <i class="ph ph-graduation-cap"></i>
-                    </div>
-                    <div class="edu-details">
-                        <h3 style="margin-bottom: 0.35rem; font-size: 1.25rem;">B.Tech in Electronics &
-                            Telecommunication Engineering</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0;">Jabalpur
-                            Engineering College (JEC) &nbsp;•&nbsp; Currently in 7th Semester</p>
-                    </div>
-                </div>
-
-                <div class="stats-grid">
-                    <a href="https://leetcode.com/u/prashantbairagi2018/" target="_blank" rel="noopener noreferrer" class="stat-card glass reveal-up">
-                        <h3 class="stat-number">120+</h3>
-                        <p class="stat-label">LeetCode Problems</p>
-                    </a>
-                    <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="stat-card glass reveal-up delay-1">
-                        <h3 class="stat-number">3+</h3>
-                        <p class="stat-label">Major Projects</p>
-                    </a>
-                    <div class="stat-card glass reveal-up delay-2">
-                        <h3 class="stat-number">Java</h3>
-                        <p class="stat-label">Backend Focus</p>
-                    </div>
-                    <div class="stat-card glass reveal-up delay-3">
-                        <h3 class="stat-number">Jul–Aug '26</h3>
-                        <p class="stat-label">Internship Ready</p>
+                    
+                    <div class="about-right">
+                        <!-- Education Card (B.Tech) -->
+                        <div class="education-card glass"
+                            style="margin-bottom: 1.25rem; padding: 1.75rem; display: flex; align-items: center; gap: 1.25rem; border-radius: var(--border-radius-lg); border: 1px solid var(--glass-border);">
+                            <div class="edu-icon"
+                                style="font-size: 2.2rem; color: var(--text-primary); display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(134, 134, 139, 0.1); border-radius: 50%; flex-shrink: 0;">
+                                <i class="ph ph-graduation-cap"></i>
+                            </div>
+                            <div class="edu-details">
+                                <h3 style="margin-bottom: 0.25rem; font-size: 1.15rem; font-weight: 600;">B.Tech in Electronics &amp; Telecommunication</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 0; line-height: 1.4;">Jabalpur Engineering College (JEC)<br>Currently in 7th Semester</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 2x2 Stats Grid -->
+                        <div class="stats-grid-2x2">
+                            <a href="https://leetcode.com/u/prashantbairagi2018/" target="_blank" rel="noopener noreferrer" class="stat-card glass" style="padding: 1.5rem 1.25rem; text-decoration: none; display: block; border: 1px solid var(--glass-border);">
+                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">120+</h3>
+                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">LeetCode Problems</p>
+                            </a>
+                            <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="stat-card glass" style="padding: 1.5rem 1.25rem; text-decoration: none; display: block; border: 1px solid var(--glass-border);">
+                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">3+</h3>
+                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">Major Projects</p>
+                            </a>
+                            <div class="stat-card glass" style="padding: 1.5rem 1.25rem; border: 1px solid var(--glass-border);">
+                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Java</h3>
+                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">Backend Focus</p>
+                            </div>
+                            <div class="stat-card glass" style="padding: 1.5rem 1.25rem; border: 1px solid var(--glass-border);">
+                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Jul–Aug '26</h3>
+                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">Internship Ready</p>
+                            </div>
+                        </div>
+                        
+                        <!-- GitHub Activity Strip nested at bottom of right column -->
+                        <div class="github-activity-strip glass" style="margin-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-radius: var(--border-radius-lg); gap: 1rem; flex-wrap: wrap; border: 1px solid var(--glass-border);">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="font-size: 1.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; background: rgba(134, 134, 139, 0.1); border-radius: 50%; flex-shrink: 0;">
+                                    <i class="ph ph-git-branch"></i>
+                                </div>
+                                <div>
+                                    <h4 style="margin: 0 0 0.1rem 0; font-size: 0.95rem; font-weight: 600;">GitHub Activity</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.8rem; margin: 0; line-height: 1.3;">Regular commits pushing updates to backend codebases.</p>
+                                </div>
+                            </div>
+                            <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; padding: 0.4rem 0.8rem;"><i class="ph ph-github-logo"></i> Verify Commits</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -282,8 +312,8 @@
                         </div>
                     </div>
 
-                    <!-- Card 6 -->
-                    <div class="skill-card glass reveal-up delay-2">
+                    <!-- Card 6: Background context only -->
+                    <div class="skill-card subtle-card--heavy glass reveal-up delay-2">
                         <div class="skill-icon-wrapper">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original.svg"
                                 alt="Embedded" class="skill-icon">
@@ -357,19 +387,33 @@
                             </div>
                             <h3 class="project-title">Smart Finance Tracker</h3>
                             <p class="project-description">
-                                A backend-focused finance management platform designed to help students manage expenses,
-                                categorize spending, and gain meaningful financial insights through structured
-                                analytics.
+                                A backend-focused finance tracking system built with Spring Boot and MySQL, designed to explore clean backend architecture, REST APIs, and scalable financial data management.
                             </p>
 
-                            <div class="project-features">
-                                <h4>Key Features:</h4>
-                                <ul>
-                                    <li>Expense tracking & Budget categorization</li>
-                                    <li>REST APIs for all entities</li>
-                                    <li>Database integration & CRUD operations</li>
-                                    <li>Financial analysis logic</li>
-                                </ul>
+                            <div class="project-stakes glass">
+                                <div class="stake-item">
+                                    <span class="stake-label">THE PROBLEM:</span>
+                                    <span class="stake-text">Current finance tracking tools are often frontend-heavy and lack transparent backend architecture, structured APIs, and scalable database design for learning and extensibility.</span>
+                                </div>
+                                <div class="stake-item">
+                                    <span class="stake-label">THE SOLUTION:</span>
+                                    <span class="stake-text">Designed and implemented a layered Spring Boot backend using Controller-Service-Repository architecture with MySQL persistence, validation, and category-based expense tracking.</span>
+                                </div>
+                            </div>
+
+                            <div class="project-architecture">
+                                <span class="arch-title">Backend System Architecture:</span>
+                                <div class="arch-strip">
+                                    <span class="arch-node">Postman</span>
+                                    <i class="ph ph-caret-right"></i>
+                                    <span class="arch-node">Controller Layer</span>
+                                    <i class="ph ph-caret-right"></i>
+                                    <span class="arch-node">Service Layer</span>
+                                    <i class="ph ph-caret-right"></i>
+                                    <span class="arch-node">Repository Layer (JPA/Hibernate)</span>
+                                    <i class="ph ph-caret-right"></i>
+                                    <span class="arch-node">MySQL Database</span>
+                                </div>
                             </div>
 
                             <div class="tech-stack">
@@ -377,13 +421,15 @@
                                 <span>Spring Boot</span>
                                 <span>REST APIs</span>
                                 <span>MySQL</span>
-                                <span>JDBC</span>
+                                <span>Spring Data JPA</span>
+                                <span>Hibernate</span>
                                 <span>Postman</span>
+                                <span>Lombok</span>
+                                <span>Validation</span>
                             </div>
 
                             <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Follow
-                                    Progress</a>
+                                <a href="https://github.com/PrashantOmBairagi/smart-finance-tracker" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Follow Progress</a>
                             </div>
                         </div>
                     </div>
@@ -401,9 +447,19 @@
                             </div>
                             <h3 class="project-title">Smart Central Locking System</h3>
                             <p class="project-description">
-                                Independently designed and built a smart central locking system for Alto 800 using
-                                embedded systems, RF communication, actuator control, and microcontroller programming.
+                                Independently designed and built a smart central locking system for Alto 800 using embedded systems, RF communication, actuator control, and microcontroller programming.
                             </p>
+
+                            <div class="project-stakes glass">
+                                <div class="stake-item">
+                                    <span class="stake-label">THE PROBLEM:</span>
+                                    <span class="stake-text">Older car models lack modern wireless entry options, making key-entry manual and vulnerable.</span>
+                                </div>
+                                <div class="stake-item">
+                                    <span class="stake-label">THE SOLUTION:</span>
+                                    <span class="stake-text">Engineered a robust hardware transceiver controller built on ATmega328 logic to actuate driver-door linkages remotely.</span>
+                                </div>
+                            </div>
 
                             <div class="tech-stack">
                                 <span>ATmega328</span>
@@ -429,13 +485,23 @@
                         </div>
                         <div class="project-content">
                             <div class="project-header">
-                                <span class="status-badge in-progress"><span class="dot"></span> In Progress</span>
+                                <span class="status-badge planned"><span class="dot"></span> Planned</span>
                             </div>
                             <h3 class="project-title">Student & College Management Automation</h3>
                             <p class="project-description">
-                                Salesforce-based student and college workflow automation system for managing academic
-                                processes and records.
+                                A Salesforce-based administrative automation framework built to streamline college workflows, manage student progress tracking, and generate institutional analytics dashboards.
                             </p>
+
+                            <div class="project-stakes glass">
+                                <div class="stake-item">
+                                    <span class="stake-label">THE PROBLEM:</span>
+                                    <span class="stake-text">Academic recordkeeping is heavily fragmented across static systems, requiring manual follow-ups and data sorting.</span>
+                                </div>
+                                <div class="stake-item">
+                                    <span class="stake-label">THE SOLUTION:</span>
+                                    <span class="stake-text">Deployed custom objects, institutional validation rules, and automated flow triggers to create a unified administrative hub.</span>
+                                </div>
+                            </div>
 
                             <div class="tech-stack">
                                 <span>Salesforce</span>
@@ -445,39 +511,8 @@
                                 <span>Custom Objects</span>
                             </div>
 
-                            <div class="project-links" style="margin-top: 1.5rem;">
-                                <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Follow
-                                    Progress</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 4 -->
-                    <div class="project-card glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/drone.png" alt="Drone & AI Vision (RPK)" class="project-img">
-                        </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="status-badge in-progress"><span class="dot"></span> In Progress</span>
-                            </div>
-                            <h3 class="project-title">Drone & AI Vision (RPK)</h3>
-                            <p class="project-description">
-                                Collaborative drone project exploring AI-powered vision systems, Arduino-based flight
-                                control, and intelligent navigation concepts.
-                            </p>
-
-                            <div class="tech-stack">
-                                <span>Arduino</span>
-                                <span>Computer Vision</span>
-                                <span>IoT</span>
-                                <span>AI</span>
-                                <span>Drone Systems</span>
-                            </div>
-
-                            <div class="project-links" style="margin-top: 1.5rem;">
-                                <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Follow
-                                    Progress</a>
+                            <div class="project-links">
+                                <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Follow Progress</a>
                             </div>
                         </div>
                     </div>
@@ -531,12 +566,13 @@
                         </div>
                     </div>
 
-                    <div class="cert-card glass reveal-up">
+                    <div class="cert-card glass clickable reveal-up" data-cert-img="assets/Remote Sensing &amp; GIS for Environmental Studies.png" data-cert-title="Remote Sensing &amp; GIS for Environmental Studies">
                         <div class="cert-icon"><i class="ph ph-globe-hemisphere-east"></i></div>
                         <div class="cert-content">
                             <div class="cert-meta">IIRS (ISRO), Dehradun • 2021</div>
                             <h3 class="cert-title">Remote Sensing &amp; GIS for Environmental Studies</h3>
                             <p class="cert-desc">Online summer school on GIS and environmental remote sensing techniques.</p>
+                            <span class="cert-link-hint"><i class="ph ph-image"></i> View Certificate</span>
                         </div>
                     </div>
 
@@ -565,6 +601,8 @@
                     <div class="contact-links">
                         <a href="mailto:prashantbairagi2018@gmail.com" class="btn primary-btn"><i
                                 class="ph ph-envelope-simple"></i> Email Me</a>
+                        <a href="assets/resume.pdf" class="btn secondary-btn" target="_blank"
+                            rel="noopener noreferrer"><i class="ph ph-file-pdf"></i> Download Resume</a>
                         <a href="https://www.linkedin.com/in/prashant-bairagi-kmlpr/" target="_blank"
                             rel="noopener noreferrer" class="btn secondary-btn"><i class="ph ph-linkedin-logo"></i>
                             LinkedIn</a>
