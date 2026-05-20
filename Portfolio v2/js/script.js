@@ -263,4 +263,207 @@ document.addEventListener('DOMContentLoaded', () => {
             isTouchOverscrolling = false;
         }, { passive: true });
     }
+
+    // --- Contact Form Logic ---
+    const contactForm = document.getElementById('contact-form');
+    const contactModal = document.getElementById('contact-modal');
+    const contactModalLoading = document.getElementById('contact-modal-loading');
+    const contactModalSuccess = document.getElementById('contact-modal-success');
+    const contactModalError = document.getElementById('contact-modal-error');
+    const contactLoadingMsg = document.getElementById('contact-loading-msg');
+    const submitBtn = document.getElementById('submit-btn');
+    const contactModalCloseBtns = document.querySelectorAll('.contact-modal-close-btn');
+
+    const loadingMessages = [
+        "Developer is currently fighting NullPointerException…",
+        "Backend engineer claims this API works. Verifying…",
+        "Spring Boot is warming up… please pretend to be patient.",
+        "Developer may or may not know what he is doing.",
+        "Negotiating with PostgreSQL…",
+        "Contacting the cloud database somewhere in Singapore…",
+        "Compiling confidence…",
+        "Prashant insists this works."
+    ];
+    
+    let loadingInterval;
+
+    function showContactModal(state) {
+        // Reset states
+        if (contactModalLoading) contactModalLoading.style.display = 'none';
+        if (contactModalSuccess) contactModalSuccess.style.display = 'none';
+        if (contactModalError) contactModalError.style.display = 'none';
+        clearInterval(loadingInterval);
+        
+        if (state === 'loading') {
+            if (contactModalLoading) contactModalLoading.style.display = 'block';
+            let msgIndex = 0;
+            if (contactLoadingMsg) contactLoadingMsg.textContent = loadingMessages[0];
+            
+            loadingInterval = setInterval(() => {
+                msgIndex = (msgIndex + 1) % loadingMessages.length;
+                
+                // Add a small fade effect
+                if (contactLoadingMsg) {
+                    contactLoadingMsg.style.opacity = 0;
+                    setTimeout(() => {
+                        contactLoadingMsg.textContent = loadingMessages[msgIndex];
+                        contactLoadingMsg.style.opacity = 1;
+                    }, 300);
+                }
+            }, 2000);
+            
+        } else if (state === 'success') {
+            if (contactModalSuccess) contactModalSuccess.style.display = 'block';
+            
+            // Easter Egg Logic
+            const easterEggEl = document.getElementById('contact-easter-egg');
+            if (easterEggEl) {
+                const easterEggs = [
+                    "First real backend project says hello.",
+                    "Somewhere in Neon DB, a new row was born. 😭",
+                    "Spring Boot didn't crash this time. A miracle.",
+                    "The backend works. I'm as surprised as you are.",
+                    "100% hand-crafted artisan API response."
+                ];
+                const randomEgg = easterEggs[Math.floor(Math.random() * easterEggs.length)];
+                easterEggEl.textContent = randomEgg;
+            }
+        } else if (state === 'error') {
+            if (contactModalError) contactModalError.style.display = 'block';
+        }
+
+        if (contactModal) contactModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeContactModal() {
+        if (contactModal) contactModal.classList.remove('active');
+        document.body.style.overflow = '';
+        clearInterval(loadingInterval);
+    }
+    
+    // Add transition to loading msg
+    if (contactLoadingMsg) {
+        contactLoadingMsg.style.transition = 'opacity 0.3s ease';
+    }
+
+    // Clear errors when typing
+    const formInputs = document.querySelectorAll('.form-input');
+    formInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (input.classList.contains('error')) {
+                input.classList.remove('error');
+                const errorSpan = document.getElementById(input.id + '-error');
+                if (errorSpan) {
+                    errorSpan.classList.remove('active');
+                }
+            }
+        });
+    });
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Prevent duplicate submissions
+            if (submitBtn.disabled) return;
+            
+            // Clear existing errors
+            const errorFields = document.querySelectorAll('.form-input.error');
+            errorFields.forEach(f => f.classList.remove('error'));
+            const errorMsgs = document.querySelectorAll('.field-error-msg.active');
+            errorMsgs.forEach(m => {
+                m.classList.remove('active');
+                m.textContent = '';
+            });
+            
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            const name = data.name ? data.name.trim() : '';
+            const phone = data.phone ? data.phone.trim() : '';
+            const email = data.email ? data.email.trim() : '';
+            const message = data.message ? data.message.trim() : '';
+            
+            let hasFrontendError = false;
+
+            const showError = (fieldId, msg) => {
+                const input = document.getElementById(fieldId);
+                const errorSpan = document.getElementById(fieldId + '-error');
+                if (input && errorSpan) {
+                    input.classList.add('error');
+                    errorSpan.textContent = msg;
+                    errorSpan.classList.add('active');
+                    hasFrontendError = true;
+                }
+            };
+
+            // Lightweight Frontend Validation
+            if (name.length < 2) {
+                showError('name', 'Name must be at least 2 characters');
+            }
+            if (phone && !/^\d{10}$/.test(phone)) {
+                showError('phone', 'Phone number must be exactly 10 digits');
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('email', 'Enter a valid email');
+            }
+            if (message.length < 5) {
+                showError('message', 'Message must be at least 5 characters');
+            }
+
+            if (hasFrontendError) {
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            showContactModal('loading');
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/contacts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    showContactModal('success');
+                    contactForm.reset();
+                } else if (response.status === 400) {
+                    closeContactModal(); // Hide loading modal
+                    const errors = await response.json();
+                    for (const [field, msg] of Object.entries(errors)) {
+                        showError(field, msg);
+                    }
+                } else {
+                    showContactModal('error');
+                }
+            } catch (error) {
+                console.error("Contact Form Error:", error);
+                showContactModal('error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    }
+
+    if (contactModalCloseBtns) {
+        contactModalCloseBtns.forEach(btn => {
+            btn.addEventListener('click', closeContactModal);
+        });
+    }
+
+    // Close on backdrop click (optional: prevent closing during loading)
+    const contactModalBackdrop = document.getElementById('contact-modal-backdrop');
+    if (contactModalBackdrop) {
+        contactModalBackdrop.addEventListener('click', () => {
+            if (contactModalLoading && contactModalLoading.style.display !== 'block') {
+                closeContactModal();
+            }
+        });
+    }
 });

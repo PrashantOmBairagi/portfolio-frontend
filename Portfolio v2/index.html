@@ -11,7 +11,7 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -20,6 +20,16 @@
 </head>
 
 <body>
+    <!-- SVG Filter for Wabi-Sabi Handwritten Effect -->
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <filter id="hand-drawn-filter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
     <!-- Background Elements for Glassmorphism -->
     <div class="bg-gradient bg-blob-1"></div>
     <div class="bg-gradient bg-blob-2"></div>
@@ -593,25 +603,81 @@
         <!-- Contact Section -->
         <section id="contact" class="contact section">
             <div class="container contact-container reveal-up">
-                <div class="contact-card glass">
-                    <h2 class="contact-headline">Let’s Build Something Meaningful.</h2>
-                    <p class="contact-text">
-                        Open to backend internships, engineering collaborations, and meaningful tech conversations.
-                    </p>
+                <div class="contact-card glass contact-grid">
+                    
+                    <!-- Left Column: Content & Links -->
+                    <div class="contact-left">
+                        <h2 class="contact-headline">Let’s Build Something Meaningful.</h2>
+                        <p class="contact-text">
+                            Whether it's collaboration, ideas, opportunities, or just curiosity — my inbox is open.
+                        </p>
 
-                    <div class="contact-links">
-                        <a href="mailto:prashantbairagi2018@gmail.com" class="btn primary-btn"><i
-                                class="ph ph-envelope-simple"></i> Email Me</a>
-                        <a href="assets/resume.pdf" class="btn secondary-btn" target="_blank"
-                            rel="noopener noreferrer"><i class="ph ph-file-pdf"></i> Download Resume</a>
-                        <a href="https://www.linkedin.com/in/prashant-bairagi-kmlpr/" target="_blank"
-                            rel="noopener noreferrer" class="btn secondary-btn"><i class="ph ph-linkedin-logo"></i>
-                            LinkedIn</a>
-                        <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer"
-                            class="btn secondary-btn"><i class="ph ph-github-logo"></i> GitHub</a>
-                        <a href="https://leetcode.com/u/prashantbairagi2018/" target="_blank" rel="noopener noreferrer"
-                            class="btn secondary-btn"><i class="ph ph-code"></i> LeetCode</a>
+                        <div class="contact-links-vertical">
+                            <a href="mailto:prashantbairagi2018@gmail.com" class="contact-link-item">
+                                <div class="link-icon"><i class="ph ph-envelope-simple"></i></div>
+                                <span>prashantbairagi2018@gmail.com</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/prashant-bairagi-kmlpr/" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                                <div class="link-icon"><i class="ph ph-linkedin-logo"></i></div>
+                                <span>LinkedIn Profile</span>
+                            </a>
+                            <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                                <div class="link-icon"><i class="ph ph-github-logo"></i></div>
+                                <span>GitHub Projects</span>
+                            </a>
+                            <a href="assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                                <div class="link-icon"><i class="ph ph-file-pdf"></i></div>
+                                <span>Download Resume</span>
+                            </a>
+                        </div>
                     </div>
+
+                    <!-- Right Column: Form -->
+                    <div class="contact-right">
+                        
+                        <!-- Annotation removed from here, moved to message group -->
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Name <span class="required-asterisk">*</span></label>
+                                    <input type="text" id="name" name="name" class="form-input solid-input" placeholder="Bruce Wayne" required>
+                                    <span class="field-error-msg" id="name-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Mobile No.</label>
+                                    <input type="tel" id="phone" name="phone" class="form-input solid-input" placeholder="+91 98765 43210">
+                                    <span class="field-error-msg" id="phone-error"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email <span class="required-asterisk">*</span></label>
+                                <input type="email" id="email" name="email" class="form-input solid-input" placeholder="bruce@wayne-enterprises.com" required>
+                                <span class="field-error-msg" id="email-error"></span>
+                            </div>
+                            <div class="form-group form-group-relative">
+                                <label for="message">Message <span class="required-asterisk">*</span></label>
+                                <textarea id="message" name="message" class="form-input solid-input form-textarea" placeholder="Hello Prashant, I'd like to discuss..." required></textarea>
+                                <span class="field-error-msg" id="message-error"></span>
+                                
+                                <div class="handwritten-annotation">
+                                    <svg width="50" height="25" viewBox="0 0 50 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="hand-arrow">
+                                        <path d="M48,18 Q25,2 2,12" stroke="rgba(255, 255, 255, 0.9)" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                                        <path d="M12,6 L2,12 L10,18" stroke="rgba(255, 255, 255, 0.9)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="handwritten-text">
+                                        Built this API myself.<br>
+                                        If it breaks, we pretend<br>
+                                        nothing happened :)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-footer">
+                                <button type="submit" id="submit-btn" class="btn primary-btn form-submit">Send Message</button>
+                                <p class="form-micro-text">Built with Java, Spring Boot & optimism.</p>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -642,6 +708,43 @@
             </div>
             <div class="cert-lightbox-body">
                 <img id="cert-lightbox-img" src="" alt="Certificate" class="cert-lightbox-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Form Modal -->
+    <div id="contact-modal" class="cert-lightbox" role="dialog" aria-modal="true" aria-label="Contact Status">
+        <div class="cert-lightbox-backdrop" id="contact-modal-backdrop"></div>
+        <div class="cert-lightbox-panel glass" style="max-width: 500px; text-align: center; padding: 3rem 2rem;">
+            <!-- Loading State -->
+            <div id="contact-modal-loading" class="contact-modal-state">
+                <div class="contact-spinner"></div>
+                <h3 class="contact-modal-title" style="margin-top: 2rem;">Processing Request...</h3>
+                <p id="contact-loading-msg" class="contact-modal-desc">Verifying connection...</p>
+            </div>
+            
+            <!-- Success State -->
+            <div id="contact-modal-success" class="contact-modal-state" style="display: none;">
+                <div class="contact-modal-icon success"><i class="ph-fill ph-check-circle"></i></div>
+                <h3 class="contact-modal-title">Transmission Received</h3>
+                <p class="contact-modal-desc">
+                    Your message successfully crossed APIs, cloud servers, and questionable backend decisions — and safely landed in Prashant’s system.<br><br>
+                    Appreciate you reaching out. I'll get back to you soon.
+                </p>
+                <div class="contact-modal-footer">— PB</div>
+                <div id="contact-easter-egg" class="easter-egg-text" style="margin-top: 1.5rem; font-size: 0.8rem; font-style: italic; color: var(--text-secondary); opacity: 0.7;"></div>
+                <button class="btn secondary-btn contact-modal-close-btn" style="margin-top: 2rem;">Close</button>
+            </div>
+            
+            <!-- Error State -->
+            <div id="contact-modal-error" class="contact-modal-state" style="display: none;">
+                <div class="contact-modal-icon error"><i class="ph-fill ph-warning-circle"></i></div>
+                <h3 class="contact-modal-title">Oops. Something broke.</h3>
+                <p class="contact-modal-desc">
+                    Either the backend is sleeping, the cloud is confused, or the developer forgot something.<br><br>
+                    Try again in a bit.
+                </p>
+                <button class="btn secondary-btn contact-modal-close-btn" style="margin-top: 2rem;">Close</button>
             </div>
         </div>
     </div>
