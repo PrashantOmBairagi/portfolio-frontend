@@ -1,4 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Scroll Progress Indicator ---
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (scrollProgress) {
+        let ticking = false;
+
+        const updateScrollProgress = () => {
+            const winScroll = window.scrollY || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - window.innerHeight;
+            if (height > 0) {
+                const scrolled = winScroll / height;
+                scrollProgress.style.transform = `scaleX(${scrolled})`;
+            } else {
+                scrollProgress.style.transform = 'scaleX(0)';
+            }
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollProgress);
+                ticking = true;
+            }
+        }, { passive: true });
+    }
+
     // --- Dark Mode Toggle ---
     const themeToggleBtn = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
@@ -126,141 +151,162 @@ document.addEventListener('DOMContentLoaded', () => {
     const stretchWrapper = document.getElementById('scroll-stretch-wrapper');
     if (stretchWrapper) {
         let currentOverscroll = 0;
-        let targetOverscroll = 0;
-        let isInteracting = false;
+        let velocity = 0;
+        let isTouchActive = false;
+        let lastWheelTime = 0;
+        let lastTouchY = 0;
         let animationFrameId = null;
-        let interactionTimeout = null;
+
+        // Constants
+        const k = 0.12; // Spring stiffness
+        const c = 0.65; // Damping constant
+        
+        function getMaxLimit() {
+            // Very subtle caps: 14px on desktop, 8px on mobile/tablets
+            return window.innerWidth <= 768 ? 8 : 14;
+        }
 
         function startAnimation() {
             if (!animationFrameId) {
-                animationFrameId = requestAnimationFrame(updateStretch);
+                animationFrameId = requestAnimationFrame(updatePhysics);
             }
         }
 
-        function resetInteractionTimeout() {
-            if (interactionTimeout) clearTimeout(interactionTimeout);
-            interactionTimeout = setTimeout(() => {
-                isInteracting = false;
-            }, 100); // Smooth transition back after scroll wheel action stops
-        }
+        function updatePhysics() {
+            const now = performance.now();
+            const isWheelInteracting = (now - lastWheelTime) < 80;
+            const isUserInteracting = isTouchActive || isWheelInteracting;
 
-        function updateStretch() {
-            // Damping coefficients: snappy responsive tracking, super fast elastic return
-            const lerpFactor = isInteracting ? 0.28 : 0.20;
-            
-            if (!isInteracting) {
-                targetOverscroll += (0 - targetOverscroll) * 0.25; // Snappy return of target to zero
+            if (!isUserInteracting) {
+                // Apply spring physics: force = -k*x, damping = -c*v
+                const force = -k * currentOverscroll;
+                const damping = -c * velocity;
+                const acceleration = force + damping;
+                velocity += acceleration;
+                currentOverscroll += velocity;
+            } else {
+                velocity = 0;
             }
 
-            currentOverscroll += (targetOverscroll - currentOverscroll) * lerpFactor;
-
-            // Apply transformed state if active
+            // Apply transforms and loop or rest
             if (Math.abs(currentOverscroll) > 0.05) {
                 if (currentOverscroll > 0) {
                     stretchWrapper.style.transformOrigin = 'center top';
-                    // Pure elastic stretch: keep top edge pinned, stretch body downwards
-                    const sY = 1 + (currentOverscroll / 1800);
+                    const sY = 1 + (currentOverscroll / 2000);
                     stretchWrapper.style.transform = `scaleY(${sY})`;
                 } else {
                     stretchWrapper.style.transformOrigin = 'center bottom';
-                    // Pure elastic stretch: keep footer pinned to bottom of page
-                    // The rest of the body stretches upwards, leaving absolutely zero background gaps!
-                    const sY = 1 + (Math.abs(currentOverscroll) / 1800);
+                    const sY = 1 + (Math.abs(currentOverscroll) / 2000);
                     stretchWrapper.style.transform = `scaleY(${sY})`;
                 }
-                animationFrameId = requestAnimationFrame(updateStretch);
+                animationFrameId = requestAnimationFrame(updatePhysics);
             } else {
                 stretchWrapper.style.transform = '';
                 currentOverscroll = 0;
-                targetOverscroll = 0;
+                velocity = 0;
                 animationFrameId = null;
             }
         }
 
-        // --- Wheel & Trackpad Interception ---
+        // --- Wheel & Trackpad Listener ---
         window.addEventListener('wheel', (e) => {
+            const maxLimit = getMaxLimit();
             const isAtTop = window.scrollY <= 0;
+            // Subtract 1px for high-dpi screens and subpixel scrolling
             const isAtBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
 
-            if (isAtTop && (e.deltaY < 0 || targetOverscroll > 0)) {
+            if (isAtTop && e.deltaY < 0) {
+                // Entering top overscroll
                 e.preventDefault();
-                isInteracting = true;
+                lastWheelTime = performance.now();
                 
-                // Add to overscroll with high resistance; very subtle wheel multiplier (0.06) for butter smoothness
-                const resistance = Math.max(0.1, 1 - (targetOverscroll / 50));
-                targetOverscroll += -e.deltaY * 0.06 * resistance;
-                targetOverscroll = Math.max(0, Math.min(42, targetOverscroll)); // Capped at tight 42px limit
-
+                // Quadratic resistance curve for premium natural stiffness
+                const resistance = Math.max(0.1, 1 - (currentOverscroll / maxLimit));
+                currentOverscroll += -e.deltaY * 0.04 * resistance;
+                currentOverscroll = Math.min(maxLimit, currentOverscroll);
+                
                 startAnimation();
-                resetInteractionTimeout();
-            } else if (isAtBottom && (e.deltaY > 0 || targetOverscroll < 0)) {
+            } else if (isAtBottom && e.deltaY > 0) {
+                // Entering bottom overscroll
                 e.preventDefault();
-                isInteracting = true;
+                lastWheelTime = performance.now();
 
-                const resistance = Math.max(0.1, 1 - (Math.abs(targetOverscroll) / 50));
-                targetOverscroll += -e.deltaY * 0.06 * resistance;
-                targetOverscroll = Math.min(0, Math.max(-42, targetOverscroll)); // Capped at tight 42px limit
+                const resistance = Math.max(0.1, 1 - (Math.abs(currentOverscroll) / maxLimit));
+                currentOverscroll += -e.deltaY * 0.04 * resistance;
+                currentOverscroll = Math.max(-maxLimit, currentOverscroll);
 
                 startAnimation();
-                resetInteractionTimeout();
+            } else {
+                // If scrolling in the opposite direction, immediately release the overscroll
+                // to let the browser scroll natively without stickiness or locking.
+                if (currentOverscroll > 0 && e.deltaY > 0) {
+                    currentOverscroll = 0;
+                    velocity = 0;
+                    stretchWrapper.style.transform = '';
+                } else if (currentOverscroll < 0 && e.deltaY < 0) {
+                    currentOverscroll = 0;
+                    velocity = 0;
+                    stretchWrapper.style.transform = '';
+                }
             }
         }, { passive: false });
 
-        // --- Touch Gestures Interception ---
-        let startY = 0;
-        let isTouchOverscrolling = false;
-
+        // --- Touch Gestures Listener ---
         window.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
-                startY = e.touches[0].pageY;
-                isInteracting = true;
-                isTouchOverscrolling = false;
+                lastTouchY = e.touches[0].clientY;
+                isTouchActive = true;
                 startAnimation();
             }
         }, { passive: true });
 
         window.addEventListener('touchmove', (e) => {
             if (e.touches.length === 1) {
-                const currentY = e.touches[0].pageY;
-                const deltaY = currentY - startY;
+                const currentY = e.touches[0].clientY;
+                const touchDeltaY = currentY - lastTouchY;
+                lastTouchY = currentY;
+
+                const maxLimit = getMaxLimit();
                 const isAtTop = window.scrollY <= 0;
                 const isAtBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
 
-                if (isAtTop && deltaY > 0) {
-                    isTouchOverscrolling = true;
-                    isInteracting = true;
-                    // Tightened resistance curve
-                    targetOverscroll = Math.min(42, Math.pow(deltaY, 0.72) * 1.2);
-                    startAnimation();
-                    if (e.cancelable) e.preventDefault();
-                } else if (isAtBottom && deltaY < 0) {
-                    isTouchOverscrolling = true;
-                    isInteracting = true;
-                    targetOverscroll = -Math.min(42, Math.pow(Math.abs(deltaY), 0.72) * 1.2);
-                    startAnimation();
-                    if (e.cancelable) e.preventDefault();
-                } else if (isTouchOverscrolling) {
-                    isInteracting = true;
-                    if (deltaY > 0 && isAtTop) {
-                        targetOverscroll = Math.min(42, Math.pow(deltaY, 0.72) * 1.2);
-                    } else if (deltaY < 0 && isAtBottom) {
-                        targetOverscroll = -Math.min(42, Math.pow(Math.abs(deltaY), 0.72) * 1.2);
-                    } else {
-                        targetOverscroll = 0;
+                if (isAtTop && touchDeltaY > 0) {
+                    // Dragging down past top boundary
+                    if (e.cancelable) {
+                        e.preventDefault();
+                        const resistance = Math.max(0.1, 1 - (currentOverscroll / maxLimit));
+                        currentOverscroll += touchDeltaY * 0.30 * resistance;
+                        currentOverscroll = Math.min(maxLimit, currentOverscroll);
+                        startAnimation();
                     }
-                    if (e.cancelable) e.preventDefault();
+                } else if (isAtBottom && touchDeltaY < 0) {
+                    // Dragging up past bottom boundary
+                    if (e.cancelable) {
+                        e.preventDefault();
+                        const resistance = Math.max(0.1, 1 - (Math.abs(currentOverscroll) / maxLimit));
+                        currentOverscroll += touchDeltaY * 0.30 * resistance;
+                        currentOverscroll = Math.max(-maxLimit, currentOverscroll);
+                        startAnimation();
+                    }
+                } else {
+                    // Scrolling within normal page boundaries or reversing gesture direction
+                    if (currentOverscroll > 0 && touchDeltaY < 0) {
+                        // User swiping up while top-overscrolled: decay overscroll
+                        currentOverscroll = Math.max(0, currentOverscroll + touchDeltaY * 0.5);
+                    } else if (currentOverscroll < 0 && touchDeltaY > 0) {
+                        // User swiping down while bottom-overscrolled: decay overscroll
+                        currentOverscroll = Math.min(0, currentOverscroll + touchDeltaY * 0.5);
+                    }
                 }
             }
         }, { passive: false });
 
         window.addEventListener('touchend', () => {
-            isInteracting = false;
-            isTouchOverscrolling = false;
+            isTouchActive = false;
         }, { passive: true });
 
         window.addEventListener('touchcancel', () => {
-            isInteracting = false;
-            isTouchOverscrolling = false;
+            isTouchActive = false;
         }, { passive: true });
     }
 
@@ -317,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         contactLoadingMsg.style.opacity = 1;
                     }, 300);
                 }
-            }, 2000);
+            }, 3000);
             
         } else if (state === 'success') {
             if (contactModalSuccess) contactModalSuccess.style.display = 'block';
@@ -549,4 +595,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Active Navigation Link Observer ---
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+    
+    if (sections.length > 0 && navLinks.length > 0) {
+        const activeSectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.25,
+            rootMargin: "-20% 0px -50% 0px"
+        });
+
+        sections.forEach(sec => activeSectionObserver.observe(sec));
+    }
+
+    // --- Magnetic Hover Effect on Floating Button & Socials ---
+    const magneticElements = document.querySelectorAll('.floating-mail-btn, .hero-social-icon');
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            el.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px) scale(1.05)`;
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = '';
+        });
+    });
 });

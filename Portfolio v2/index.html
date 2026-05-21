@@ -20,6 +20,9 @@
 </head>
 
 <body>
+    <!-- Elegant Scroll Progress Indicator -->
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
     <!-- SVG Filter for Wabi-Sabi Handwritten Effect -->
     <svg width="0" height="0" style="position: absolute;">
         <defs>
@@ -142,8 +145,7 @@
         log.info(<span class="string">"Creating expense: {}"</span>, req.getDescription());
         <span class="keyword">return</span> ResponseEntity.status(HttpStatus.CREATED)
             .body(expenseService.save(req));
-    }
-}</code></pre>
+    }<span class="code-caret" aria-hidden="true"></span></code></pre>
                         </div>
                     </div>
                 </div>
@@ -661,8 +663,8 @@
                                 
                                 <div class="handwritten-annotation">
                                     <svg width="50" height="25" viewBox="0 0 50 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="hand-arrow">
-                                        <path d="M48,18 Q25,2 2,12" stroke="rgba(255, 255, 255, 0.9)" stroke-width="1.5" fill="none" stroke-linecap="round" />
-                                        <path d="M12,6 L2,12 L10,18" stroke="rgba(255, 255, 255, 0.9)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M48,18 Q25,2 2,12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                                        <path d="M12,6 L2,12 L10,18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                     <div class="handwritten-text">
                                         Built this API myself.<br>

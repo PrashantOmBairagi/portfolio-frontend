@@ -78,9 +78,16 @@
     box-sizing: border-box;
 }
 
+/* Hide scrollbar globally but keep functionality */
+::-webkit-scrollbar {
+    display: none;
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--nav-height) + 2rem);
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 body {
@@ -89,8 +96,26 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     transition: background-color 0.4s ease, color 0.4s ease;
     position: relative;
+}
+
+/* Elegant Scroll Progress Indicator */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--text-primary);
+    z-index: 10001; /* Remains top-most */
+    pointer-events: none;
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 0.1s cubic-bezier(0.1, 0.8, 0.2, 1);
+    will-change: transform;
 }
 
 /* Background Gradients (Blobs) */
@@ -321,8 +346,9 @@ ul {
     transition: background-color 0.3s ease;
 }
 
-.mobile-nav-links a:hover {
+.mobile-nav-links a:hover, .mobile-nav-links a.active {
     background-color: rgba(134, 134, 139, 0.1);
+    color: var(--text-primary);
 }
 
 /* Hero Section */
@@ -424,6 +450,22 @@ ul {
     margin: 0;
 }
 
+.code-caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background-color: var(--accent-blue);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: caret-blink 1s step-end infinite;
+    will-change: background-color;
+}
+
+@keyframes caret-blink {
+    from, to { background-color: transparent }
+    50% { background-color: var(--accent-blue) }
+}
+
 .code-body code {
     font-family: inherit;
     color: var(--text-primary);
@@ -507,7 +549,6 @@ ul {
     background: rgba(134, 134, 139, 0.08);
     color: var(--text-primary);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -540,7 +581,7 @@ ul {
     justify-content: center;
     font-size: 1.5rem;
     color: var(--text-primary);
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
 }
 
 .hero-social-icon:hover {
@@ -1254,7 +1295,8 @@ ul {
     left: calc(100% + 20px);
     top: 30px;
     font-family: 'Patrick Hand', cursive;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-secondary); /* Dynamic themed color */
+    opacity: 0.85;
     font-size: 1.15rem;
     display: flex;
     flex-direction: row;
@@ -1264,6 +1306,7 @@ ul {
     z-index: 10;
     white-space: nowrap;
     letter-spacing: 0.02em;
+    filter: url(#hand-drawn-filter); /* Beautiful hand-drawn organic wobbles */
 }
 
 .handwritten-text {
@@ -1542,6 +1585,8 @@ ul {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
 .reveal-up.active {
@@ -1586,7 +1631,7 @@ ul {
     justify-content: center;
     font-size: 1.8rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
     cursor: pointer;
     text-decoration: none;
 }
@@ -1628,6 +1673,11 @@ ul {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    
+    .hero-badges, .hero-social-links, .resume-updated-wrapper {
+        justify-content: center !important;
+        text-align: center;
     }
     
     .hero-cta {
@@ -1772,6 +1822,20 @@ ul {
 /* ===== END LIGHTBOX ===== */
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .section {
+        padding: 4.5rem 0; /* Tightened vertical rhythm to reduce excessive whitespace */
+    }
+
+    .hero {
+        min-height: auto;
+        padding-top: 6.5rem;
+        padding-bottom: 2.5rem;
+    }
+
     .nav-links {
         display: none;
     }
@@ -1814,6 +1878,15 @@ ul {
         opacity: 1;
         transform: translateX(0);
     }
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .skill-card {
+        padding: 1.75rem;
+    }
     
     .contact-card {
         padding: 3rem 2rem;
@@ -1833,6 +1906,25 @@ ul {
         gap: 1.25rem;
     }
 
+    /* Target email text directly to wrap and prevent stretching the viewport */
+    .contact-link-item span {
+        word-break: break-all;
+        overflow-wrap: anywhere;
+        font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+    }
+
+    /* Prevent availability badge from stretching the hero horizontally */
+    .availability-badge {
+        white-space: normal;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .floating-contact-system {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
     /* Tooltip appears above on mobile too, hide arrow for cleanliness */
     .floating-mail-btn[data-tooltip]::after {
         display: none;
@@ -1840,6 +1932,242 @@ ul {
     .floating-mail-btn[data-tooltip]::before {
         right: calc(100% + 10px);
         font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1.25rem; /* Gain valuable content space on tight devices */
+    }
+
+    .section {
+        padding: 3.5rem 0; /* Compact vertical rhythm */
+    }
+
+    .hero {
+        padding-top: 5.5rem;
+        padding-bottom: 2rem;
+    }
+
+    .headline {
+        font-size: 2.15rem;
+        margin-bottom: 1rem;
+    }
+
+    .subheadline {
+        font-size: 1.15rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .availability-badge {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.85rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .hero-badges {
+        margin-bottom: 1.75rem;
+        gap: 0.5rem;
+    }
+
+    .hero-badge {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.75rem;
+    }
+
+    .resume-updated-wrapper {
+        margin-bottom: 1.5rem !important; /* Overrides inline style spacing */
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-cta .btn {
+        width: 100%; /* Clean full-width stacked button layout on mobile */
+    }
+
+    .about-card {
+        padding: 1.25rem;
+    }
+
+    .about-text p {
+        font-size: 0.95rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .about-quote {
+        margin-top: 1.5rem !important;
+        padding-left: 1rem !important;
+        font-size: 0.88rem !important;
+    }
+
+    .education-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+        padding: 1.25rem !important;
+    }
+
+    .stats-grid-2x2 {
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem !important;
+    }
+
+    .stat-number {
+        font-size: 1.45rem !important;
+    }
+
+    .stat-label {
+        font-size: 0.76rem !important;
+    }
+
+    .github-activity-strip {
+        padding: 1rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+    }
+
+    .github-activity-strip a {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .skill-card {
+        padding: 1.5rem;
+    }
+
+    .skill-title {
+        font-size: 1rem;
+    }
+
+    .skill-desc {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .skill-chip {
+        font-size: 0.78rem;
+        padding: 0.25rem 0.7rem;
+    }
+
+    .project-content {
+        padding: 1.25rem;
+    }
+
+    .project-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .project-description {
+        font-size: 0.95rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .project-stakes {
+        padding: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .stake-text {
+        font-size: 0.88rem;
+    }
+
+    .arch-strip {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.76rem;
+        gap: 0.4rem 0.5rem;
+    }
+
+    .arch-node {
+        padding: 0.2rem 0.4rem;
+    }
+
+    .tech-stack {
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tech-stack span {
+        font-size: 0.78rem;
+        padding: 0.25rem 0.7rem;
+    }
+
+    .cert-card {
+        padding: 1.25rem;
+    }
+
+    .cert-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .cert-title {
+        font-size: 0.95rem;
+    }
+
+    .cert-desc {
+        font-size: 0.85rem;
+    }
+
+    .contact-card {
+        padding: 2rem 1.25rem;
+    }
+
+    .contact-headline {
+        font-size: 1.75rem;
+    }
+
+    .contact-text {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-link-item {
+        padding: 0.75rem 1rem;
+    }
+
+    .contact-form {
+        margin-top: 1.5rem;
+    }
+
+    /* Tighter transparent status modal on real-mobile screens */
+    #contact-modal .cert-lightbox-panel {
+        padding: 2rem 1.25rem !important;
+    }
+
+    .contact-modal-title {
+        font-size: 1.35rem;
+    }
+
+    .contact-modal-desc {
+        font-size: 0.9rem;
+    }
+
+    .floating-contact-system {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .floating-mail-btn {
+        width: 54px; /* Exact requested size: 54-56px */
+        height: 54px;
+        font-size: 1.55rem;
+    }
+
+    .minimized-progress-ui {
+        width: 54px; /* Perfectly aligned with the mail button above */
     }
 }
 
