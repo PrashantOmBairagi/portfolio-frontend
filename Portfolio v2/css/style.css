@@ -1555,10 +1555,27 @@ ul {
 
 /* Responsive Design */
 /* Floating Mail Button */
-.floating-mail-btn {
+/* Floating Contact System Container */
+.floating-contact-system {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem; /* Clean vertical spacing */
+    z-index: 9999;
+    pointer-events: none; /* Let clicks pass through container spacing */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.floating-contact-system > * {
+    pointer-events: auto; /* Re-enable pointer events for the children */
+}
+
+/* Floating Mail Button */
+.floating-mail-btn {
+    position: relative;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -1569,7 +1586,6 @@ ul {
     justify-content: center;
     font-size: 1.8rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
     cursor: pointer;
     text-decoration: none;
@@ -1846,62 +1862,37 @@ ul {
     margin-bottom: 0.25rem;
 }
 
-/* Minimized Progress UI */
+/* Minimized Progress UI (Companion Status Indicator) */
 .minimized-progress-ui {
-    position: fixed;
-    bottom: 0.6rem; /* Calculated so the 60px circle sits exactly where the original bottom: 2rem button was */
-    right: 2rem;
-    width: 60px; /* Force width to match the button below it for perfect centering */
+    width: 60px; /* Force width to match the button above it for perfect centering */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
-    z-index: 9999;
+    gap: 0.35rem; /* Clean vertical spacing */
+    cursor: pointer;
     animation: fade-in-up 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.minimized-progress-circle {
-    position: relative;
-    width: 60px;
-    height: 60px;
+.minimized-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(134, 134, 139, 0.15); /* Very subtle gray base circle */
+    border-top-color: var(--text-primary); /* Monochrome matching current theme text color */
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--text-primary);
-    color: var(--bg-base);
-    font-size: 1.8rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
-}
-
-.minimized-progress-circle:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-}
-
-.minimized-progress-ring {
-    position: absolute;
-    width: 48px;
-    height: 48px;
-    border: 2px solid rgba(134, 134, 139, 0.3);
-    border-top-color: var(--bg-base);
-    border-radius: 50%;
-    animation: contact-spin 1.2s cubic-bezier(0.4, 0.1, 0.2, 1) infinite;
+    animation: contact-spin 1.0s linear infinite;
 }
 
 .minimized-progress-text {
-    font-size: 0.8rem;
+    font-size: 0.76rem; /* Small and elegant */
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--text-secondary); /* Low visual weight */
     background: transparent;
     padding: 0;
     border: none;
     box-shadow: none;
     display: flex;
     align-items: center;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     opacity: 0.8;
 }
 
@@ -1920,6 +1911,6 @@ ul {
 }
 
 @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(10px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
