@@ -277,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // New Minimized Progress UI elements
     const minimizedProgressUI = document.getElementById('minimized-progress-ui');
     const minimizedProgressCircle = document.getElementById('minimized-progress-circle');
+    const floatingMailBtn = document.querySelector('.floating-mail-btn');
 
     const loadingMessages = [
         "Developer is currently fighting NullPointerException…",
@@ -349,6 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(loadingInterval);
         isMinimized = false;
         if (minimizedProgressUI) minimizedProgressUI.style.display = 'none';
+        if (floatingMailBtn) {
+            floatingMailBtn.style.opacity = '1';
+            floatingMailBtn.style.pointerEvents = 'auto';
+        }
     }
     
     function minimizeContactModal() {
@@ -359,12 +364,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (minimizedProgressUI) {
             minimizedProgressUI.style.display = 'flex';
         }
+        if (floatingMailBtn) {
+            floatingMailBtn.style.opacity = '0';
+            floatingMailBtn.style.pointerEvents = 'none';
+        }
     }
     
     function restoreContactModal(state) {
         isMinimized = false;
         if (minimizedProgressUI) {
             minimizedProgressUI.style.display = 'none';
+        }
+        if (floatingMailBtn) {
+            floatingMailBtn.style.opacity = '1';
+            floatingMailBtn.style.pointerEvents = 'auto';
         }
         showContactModal(state);
     }
