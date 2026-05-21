@@ -273,6 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactLoadingMsg = document.getElementById('contact-loading-msg');
     const submitBtn = document.getElementById('submit-btn');
     const contactModalCloseBtns = document.querySelectorAll('.contact-modal-close-btn');
+    
+    // New Minimized Progress UI elements
+    const minimizedProgressUI = document.getElementById('minimized-progress-ui');
+    const minimizedProgressCircle = document.getElementById('minimized-progress-circle');
 
     const loadingMessages = [
         "Developer is currently fighting NullPointerException…",
@@ -286,6 +290,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     
     let loadingInterval;
+    let isSubmitting = false;
+    let isMinimized = false;
+    let autoMinimizeTimeout = null;
 
     function showContactModal(state) {
         // Reset states
@@ -340,6 +347,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (contactModal) contactModal.classList.remove('active');
         document.body.style.overflow = '';
         clearInterval(loadingInterval);
+        isMinimized = false;
+        if (minimizedProgressUI) minimizedProgressUI.style.display = 'none';
+    }
+    
+    function minimizeContactModal() {
+        if (contactModal) contactModal.classList.remove('active');
+        document.body.style.overflow = '';
+        clearInterval(loadingInterval);
+        isMinimized = true;
+        if (minimizedProgressUI) {
+            minimizedProgressUI.style.display = 'flex';
+        }
+    }
+    
+    function restoreContactModal(state) {
+        isMinimized = false;
+        if (minimizedProgressUI) {
+            minimizedProgressUI.style.display = 'none';
+        }
+        showContactModal(state);
+    }
+    
+    if (minimizedProgressCircle) {
+        minimizedProgressCircle.addEventListener('click', () => {
+            if (isSubmitting) {
+                restoreContactModal('loading');
+            }
+        });
     }
     
     // Add transition to loading msg
@@ -366,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             // Prevent duplicate submissions
-            if (submitBtn.disabled) return;
+            if (isSubmitting) return;
             
             // Clear existing errors
             const errorFields = document.querySelectorAll('.form-input.error');
@@ -416,9 +451,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
+            isSubmitting = true;
+            isMinimized = false;
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
             showContactModal('loading');
+            
+            // Auto minimize after 8 seconds
+            if (autoMinimizeTimeout) clearTimeout(autoMinimizeTimeout);
+            autoMinimizeTimeout = setTimeout(() => {
+                if (isSubmitting && !isMinimized) {
+                    minimizeContactModal();
+                }
+            }, 8000);
             
             try {
                 const response = await fetch('https://portfolio-backend-api-onqc.onrender.com/api/contacts', {
@@ -430,21 +475,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 if (response.ok) {
-                    showContactModal('success');
+                    if (isMinimized) {
+                        restoreContactModal('success');
+                    } else {
+                        showContactModal('success');
+                    }
                     contactForm.reset();
                 } else if (response.status === 400) {
-                    closeContactModal(); // Hide loading modal
+                    closeContactModal(); // Hide loading modal completely on validation error
                     const errors = await response.json();
                     for (const [field, msg] of Object.entries(errors)) {
                         showError(field, msg);
                     }
                 } else {
-                    showContactModal('error');
+                    const errDesc = document.querySelector('#contact-modal-error .contact-modal-desc');
+                    if (errDesc) {
+                        if (isMinimized) {
+                            errDesc.innerHTML = 'Looks like the backend is still waking up — give it another moment and try again.<br><br>The cloud is a little slow today.';
+                        } else {
+                            errDesc.innerHTML = 'Either the backend is sleeping, the cloud is confused, or the developer forgot something.<br><br>Try again in a bit.';
+                        }
+                    }
+                    if (isMinimized) {
+                        restoreContactModal('error');
+                    } else {
+                        showContactModal('error');
+                    }
                 }
             } catch (error) {
                 console.error("Contact Form Error:", error);
-                showContactModal('error');
+                const errDesc = document.querySelector('#contact-modal-error .contact-modal-desc');
+                if (errDesc) {
+                    if (isMinimized) {
+                        errDesc.innerHTML = 'Looks like the backend is still waking up — give it another moment and try again.<br><br>Connection timed out or failed.';
+                    } else {
+                        errDesc.innerHTML = 'Either the backend is sleeping, the cloud is confused, or the developer forgot something.<br><br>Try again in a bit.';
+                    }
+                }
+                if (isMinimized) {
+                    restoreContactModal('error');
+                } else {
+                    showContactModal('error');
+                }
             } finally {
+                isSubmitting = false;
+                if (autoMinimizeTimeout) clearTimeout(autoMinimizeTimeout);
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
             }
@@ -453,15 +528,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (contactModalCloseBtns) {
         contactModalCloseBtns.forEach(btn => {
-            btn.addEventListener('click', closeContactModal);
+            btn.addEventListener('click', () => {
+                if (isSubmitting && contactModalLoading && contactModalLoading.style.display === 'block') {
+                    minimizeContactModal();
+                } else {
+                    closeContactModal();
+                }
+            });
         });
     }
 
-    // Close on backdrop click (optional: prevent closing during loading)
+    // Close/Minimize on backdrop click
     const contactModalBackdrop = document.getElementById('contact-modal-backdrop');
     if (contactModalBackdrop) {
         contactModalBackdrop.addEventListener('click', () => {
-            if (contactModalLoading && contactModalLoading.style.display !== 'block') {
+            if (isSubmitting && contactModalLoading && contactModalLoading.style.display === 'block') {
+                minimizeContactModal();
+            } else if (contactModalLoading && contactModalLoading.style.display !== 'block') {
                 closeContactModal();
             }
         });
