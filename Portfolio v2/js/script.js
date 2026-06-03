@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Intro Animation Cleanup ---
-    setTimeout(() => {
+    if (window.scrollY > 50 || document.documentElement.scrollTop > 50) {
         document.body.classList.remove('intro-active');
-    }, 3200);
+    } else {
+        setTimeout(() => {
+            document.body.classList.remove('intro-active');
+        }, 3200);
+    }
 
     // --- Scroll Progress Indicator ---
     const scrollProgress = document.getElementById('scroll-progress');

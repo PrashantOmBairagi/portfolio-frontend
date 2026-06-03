@@ -19,7 +19,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="intro-active">
+<body>
+    <script>
+        // Skip intro animation if user reloads while scrolled down to avoid page shudder
+        if (window.scrollY <= 50 && document.documentElement.scrollTop <= 50) {
+            document.body.classList.add('intro-active');
+        }
+    </script>
     <!-- Center Sanskrit Watermark Background -->
     <div class="sanskrit-motto-bg" aria-hidden="true">
         <span class="sanskrit-bg-line">उद्यमः साहसं धैर्यं बुद्धिः शक्तिः पराक्रमः ।</span>
