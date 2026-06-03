@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Intro Animation Cleanup ---
+    setTimeout(() => {
+        document.body.classList.remove('intro-active');
+    }, 3200);
+
     // --- Scroll Progress Indicator ---
     const scrollProgress = document.getElementById('scroll-progress');
     if (scrollProgress) {

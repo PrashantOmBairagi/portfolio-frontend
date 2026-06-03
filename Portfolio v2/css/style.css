@@ -44,6 +44,9 @@
     --blob-1: rgba(0, 113, 227, 0.15);
     --blob-2: rgba(0, 198, 206, 0.15);
     
+    /* Background Watermark Opacity */
+    --sukti-opacity: 0.08;
+    
     /* Spacing & Layout */
     --container-width: 1100px;
     --nav-height: 70px;
@@ -69,6 +72,9 @@
     /* Gradients for background blobs (slightly darker) */
     --blob-1: rgba(0, 113, 227, 0.1);
     --blob-2: rgba(0, 198, 206, 0.1);
+
+    /* Background Watermark Opacity */
+    --sukti-opacity: 0.14;
 }
 
 /* Base Reset & Typography */
@@ -108,8 +114,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: var(--text-primary);
+    height: 3px;
+    background: linear-gradient(90deg, #1a5c2a 0%, #FFD700 100%);
     z-index: 10001; /* Remains top-most */
     pointer-events: none;
     transform-origin: left center;
@@ -128,11 +134,11 @@ body {
 }
 
 .bg-blob-1 {
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
     background-color: var(--blob-1);
-    top: -100px;
-    left: -100px;
+    top: -200px;
+    left: -150px;
 }
 
 .bg-blob-2 {
@@ -142,6 +148,117 @@ body {
     bottom: -100px;
     right: -100px;
 }
+
+/* Center Sanskrit Watermark Background */
+.sanskrit-motto-bg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1000px;
+    text-align: center;
+    pointer-events: none;
+    z-index: -2; /* behind content and blobs */
+    opacity: var(--sukti-opacity);
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.sanskrit-bg-line {
+    font-family: 'Inter', serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+}
+
+/* Desktop / Laptop font sizes */
+@media (min-width: 769px) {
+    .sanskrit-bg-line {
+        font-size: 2.2rem;
+        line-height: 1.6;
+    }
+}
+
+/* Mobile font sizes */
+@media (max-width: 768px) {
+    .sanskrit-bg-line {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+}
+
+/* 3-Step Million Dollar Intro Page Load Transitions */
+body.intro-active .sanskrit-motto-bg {
+    animation: intro-sanskrit 3.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    will-change: transform, opacity;
+}
+
+body.intro-active .availability-badge,
+body.intro-active .headline,
+body.intro-active .subheadline,
+body.intro-active .intro-text,
+body.intro-active .hero-badges,
+body.intro-active .hero-cta,
+body.intro-active .resume-updated-wrapper,
+body.intro-active .hero-social-links,
+body.intro-active .hero-visual {
+    opacity: 0;
+    animation: intro-item 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    will-change: transform, opacity;
+}
+
+body.intro-active .availability-badge { animation-delay: 1.4s; }
+body.intro-active .headline { animation-delay: 1.55s; }
+body.intro-active .subheadline { animation-delay: 1.7s; }
+body.intro-active .intro-text { animation-delay: 1.85s; }
+body.intro-active .hero-badges { animation-delay: 2.0s; }
+body.intro-active .hero-cta { animation-delay: 2.15s; }
+body.intro-active .resume-updated-wrapper { animation-delay: 2.15s; }
+body.intro-active .hero-social-links { animation-delay: 2.3s; }
+body.intro-active .hero-visual { animation-delay: 2.45s; }
+
+@keyframes intro-sanskrit {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.3);
+        color: var(--text-primary);
+    }
+    25% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.3);
+        color: var(--text-primary);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.3);
+        color: var(--text-primary);
+    }
+    75% {
+        opacity: var(--sukti-opacity);
+        transform: translate(-50%, -50%) scale(1.0);
+        color: var(--text-secondary);
+    }
+    100% {
+        opacity: var(--sukti-opacity);
+        transform: translate(-50%, -50%) scale(1.0);
+        color: var(--text-secondary);
+    }
+}
+
+@keyframes intro-item {
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 /* Reusable Classes */
 .container {
