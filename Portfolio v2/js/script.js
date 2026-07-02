@@ -398,25 +398,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     }
 
-    // Status Indicator helper functions
-    function restoreIdleStatus() {
-        isMinimized = false;
-        if (minimizedProgressUI) {
-            minimizedProgressUI.style.display = 'flex'; // Keep visible as heartbeat indicator
-            minimizedProgressUI.classList.remove('sending');
-            minimizedProgressUI.innerHTML = `
-                <span class="status-dot blinking-green"></span>
-                <span class="status-text">API STATUS: ONLINE // RTT 14ms</span>
-            `;
-        }
-    }
-
     function closeContactModal() {
         if (contactModal) contactModal.classList.remove('active');
         document.body.style.overflow = '';
         clearInterval(loadingInterval);
         isMinimized = false;
-        restoreIdleStatus();
+        if (minimizedProgressUI) minimizedProgressUI.style.display = 'none';
     }
     
     function minimizeContactModal() {
@@ -425,31 +412,22 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(loadingInterval);
         isMinimized = true;
         if (minimizedProgressUI) {
-            minimizedProgressUI.classList.add('sending');
-            minimizedProgressUI.innerHTML = `
-                <div class="minimized-spinner"></div>
-                <div class="minimized-progress-text">
-                    <span>SENDING</span><span class="dots"><span>.</span><span>.</span><span>.</span></span>
-                </div>
-            `;
+            minimizedProgressUI.style.display = 'flex';
         }
     }
     
     function restoreContactModal(state) {
         isMinimized = false;
+        if (minimizedProgressUI) {
+            minimizedProgressUI.style.display = 'none';
+        }
         showContactModal(state);
     }
     
     if (minimizedProgressUI) {
-        // Initialize health check status on load
-        restoreIdleStatus();
-
         minimizedProgressUI.addEventListener('click', () => {
             if (isSubmitting) {
                 restoreContactModal('loading');
-            } else {
-                // Click acts as shortcut to open contact form when idle
-                showContactModal('idle');
             }
         });
     }
@@ -599,7 +577,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (autoMinimizeTimeout) clearTimeout(autoMinimizeTimeout);
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
-                restoreIdleStatus();
             }
         });
     }
@@ -667,41 +644,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         el.addEventListener('mouseleave', () => {
             el.style.transform = '';
-        });
-    });
-
-    // --- Projects Details Expand/Collapse ---
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        const toggleBtn = card.querySelector('.toggle-details-btn');
-        const expandedDetails = card.querySelector('.expanded-details');
-        
-        if (toggleBtn && expandedDetails) {
-            toggleBtn.addEventListener('click', () => {
-                const isExpanded = card.classList.toggle('expanded');
-                toggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-                
-                const btnText = toggleBtn.querySelector('span');
-                if (btnText) {
-                    btnText.textContent = isExpanded ? 'Collapse Details' : 'View Details';
-                }
-                
-                if (isExpanded) {
-                    expandedDetails.style.maxHeight = expandedDetails.scrollHeight + 'px';
-                } else {
-                    expandedDetails.style.maxHeight = '0px';
-                }
-            });
-        }
-    });
-
-    // Handle window resize to dynamically adapt max-height of open cards
-    window.addEventListener('resize', () => {
-        const activeExpandedDetails = document.querySelectorAll('.project-card.expanded .expanded-details');
-        activeExpandedDetails.forEach(details => {
-            details.style.maxHeight = 'none';
-            const newHeight = details.scrollHeight;
-            details.style.maxHeight = newHeight + 'px';
         });
     });
 });
