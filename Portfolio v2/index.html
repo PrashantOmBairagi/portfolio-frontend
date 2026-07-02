@@ -138,15 +138,43 @@
 
                 <!-- Code Visual Panel -->
                 <div class="hero-visual reveal-up delay-2">
-                    <div class="code-window glass">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="code-title">ExpenseController.java</span>
+                                        <div class="code-window glass">
+                        <div class="code-header-bar">
+                            <div class="mac-controls">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="tabs-row">
+                                <div class="tab active">
+                                    <i class="ph-fill ph-coffee tab-icon-java"></i>
+                                    <span class="tab-title">ExpenseController.java</span>
+                                    <i class="ph ph-x tab-close"></i>
+                                </div>
+                                <div class="tab-spacer"></div>
+                                <div class="git-indicator-wrapper">
+                                    <i class="ph ph-git-branch"></i>
+                                    <span>main</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="code-body">
-                            <pre><code><span class="keyword">@RestController</span>
+                        <div class="code-body-wrapper">
+                            <div class="line-gutter">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                            </div>
+                            <div class="code-content-area">
+                                <pre><code><span class="keyword">@RestController</span>
 <span class="keyword">@RequestMapping</span>(<span class="string">"/api/v1/expenses"</span>)
 <span class="keyword">public class</span> <span class="class-name">ExpenseController</span> {
 
@@ -158,6 +186,7 @@
         <span class="keyword">return</span> ResponseEntity.status(HttpStatus.CREATED)
             .body(expenseService.save(req));
     }<span class="code-caret" aria-hidden="true"></span></code></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,6 +196,7 @@
         <!-- About Section -->
         <section id="about" class="about section">
             <div class="container">
+                <div class="section-meta reveal-up">SEC.01 // SYSTEM_OVERVIEW</div>
                 <h2 class="section-title reveal-up">About Me</h2>
 
                 <div class="about-layout reveal-up">
@@ -241,6 +271,7 @@
         <section id="skills" class="skills section">
             <div class="container">
                 <div class="skills-header reveal-up">
+                    <div class="section-meta reveal-up">SEC.02 // CORE_SKILLS</div>
                     <h2 class="section-title" style="margin-bottom: 1rem;">Technical Skills</h2>
                     <div class="title-underline"></div>
                     <p class="skills-subtitle">Technical foundations built through backend development, problem-solving,
@@ -394,208 +425,722 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
+                <!-- Projects Section -->
         <section id="projects" class="projects section">
             <div class="container">
+                <div class="section-meta reveal-up">SEC.03 // EXECUTIONS</div>
                 <h2 class="section-title reveal-up">Projects</h2>
 
                 <div class="projects-container">
-                    <!-- Project 1 (Flagship) -->
-                    <div class="project-card flagship glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/finance.png" alt="Smart Finance Tracker" class="project-img">
-                        </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="flagship-badge"><i class="ph-fill ph-star"></i> FLAGSHIP</span>
-                                <span class="status-badge in-progress"><span class="dot"></span> In Progress</span>
+                    <!-- Project 1 (Flagship: Kharcha Pani) -->
+                    <div class="project-card glass reveal-up" id="project-contact-api">
+                        <div class="project-collapsed-info">
+                            <span class="project-hover-meta">HTTP 200 OK // ENV: PROD</span>
+                            <div class="project-collapsed-main">
+                                <div class="project-logo-container">
+                                    <i class="ph-fill ph-paper-plane-tilt"></i>
+                                </div>
+                                <div class="project-collapsed-title-area">
+                                    <div class="project-collapsed-header-row">
+                                        <h3 class="project-title">Portfolio Contact API</h3>
+                                        <span class="status-badge completed"><span class="dot"></span> Deployed • Live</span>
+                                    </div>
+                                    <h4 class="project-subtitle">Production Contact Form Backend</h4>
+                                </div>
                             </div>
-                            <h3 class="project-title">Smart Finance Tracker</h3>
-                            <p class="project-description">
-                                A backend-focused finance tracking system built with Spring Boot and MySQL, designed to explore clean backend architecture, REST APIs, and scalable financial data management.
+                            
+                            <p class="project-summary-text">
+                                A deployed Spring Boot backend powering my portfolio website's contact system, handling real-world user submissions through secure REST endpoints.
                             </p>
-
-                            <div class="project-stakes glass">
-                                <div class="stake-item">
-                                    <span class="stake-label">THE PROBLEM:</span>
-                                    <span class="stake-text">Current finance tracking tools are often frontend-heavy and lack transparent backend architecture, structured APIs, and scalable database design for learning and extensibility.</span>
+                            
+                            <div class="project-collapsed-tags-row">
+                                <div class="project-tech-chips">
+                                    <span>Java</span>
+                                    <span>Spring Boot</span>
+                                    <span>PostgreSQL</span>
+                                    <span>REST APIs</span>
+                                    <span>Hibernate</span>
+                                    <span>Spring Data JPA</span>
                                 </div>
-                                <div class="stake-item">
-                                    <span class="stake-label">THE SOLUTION:</span>
-                                    <span class="stake-text">Designed and implemented a layered Spring Boot backend using Controller-Service-Repository architecture with MySQL persistence, validation, and category-based expense tracking.</span>
-                                </div>
-                            </div>
-
-                            <div class="project-architecture">
-                                <span class="arch-title">Backend System Architecture:</span>
-                                <div class="arch-strip">
-                                    <span class="arch-node">Postman</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Controller Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Service Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Repository Layer (JPA/Hibernate)</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">MySQL Database</span>
+                                <div class="project-highlight-badges">
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> PostgreSQL</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> REST APIs</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Render Cloud</span>
                                 </div>
                             </div>
-
-                            <div class="tech-stack">
-                                <span>Java</span>
-                                <span>Spring Boot</span>
-                                <span>REST APIs</span>
-                                <span>MySQL</span>
-                                <span>Spring Data JPA</span>
-                                <span>Hibernate</span>
-                                <span>Postman</span>
-                                <span>Lombok</span>
-                                <span>Validation</span>
+                            
+                            <div class="project-actions-row">
+                                <div class="project-external-links">
+                                    <a href="https://github.com/PrashantOmBairagi/portfolio-backend-api" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
+                                    <a href="https://portfolio-backend-api-onqc.onrender.com/health-check" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live API</a>
+                                </div>
+                                <button class="btn primary-btn small toggle-details-btn" aria-expanded="false">
+                                    <span>View Details</span> <i class="ph ph-caret-down toggle-icon"></i>
+                                </button>
                             </div>
+                        </div>
 
-                            <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi/smart-finance-tracker" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Follow Progress</a>
+                        <!-- Expanded State -->
+                        <div class="expanded-details">
+                            <div class="expanded-content-inner">
+                                <div class="details-grid-2col">
+                                    <div class="details-left">
+                                        <div class="details-glass-card problem-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-warning-circle"></i>
+                                                <h5>Problem</h5>
+                                            </div>
+                                            <p>Static portfolio contact forms often do nothing or rely entirely on third-party services, offering little backend ownership, database control, or real engineering experience.</p>
+                                        </div>
+                                        
+                                        <div class="details-glass-card solution-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-check-circle"></i>
+                                                <h5>Solution</h5>
+                                            </div>
+                                            <p>Designed and deployed a Spring Boot REST API that processes portfolio contact submissions, validates incoming requests, stores messages in PostgreSQL, handles exceptions gracefully, and integrates seamlessly with a live frontend.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="details-right">
+                                        <div class="details-glass-card features-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-list-checks"></i>
+                                                <h5>Key Features</h5>
+                                            </div>
+                                            <ul class="bullet-list-tight">
+                                                <li>RESTful Endpoint Submissions</li>
+                                                <li>Lightweight Frontend &amp; Backend Validation</li>
+                                                <li>PostgreSQL Relational Persistence</li>
+                                                <li>Global Exception Handler Wrapper</li>
+                                                <li>CORS Policy Configurations</li>
+                                                <li>Render Hosting with Neon DB Integration</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="details-glass-card deployment-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-cloud-arrow-up"></i>
+                                                <h5>Deployment &amp; Devops</h5>
+                                            </div>
+                                            <p>Hosted on Render as a Web Service connected to a Neon PostgreSQL cloud instance. Connected to the live portfolio frontend for asynchronous submission processing with loader controls.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Backend Architecture Section -->
+                                <div class="architecture-section">
+                                    <h4 class="expanded-section-title">System Architecture Flow</h4>
+                                    <div class="arch-flow-diagram">
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-layout"></i>
+                                            <span>Portfolio Frontend</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-link"></i>
+                                            <span>REST API Endpoint</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-code"></i>
+                                            <span>Controller Layer</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-gear"></i>
+                                            <span>Service Layer</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-database"></i>
+                                            <span>Repository Layer (JPA)</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node database">
+                                            <i class="ph-fill ph-database"></i>
+                                            <span>PostgreSQL Database</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Roadmap and Future Vision -->
+                                <div class="details-grid-2col" style="margin-top: 2rem;">
+                                    <div class="details-left">
+                                        <div class="details-glass-card vision-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-eye"></i>
+                                                <h5>Future Vision</h5>
+                                            </div>
+                                            <p>Evolving the utility to support automated webhook actions, Slack/email notifications on incoming contacts, and API rate limiting via Spring Boot Bucket4j.</p>
+                                        </div>
+                                    </div>
+                                    <div class="details-right">
+                                        <div class="details-glass-card roadmap-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-map-trifold"></i>
+                                                <h5>Roadmap</h5>
+                                            </div>
+                                            <ul class="bullet-list-tight">
+                                                <li>⏳ Rate limiting (Bucket4j)</li>
+                                                <li>🔜 Automated Email Notifications</li>
+                                                <li>🔜 Webhook Integrations</li>
+                                                <li>🔜 Admin Dashboard Console</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 (Smart Central Locking System) -->
+                    <div class="project-card flagship glass reveal-up" id="project-kharcha-pani">
+                        <div class="flagship-ribbon">⭐ Flagship Project</div>
+                        
+                        <div class="project-collapsed-info">
+                            <span class="project-hover-meta">HTTP 200 OK // LATENCY: 18ms</span>
+                            <div class="project-collapsed-main">
+                                <div class="project-logo-container img-logo">
+                                    <img src="assets/kharcha_pani_logo.jpg" alt="Kharcha Pani Logo" class="project-logo-img">
+                                </div>
+                                <div class="project-collapsed-title-area">
+                                    <div class="project-collapsed-header-row">
+                                        <h3 class="project-title">Kharcha Pani</h3>
+                                        <span class="status-badge in-progress"><span class="dot"></span> In Progress</span>
+                                    </div>
+                                    <h4 class="project-subtitle">Backend-first Personal Finance Platform for Modern India</h4>
+                                </div>
+                            </div>
+                            
+                            <p class="project-summary-text">
+                                Secure backend platform for personal finance, expense tracking, lending, and future AI-powered financial insights.
+                            </p>
+                            
+                            <div class="project-collapsed-tags-row">
+                                <div class="project-tech-chips">
+                                    <span>Java</span>
+                                    <span>Spring Boot</span>
+                                    <span>Spring Security</span>
+                                    <span>JWT</span>
+                                    <span>REST APIs</span>
+                                    <span>MySQL</span>
+                                </div>
+                                <div class="project-highlight-badges">
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Secure Login</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Expense Tracking</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> User-wise Data</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Android Client</span>
+                                </div>
+                            </div>
+                            
+                            <div class="project-actions-row">
+                                <div class="project-external-links">
+                                    <a href="https://github.com/PrashantOmBairagi/smart-finance-tracker" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
+                                    <a href="#" class="btn secondary-btn small disabled" onclick="return false;"><i class="ph ph-globe"></i> Live Demo</a>
+                                </div>
+                                <button class="btn primary-btn small toggle-details-btn" aria-expanded="false">
+                                    <span>View Details</span> <i class="ph ph-caret-down toggle-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Expanded State -->
+                        <div class="expanded-details">
+                            <div class="expanded-content-inner">
+                                <div class="details-grid-2col">
+                                    <!-- Left Column: Problem & Solution -->
+                                    <div class="details-left">
+                                        <div class="details-glass-card problem-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-warning-circle"></i>
+                                                <h5>Problem</h5>
+                                            </div>
+                                            <p>Most finance tracking applications focus on beautiful interfaces while exposing very little backend engineering, security, scalable API design or clean architecture. Kharcha Pani was built to solve this by focusing on production-oriented backend development rather than only expense recording.</p>
+                                        </div>
+                                        
+                                        <div class="details-glass-card solution-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-check-circle"></i>
+                                                <h5>Solution</h5>
+                                            </div>
+                                            <p>Designed and implemented a layered Spring Boot application following Controller → Service → Repository architecture. Integrated secure JWT authentication, Spring Security, validation, exception handling and relational database modelling. Built with scalability and extensibility in mind for future financial services.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Right Column: Current Features & Future Vision -->
+                                    <div class="details-right">
+                                        <div class="details-glass-card features-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-list-checks"></i>
+                                                <h5>Current Features</h5>
+                                            </div>
+                                            <ul class="bullet-list-tight">
+                                                <li>User Registration &amp; Secure Login</li>
+                                                <li>JWT Authentication &amp; Spring Security</li>
+                                                <li>User-specific Expense Tracking</li>
+                                                <li>Expense Categories &amp; Validation</li>
+                                                <li>Global Exception Handling</li>
+                                                <li>RESTful APIs &amp; MySQL Persistence</li>
+                                                <li>Android Mobile Client</li>
+                                                <li>Cloud Deployment Ready</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="details-glass-card vision-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-eye"></i>
+                                                <h5>Future Vision</h5>
+                                            </div>
+                                            <p>Kharcha Pani is being designed to evolve beyond a personal expense tracker into a collaborative financial platform capable of handling shared expenses, lending workflows, intelligent spending analytics and modular services architecture.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Backend Architecture Section -->
+                                <div class="architecture-section">
+                                    <h4 class="expanded-section-title">Backend Architecture</h4>
+                                    
+                                    <div class="arch-flow-diagram">
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-device-mobile"></i>
+                                            <span>Android App</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-down"></i></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-globe"></i>
+                                            <span>REST API (Spring Boot)</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-down"></i></div>
+                                        
+                                        <div class="arch-flow-node highlight">
+                                            <i class="ph ph-shield-check"></i>
+                                            <span>Spring Security (JWT Filter)</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-down"></i></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-code"></i>
+                                            <span>Controller</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-down"></i></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-gear"></i>
+                                            <span>Service</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-down"></i></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-database"></i>
+                                            <span>Repository (JPA)</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-down"></i></div>
+                                        
+                                        <div class="arch-flow-node database">
+                                            <i class="ph-fill ph-database"></i>
+                                            <span>MySQL</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Engineering Highlights Section -->
+                                <div class="highlights-section">
+                                    <h4 class="expanded-section-title">Engineering Highlights</h4>
+                                    <div class="highlights-grid">
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-lock"></i>
+                                            <h6>JWT Authentication</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-shield"></i>
+                                            <h6>Spring Security</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-braces"></i>
+                                            <h6>REST API Design</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-layout"></i>
+                                            <h6>Layered Architecture</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-database"></i>
+                                            <h6>Hibernate / JPA</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-check-square"></i>
+                                            <h6>Validation</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-warning"></i>
+                                            <h6>Exception Handling</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-cloud"></i>
+                                            <h6>Cloud Deployment</h6>
+                                        </div>
+                                        <div class="highlight-card-mini">
+                                            <i class="ph ph-device-mobile"></i>
+                                            <h6>Android Consumption</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Roadmap Milestones Section -->
+                                <div class="roadmap-section">
+                                    <h4 class="expanded-section-title">Development Roadmap</h4>
+                                    <div class="roadmap-milestones-grid">
+                                        <div class="roadmap-milestone completed">
+                                            <span class="milestone-status">✓</span>
+                                            <span class="milestone-name">Authentication</span>
+                                        </div>
+                                        <div class="roadmap-milestone completed">
+                                            <span class="milestone-status">✓</span>
+                                            <span class="milestone-name">Expense Tracking</span>
+                                        </div>
+                                        <div class="roadmap-milestone completed">
+                                            <span class="milestone-status">✓</span>
+                                            <span class="milestone-name">Android Client</span>
+                                        </div>
+                                        <div class="roadmap-milestone in-progress">
+                                            <span class="milestone-status">⏳</span>
+                                            <span class="milestone-name">Analytics</span>
+                                        </div>
+                                        <div class="roadmap-milestone planned">
+                                            <span class="milestone-status">🔜</span>
+                                            <span class="milestone-name">Borrow &amp; Lending</span>
+                                        </div>
+                                        <div class="roadmap-milestone planned">
+                                            <span class="milestone-status">🔜</span>
+                                            <span class="milestone-name">Group Expense Split</span>
+                                        </div>
+                                        <div class="roadmap-milestone planned">
+                                            <span class="milestone-status">🔜</span>
+                                            <span class="milestone-name">AI Insights</span>
+                                        </div>
+                                        <div class="roadmap-milestone planned">
+                                            <span class="milestone-status">🔜</span>
+                                            <span class="milestone-name">Modular Services Architecture</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Project 2 (Contact API - Production Utility) -->
-                    <div class="project-card glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/contact-api.png" alt="Portfolio Contact API" class="project-img">
-                        </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="status-badge completed"><span class="dot"></span> Deployed • Live</span>
+                    <div class="project-card glass reveal-up" id="project-central-locking">
+                        <div class="project-collapsed-info">
+                            <span class="project-hover-meta">BUILD: PASSED // ATMEGA328</span>
+                            <div class="project-collapsed-main">
+                                <div class="project-logo-container">
+                                    <i class="ph-fill ph-key"></i>
+                                </div>
+                                <div class="project-collapsed-title-area">
+                                    <div class="project-collapsed-header-row">
+                                        <h3 class="project-title">Smart Central Locking System</h3>
+                                        <span class="status-badge completed"><i class="ph-fill ph-check-circle"></i> Completed</span>
+                                    </div>
+                                    <h4 class="project-subtitle">Wireless Entry Embedded System</h4>
+                                </div>
                             </div>
-                            <h3 class="project-title">Portfolio Contact API</h3>
-                            <p class="project-description">
-                                A deployed Spring Boot backend powering my portfolio website’s contact system. Designed to handle real user submissions through REST APIs with database persistence, validation, exception handling, and cloud deployment.
+                            
+                            <p class="project-summary-text">
+                                Independently designed and built a wireless remote keyless entry system for Alto 800 using microcontrollers and RF communication.
                             </p>
-
-                            <div class="project-stakes glass">
-                                <div class="stake-item">
-                                    <span class="stake-label">THE PROBLEM:</span>
-                                    <span class="stake-text">Static portfolio contact forms often do nothing or rely entirely on third-party services, offering little backend ownership, database control, or real engineering experience.</span>
+                            
+                            <div class="project-collapsed-tags-row">
+                                <div class="project-tech-chips">
+                                    <span>ATmega328</span>
+                                    <span>Arduino</span>
+                                    <span>RF 433 MHz</span>
+                                    <span>Circuit Design</span>
+                                    <span>Embedded Systems</span>
                                 </div>
-                                <div class="stake-item">
-                                    <span class="stake-label">THE SOLUTION:</span>
-                                    <span class="stake-text">Designed and deployed a Spring Boot REST API that processes portfolio contact submissions, validates incoming requests, stores messages in PostgreSQL, handles exceptions gracefully, and integrates seamlessly with a live frontend.</span>
-                                </div>
-                            </div>
-
-                            <div class="project-architecture">
-                                <span class="arch-title">Backend System Architecture:</span>
-                                <div class="arch-strip">
-                                    <span class="arch-node">Portfolio Frontend</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">REST API Endpoint</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Controller Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Service Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Repository Layer (JPA)</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">PostgreSQL Database</span>
+                                <div class="project-highlight-badges">
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> RF Transceiver</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Microcontroller</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Circuit Board</span>
                                 </div>
                             </div>
-
-                            <div class="tech-stack">
-                                <span>Java</span>
-                                <span>Spring Boot</span>
-                                <span>REST APIs</span>
-                                <span>PostgreSQL</span>
-                                <span>Hibernate</span>
-                                <span>Spring Data JPA</span>
+                            
+                            <div class="project-actions-row">
+                                <div class="project-external-links">
+                                    <a href="https://github.com/PrashantOmBairagi/Smart-Central-Locking-System" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
+                                </div>
+                                <button class="btn primary-btn small toggle-details-btn" aria-expanded="false">
+                                    <span>View Details</span> <i class="ph ph-caret-down toggle-icon"></i>
+                                </button>
                             </div>
+                        </div>
 
-                            <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi/portfolio-backend-api" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub Repo</a>
-                                <a href="https://portfolio-backend-api-onqc.onrender.com/health-check" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live API</a>
+                        <!-- Expanded State -->
+                        <div class="expanded-details">
+                            <div class="expanded-content-inner">
+                                <div class="details-grid-2col">
+                                    <div class="details-left">
+                                        <div class="details-glass-card problem-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-warning-circle"></i>
+                                                <h5>Problem</h5>
+                                            </div>
+                                            <p>Older car models lack modern wireless entry options, making key-entry manual and vulnerable.</p>
+                                        </div>
+                                        
+                                        <div class="details-glass-card solution-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-check-circle"></i>
+                                                <h5>Solution</h5>
+                                            </div>
+                                            <p>Engineered a robust hardware transceiver controller built on ATmega328 logic to actuate driver-door linkages remotely.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="details-right">
+                                        <div class="details-glass-card features-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-list-checks"></i>
+                                                <h5>Key Features</h5>
+                                            </div>
+                                            <ul class="bullet-list-tight">
+                                                <li>RF 433 MHz Wireless Transceiver</li>
+                                                <li>Low-power Sleep Mode Integration</li>
+                                                <li>12V Relay Driver Subsystem</li>
+                                                <li>Unique Security Sync Code Authentication</li>
+                                                <li>Custom PCB Prototyping &amp; Mounting</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="details-glass-card deployment-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-wrench"></i>
+                                                <h5>Deployment &amp; Hardware Setup</h5>
+                                            </div>
+                                            <p>Hardwired directly into the vehicle's electrical framework, operating on a regulated 5V subsystem fed by the car's 12V battery, safely mounted with fuses.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Backend Architecture Section -->
+                                <div class="architecture-section">
+                                    <h4 class="expanded-section-title">Hardware Interaction Flow</h4>
+                                    <div class="arch-flow-diagram">
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-key"></i>
+                                            <span>RF Keychain Transmitter</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-radio"></i>
+                                            <span>433MHz Receiver</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node highlight">
+                                            <i class="ph ph-cpu"></i>
+                                            <span>ATmega328 Microcontroller</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-broadcast"></i>
+                                            <span>Transistor Driver</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node database">
+                                            <i class="ph ph-lock-key"></i>
+                                            <span>Actuator Solenoids</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Roadmap and Future Vision -->
+                                <div class="details-grid-2col" style="margin-top: 2rem;">
+                                    <div class="details-left">
+                                        <div class="details-glass-card vision-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-eye"></i>
+                                                <h5>Future Vision</h5>
+                                            </div>
+                                            <p>Designing mobile-app bluetooth credentials integration for passive keyless entry (PKE), automatic door locking on speed threshold, and security alarm sensors.</p>
+                                        </div>
+                                    </div>
+                                    <div class="details-right">
+                                        <div class="details-glass-card roadmap-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-map-trifold"></i>
+                                                <h5>Roadmap</h5>
+                                            </div>
+                                            <ul class="bullet-list-tight">
+                                                <li>⏳ Bluetooth BLE Integration</li>
+                                                <li>🔜 Passive Keyless Entry (PKE)</li>
+                                                <li>🔜 Anti-theft Shock Sensors</li>
+                                                <li>🔜 CAN Bus Telemetry Interface</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Project 2 -->
-                    <div class="project-card glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/Central lock schematic.png" alt="Smart Central Locking System Schematic"
-                                class="project-img" style="object-position: center top;">
-                        </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="status-badge completed"><i class="ph-fill ph-check-circle"></i>
-                                    Completed</span>
+                    <!-- Project 4 (Student & College Management Automation) -->
+                    <div class="project-card glass reveal-up" id="project-college-automation">
+                        <div class="project-collapsed-info">
+                            <span class="project-hover-meta">SYS_STATUS: ACTIVE // CRM</span>
+                            <div class="project-collapsed-main">
+                                <div class="project-logo-container">
+                                    <i class="ph-fill ph-users-three"></i>
+                                </div>
+                                <div class="project-collapsed-title-area">
+                                    <div class="project-collapsed-header-row">
+                                        <h3 class="project-title">College Management Automation</h3>
+                                        <span class="status-badge planned"><span class="dot"></span> Planned</span>
+                                    </div>
+                                    <h4 class="project-subtitle">Salesforce Administrative Framework</h4>
+                                </div>
                             </div>
-                            <h3 class="project-title">Smart Central Locking System</h3>
-                            <p class="project-description">
-                                Independently designed and built a smart central locking system for Alto 800 using embedded systems, RF communication, actuator control, and microcontroller programming.
+                            
+                            <p class="project-summary-text">
+                                A Salesforce-based administrative automation framework built to streamline college workflows, manage student progress tracking, and generate institutional analytics.
                             </p>
-
-                            <div class="project-stakes glass">
-                                <div class="stake-item">
-                                    <span class="stake-label">THE PROBLEM:</span>
-                                    <span class="stake-text">Older car models lack modern wireless entry options, making key-entry manual and vulnerable.</span>
+                            
+                            <div class="project-collapsed-tags-row">
+                                <div class="project-tech-chips">
+                                    <span>Salesforce</span>
+                                    <span>Flow Builder</span>
+                                    <span>Reports</span>
+                                    <span>Dashboards</span>
+                                    <span>Custom Objects</span>
                                 </div>
-                                <div class="stake-item">
-                                    <span class="stake-label">THE SOLUTION:</span>
-                                    <span class="stake-text">Engineered a robust hardware transceiver controller built on ATmega328 logic to actuate driver-door linkages remotely.</span>
+                                <div class="project-highlight-badges">
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Workflow Automation</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Salesforce CRM</span>
+                                    <span class="highlight-badge"><i class="ph ph-check"></i> Data Analytics</span>
                                 </div>
                             </div>
-
-                            <div class="tech-stack">
-                                <span>ATmega328</span>
-                                <span>Arduino</span>
-                                <span>RF 433 MHz</span>
-                                <span>Circuit Design</span>
-                                <span>Embedded Systems</span>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi/Smart-Central-Locking-System"
-                                    target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i
-                                        class="ph ph-github-logo"></i> View Project</a>
+                            
+                            <div class="project-actions-row">
+                                <div class="project-external-links">
+                                    <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
+                                </div>
+                                <button class="btn primary-btn small toggle-details-btn" aria-expanded="false">
+                                    <span>View Details</span> <i class="ph ph-caret-down toggle-icon"></i>
+                                </button>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Project 3 -->
-                    <div class="project-card glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/salesforce.png" alt="Student & College Management Automation"
-                                class="project-img">
-                        </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="status-badge planned"><span class="dot"></span> Planned</span>
-                            </div>
-                            <h3 class="project-title">Student & College Management Automation</h3>
-                            <p class="project-description">
-                                A Salesforce-based administrative automation framework built to streamline college workflows, manage student progress tracking, and generate institutional analytics dashboards.
-                            </p>
-
-                            <div class="project-stakes glass">
-                                <div class="stake-item">
-                                    <span class="stake-label">THE PROBLEM:</span>
-                                    <span class="stake-text">Academic recordkeeping is heavily fragmented across static systems, requiring manual follow-ups and data sorting.</span>
+                        <!-- Expanded State -->
+                        <div class="expanded-details">
+                            <div class="expanded-content-inner">
+                                <div class="details-grid-2col">
+                                    <div class="details-left">
+                                        <div class="details-glass-card problem-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-warning-circle"></i>
+                                                <h5>Problem</h5>
+                                            </div>
+                                            <p>Academic recordkeeping is heavily fragmented across static systems, requiring manual follow-ups and data sorting.</p>
+                                        </div>
+                                        
+                                        <div class="details-glass-card solution-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-check-circle"></i>
+                                                <h5>Solution</h5>
+                                            </div>
+                                            <p>Deployed custom objects, institutional validation rules, and automated flow triggers to create a unified administrative hub.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="details-right">
+                                        <div class="details-glass-card features-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-list-checks"></i>
+                                                <h5>Key Features</h5>
+                                            </div>
+                                            <ul class="bullet-list-tight">
+                                                <li>Student Profile Tracking &amp; History</li>
+                                                <li>Automated Notifications &amp; Alert Tasks</li>
+                                                <li>Record Creation Screen Flows</li>
+                                                <li>Analytical Reporting Dashboards</li>
+                                                <li>Role Hierarchy Security Controls</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="details-glass-card deployment-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-shield-check"></i>
+                                                <h5>Security &amp; Setup</h5>
+                                            </div>
+                                            <p>Configured standard profiles, permissions, organization-wide defaults, and sharing rules in Salesforce sandbox for structured governance.</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="stake-item">
-                                    <span class="stake-label">THE SOLUTION:</span>
-                                    <span class="stake-text">Deployed custom objects, institutional validation rules, and automated flow triggers to create a unified administrative hub.</span>
+
+                                <!-- Backend Architecture Section -->
+                                <div class="architecture-section">
+                                    <h4 class="expanded-section-title">Data Processing Flow</h4>
+                                    <div class="arch-flow-diagram">
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-user"></i>
+                                            <span>User Interface</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node">
+                                            <i class="ph ph-share-network"></i>
+                                            <span>Salesforce Flows</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node highlight">
+                                            <i class="ph ph-files"></i>
+                                            <span>Custom Object Model</span>
+                                        </div>
+                                        <div class="arch-flow-arrow"><i class="ph ph-arrow-right"></i><span class="query-pulse"></span></div>
+                                        
+                                        <div class="arch-flow-node database">
+                                            <i class="ph ph-chart-bar"></i>
+                                            <span>CRM Analytics Engine</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="tech-stack">
-                                <span>Salesforce</span>
-                                <span>Flow Builder</span>
-                                <span>Reports</span>
-                                <span>Dashboards</span>
-                                <span>Custom Objects</span>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Follow Progress</a>
+                                <!-- Roadmap and Future Vision -->
+                                <div class="details-grid-2col" style="margin-top: 2rem;">
+                                    <div class="details-left">
+                                        <div class="details-glass-card vision-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-eye"></i>
+                                                <h5>Future Vision</h5>
+                                            </div>
+                                            <p>Integrating Apex triggers for advanced validations, connecting the CRM model to Slack channels, and configuring academic portal APIs.</p>
+                                        </div>
+                                    </div>
+                                    <div class="details-right">
+                                        <div class="details-glass-card roadmap-card">
+                                            <div class="card-header">
+                                                <i class="ph-fill ph-map-trifold"></i>
+                                                <h5>Roadmap</h5>
+                                            </div>
+                                            <ul class="bullet-list-tight">
+                                                <li>⏳ Apex Programmatic Validations</li>
+                                                <li>🔜 Slack Alert Webhook Triggers</li>
+                                                <li>🔜 External Portal REST Integration</li>
+                                                <li>🔜 Lightning Web Components UI</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -771,11 +1316,9 @@
         </a>
 
         <!-- Minimized Progress UI (Companion Status Indicator) -->
-        <div id="minimized-progress-ui" class="minimized-progress-ui" style="display: none;" aria-label="Sending message...">
-            <div class="minimized-spinner"></div>
-            <div class="minimized-progress-text">
-                <span>Sending</span><span class="dots"><span>.</span><span>.</span><span>.</span></span>
-            </div>
+        <div id="minimized-progress-ui" class="minimized-progress-ui" aria-label="API Status check">
+            <span class="status-dot blinking-green"></span>
+            <span class="status-text">API STATUS: ONLINE // RTT 14ms</span>
         </div>
     </div>
 
