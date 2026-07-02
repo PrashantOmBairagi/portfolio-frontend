@@ -73,7 +73,7 @@
     --text-secondary: #a1a1a6;
     
     /* Glassmorphism Colors - Dark Theme */
-    --glass-bg: rgba(20, 20, 24, 0.45);
+    --glass-bg: rgba(15, 15, 20, 0.25);
     --glass-border: rgba(255, 255, 255, 0.05);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     
@@ -653,7 +653,7 @@ ul {
 
 .line-gutter span {
     font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     line-height: 1.55;
     color: var(--text-secondary);
     opacity: 0.45;
@@ -1173,6 +1173,34 @@ ul {
     display: flex;
     flex-direction: column;
     gap: 2.25rem;
+}
+
+@media (min-width: 1024px) {
+    .projects-container {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 2rem;
+    }
+    
+    #project-kharcha-pani {
+        grid-column: span 4;
+    }
+    
+    #project-contact-api {
+        grid-column: span 2;
+    }
+    
+    #project-central-locking {
+        grid-column: span 3;
+    }
+    
+    #project-college-automation {
+        grid-column: span 3;
+    }
+    
+    .project-card.expanded {
+        grid-column: span 6;
+    }
 }
 
 .project-card {
@@ -3307,32 +3335,6 @@ body::before {
     white-space: nowrap;
 }
 
-/* Hover Metadata on Project Cards */
-.project-hover-meta {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.5rem;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
-    letter-spacing: 0.04em;
-}
-
-.project-card:not(.expanded):hover .project-hover-meta {
-    opacity: 0.65;
-    transform: translateY(0);
-}
-
-/* Flagship specific positioning below ribbon */
-#project-kharcha-pani .project-hover-meta {
-    top: 2.75rem;
-}
-
 /* Dashed connector line override */
 .roadmap-milestones-grid::before {
     border-top: 2px dashed rgba(255, 255, 255, 0.08) !important;
@@ -3368,16 +3370,29 @@ body::before {
 
 /* Flagship image logo fit details */
 .project-logo-container.img-logo {
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
-    border: 1px solid var(--glass-border);
+    width: 56px !important;
+    height: 56px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    border: 1px solid var(--glass-border) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
 }
 
 .project-logo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+    .project-logo-container.img-logo {
+        width: 48px !important;
+        height: 48px !important;
+    }
 }
 
 /* Connection arrows active query pulse loading animation (Classy 8s delay flow) */
