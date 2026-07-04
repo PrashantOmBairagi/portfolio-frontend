@@ -646,4 +646,108 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.transform = '';
         });
     });
+
+    // --- Expandable Projects Cards ---
+    const expandButtons = document.querySelectorAll('.expand-toggle');
+    expandButtons.forEach(btn => {
+        const card = btn.closest('.project-card');
+        const details = card.querySelector('.project-expanded-details');
+        
+        // Ensure maxHeight is 0px initially
+        details.style.maxHeight = '0px';
+        details.style.opacity = '0';
+        
+        btn.addEventListener('click', () => {
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                // Collapse logic
+                details.style.maxHeight = details.scrollHeight + 'px';
+                details.offsetHeight; // Force layout reflow
+                details.style.maxHeight = '0px';
+                details.style.opacity = '0';
+                
+                btn.setAttribute('aria-expanded', 'false');
+                btn.querySelector('span').textContent = 'Expand Details';
+                btn.querySelector('i').className = 'ph ph-caret-down';
+                card.classList.remove('is-expanded');
+            } else {
+                // Expand logic
+                details.style.maxHeight = details.scrollHeight + 'px';
+                details.style.opacity = '1';
+                
+                btn.setAttribute('aria-expanded', 'true');
+                btn.querySelector('span').textContent = 'Collapse Details';
+                btn.querySelector('i').className = 'ph ph-caret-up';
+                card.classList.add('is-expanded');
+            }
+        });
+
+        // Listen for transition completion to handle height changes when sub-accordions expand/collapse on mobile
+        details.addEventListener('transitionend', (e) => {
+            if (e.propertyName === 'max-height') {
+                if (btn.getAttribute('aria-expanded') === 'true') {
+                    details.style.maxHeight = 'none';
+                }
+            }
+        });
+    });
+
+    // --- Mobile Detail Subcard Accordions ---
+    const detailCards = document.querySelectorAll('.glass-detail-card');
+    detailCards.forEach(card => {
+        const header = card.querySelector('.detail-card-header');
+        if (header) {
+            header.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    const isActive = card.classList.contains('active');
+                    const parentDetails = card.closest('.project-expanded-details');
+                    
+                    if (parentDetails && parentDetails.style.maxHeight !== 'none') {
+                        parentDetails.style.maxHeight = 'none';
+                    }
+                    
+                    if (isActive) {
+                        card.classList.remove('active');
+                    } else {
+                        // Collapse sibling cards for neat accordion UX
+                        const siblingDetailCards = card.parentElement.querySelectorAll('.glass-detail-card');
+                        siblingDetailCards.forEach(sib => {
+                            sib.classList.remove('active');
+                        });
+                        card.classList.add('active');
+                    }
+                }
+            });
+        }
+    });
+
+    // --- Live Server Uptime & Latency Monitor ---
+    const statusDot = document.getElementById('server-status-dot');
+    const statusText = document.getElementById('server-status-text');
+    if (statusDot && statusText) {
+        const startTime = performance.now();
+        fetch('https://portfolio-backend-api-onqc.onrender.com/health-check', { mode: 'no-cors' })
+            .then(() => {
+                const duration = Math.round(performance.now() - startTime);
+                statusDot.className = 'pulse-dot green';
+                statusText.innerHTML = `API Status: <strong>Online</strong> <span style="opacity: 0.65; font-size: 0.82em; font-weight: normal;">(Ping: ${duration}ms)</span>`;
+            })
+            .catch(err => {
+                statusDot.className = 'pulse-dot red';
+                statusText.innerHTML = `API Status: <strong>Offline</strong>`;
+            });
+    }
+
+    // --- Interactive Card Spotlight Effect ---
+    const glassCards = document.querySelectorAll('.glass:not(.hero-social-icon)');
+    glassCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
 });

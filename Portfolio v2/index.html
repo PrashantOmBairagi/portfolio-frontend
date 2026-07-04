@@ -48,6 +48,8 @@
     <!-- Background Elements for Glassmorphism -->
     <div class="bg-gradient bg-blob-1"></div>
     <div class="bg-gradient bg-blob-2"></div>
+    <div class="bg-gradient bg-blob-3"></div>
+    <div class="bg-gradient bg-blob-4"></div>
 
     <nav class="navbar glass">
         <div class="nav-container">
@@ -385,165 +387,432 @@
 
                 <div class="projects-container">
                     <!-- Project 1 (Flagship) -->
-                    <div class="project-card flagship glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/kharcha_pani_logo.jpg" alt="Kharcha Pani" class="project-img" style="object-position: center;">
+                    <div class="project-card flagship glass reveal-up" id="project-kharcha-pani">
+                        <!-- Flagship Ribbon -->
+                        <div class="flagship-ribbon">
+                            <i class="ph-fill ph-star"></i> Flagship Project
                         </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="flagship-badge"><i class="ph-fill ph-star"></i> FLAGSHIP</span>
-                                <span class="status-badge completed"><i class="ph-fill ph-check-circle"></i> Completed</span>
+                        
+                        <div class="project-collapsed-layout">
+                            <div class="project-image-column">
+                                <img src="assets/kharcha_pani_logo.jpg" alt="Kharcha Pani Logo" class="project-thumbnail" style="object-position: center;">
                             </div>
-                            <h3 class="project-title">Kharcha Pani</h3>
-                            <p class="project-description">
-                                A production-style personal finance backend with 4 core modules (Auth, User, Expense, Analytics), built with Java, Spring Boot, Spring Security, JWT Authentication, MySQL, Docker, and REST APIs. Powers the Kharcha Pani Android app for real-world expense tracking.
-                            </p>
-
-                            <div class="project-stakes glass">
-                                <div class="stake-item">
-                                    <span class="stake-label">THE PROBLEM:</span>
-                                    <span class="stake-text">Personal finance trackers often lack secure token-based authentication, paginated endpoint design, and containerized deployment needed to support live mobile client integrations.</span>
+                            <div class="project-info-column">
+                                <div class="project-card-header">
+                                    <div class="project-title-wrapper">
+                                        <h3 class="project-title">Kharcha Pani</h3>
+                                        <span class="status-badge live"><span class="pulse-dot"></span> Live</span>
+                                    </div>
                                 </div>
-                                <div class="stake-item">
-                                    <span class="stake-label">THE SOLUTION:</span>
-                                    <span class="stake-text">Engineered a production-style Spring Boot API with JWT-based Spring Security, Docker containerization, dynamic database pagination, and Railway deployment to power a live Android client.</span>
+                                <p class="project-tagline">Personal Finance Tracker for Modern India</p>
+                                <p class="project-description">A production-ready backend service built with Spring Boot utilizing a layered architecture (Controller → Service → Repository). Implements robust REST APIs secured via Spring Security and JWT, utilizing DTOs, request validation, global exception handlers, and containerized Docker deployments.</p>
+                                
+                                <div class="project-highlights">
+                                    <span class="highlight-badge"><i class="ph-fill ph-shield-check"></i> JWT Authentication</span>
+                                    <span class="highlight-badge"><i class="ph-fill ph-brackets-curly"></i> REST APIs</span>
+                                    <span class="highlight-badge"><i class="ph-fill ph-android-logo"></i> Android Client</span>
+                                </div>
+                                
+                                <div class="tech-chips">
+                                    <span class="tech-chip">Java</span>
+                                    <span class="tech-chip">Spring Boot</span>
+                                    <span class="tech-chip">Spring Security</span>
+                                    <span class="tech-chip">MySQL</span>
+                                    <span class="tech-chip">Docker</span>
+                                    <span class="tech-chip">Railway</span>
+                                </div>
+                                
+                                <div class="project-actions">
+                                    <a href="https://smart-finance-tracker-v2-1-0.onrender.com/swagger-ui/index.html" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live Demo</a>
+                                    <a href="https://github.com/PrashantOmBairagi/smart-finance-tracker" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
+                                    <a href="https://github.com/PrashantOmBairagi/smart-finance-tracker/releases/latest" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-android-logo"></i> Download APK</a>
+                                    <button class="btn primary-btn small expand-toggle" aria-expanded="false">
+                                        <span>Expand Details</span> <i class="ph ph-caret-down"></i>
+                                    </button>
                                 </div>
                             </div>
-
-                            <div class="project-architecture">
-                                <span class="arch-title">Backend System Architecture:</span>
-                                <div class="arch-strip">
-                                    <span class="arch-node">Android Client</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Spring Security (JWT)</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Controller Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Service Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Repository Layer (JPA)</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">MySQL (Railway)</span>
+                        </div>
+                        
+                        <!-- Expanded Details -->
+                        <div class="project-expanded-details">
+                            <div class="expanded-grid">
+                                <!-- Problem -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-warning-circle text-orange"></i> Problem</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>Generic finance trackers expose little about backend architecture, database optimization, or security standards.</li>
+                                            <li>Hobby applications frequently lack production-level validation, stateless authentication, and error containment.</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                                
+                                <!-- Solution -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-check-circle text-green"></i> Solution</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>Engineered a secure Spring Boot REST API utilizing Controller → Service → Repository layout principles.</li>
+                                            <li>Applied Spring Security token authentication, strict validation layers, and DTO object mapping.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <!-- Key Features -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-list-bullets text-blue"></i> Key Features</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>Stateless session security via custom JWT authentication filters.</li>
+                                            <li>User-isolated database transactions with custom pagination.</li>
+                                            <li>Uniform error responses using global exception controller advices.</li>
+                                            <li>Live API consumption by a native Android client application.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <!-- Architecture (Prominent Card) -->
+                                <div class="glass-detail-card prominent">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-git-branch text-purple"></i> Architecture</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <div class="arch-strip-vertical">
+                                            <span class="arch-node-small">Android Client</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">REST API</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">JWT Auth Filter</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">Controller Layer</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">Service Layer</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">Repository Layer</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">MySQL Database</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Deployment -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-cloud text-cyan"></i> Deployment</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>Containerized using multi-stage Docker builds to ensure runtime environment parity.</li>
+                                            <li>Hosted on Railway cloud platform, connected to a remote managed MySQL database.</li>
+                                            <li>Exposed Swagger UI sandbox for API route testing alongside extensive Postman suites.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <!-- Engineering Metrics (New Card!) -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-chart-bar text-blue"></i> Engineering Metrics</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>12+ RESTful API Endpoints designed.</li>
+                                            <li>Spring Security & Stateless JWT Filters.</li>
+                                            <li>Strict Layered Architecture & DTO Mappings.</li>
+                                            <li>Dockerized and Cloud-deployed Pipeline.</li>
+                                            <li>OpenAPI / Swagger Interactive Documentation.</li>
+                                            <li>Fully Tested and Placement-Ready.</li>
+                                        </ul>
+                                    </div>
+                                </div>
 
-                            <div class="tech-stack">
-                                <span>Java</span>
-                                <span>Spring Boot</span>
-                                <span>Spring Security</span>
-                                <span>JWT Auth</span>
-                                <span>MySQL</span>
-                                <span>Spring Data JPA</span>
-                                <span>Docker</span>
-                                <span>REST APIs</span>
-                                <span>Railway</span>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi/smart-finance-tracker" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub Repo</a>
-                                <a href="https://smart-finance-tracker-v2-1-0.onrender.com/swagger-ui/index.html" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live Demo</a>
-                                <a href="https://github.com/PrashantOmBairagi/smart-finance-tracker/releases/latest" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-android-logo"></i> Download APK</a>
+                                <!-- Future Roadmap -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-rocket-launch text-gold"></i> Future Roadmap</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>Redis caching integrations to scale analytical query performance.</li>
+                                            <li>Docker Compose set up for multi-container local deployments.</li>
+                                            <li>CI/CD pipelines to automate testing and build stages.</li>
+                                            <li>Increased JUnit 5 and Mockito unit and integration test coverage.</li>
+                                            <li>Automated analytics engine for recurring transaction forecasts.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Project 2 (Contact API - Production Utility) -->
-                    <div class="project-card glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/contact-api.png" alt="Portfolio Contact API" class="project-img">
+                    <div class="project-card glass reveal-up" id="project-contact-api">
+                        <div class="project-collapsed-layout">
+                            <div class="project-image-column">
+                                <img src="assets/contact-api.png" alt="Portfolio Contact API Logo" class="project-thumbnail" style="object-position: center;">
+                            </div>
+                            <div class="project-info-column">
+                                <div class="project-card-header">
+                                    <div class="project-title-wrapper">
+                                        <h3 class="project-title">Portfolio Contact API</h3>
+                                        <span class="status-badge live"><span class="pulse-dot"></span> Live</span>
+                                    </div>
+                                </div>
+                                <p class="project-tagline">Production Utility Backend API</p>
+                                <p class="project-description">A deployed Spring Boot backend powering my portfolio website's contact system, featuring Neon PostgreSQL database persistence, CORS security filters, and request validation.</p>
+                                
+                                <div class="project-highlights">
+                                    <span class="highlight-badge"><i class="ph-fill ph-database"></i> PostgreSQL</span>
+                                    <span class="highlight-badge"><i class="ph-fill ph-brackets-curly"></i> REST APIs</span>
+                                    <span class="highlight-badge"><i class="ph-fill ph-cloud"></i> Cloud Deployed</span>
+                                </div>
+                                
+                                <div class="tech-chips">
+                                    <span class="tech-chip">Java</span>
+                                    <span class="tech-chip">Spring Boot</span>
+                                    <span class="tech-chip">PostgreSQL</span>
+                                    <span class="tech-chip">Spring Data JPA</span>
+                                    <span class="tech-chip">Hibernate</span>
+                                    <span class="tech-chip">Render</span>
+                                </div>
+                                
+                                <div class="project-actions">
+                                    <a href="https://portfolio-backend-api-onqc.onrender.com/health-check" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live API</a>
+                                    <a href="https://github.com/PrashantOmBairagi/portfolio-backend-api" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
+                                    <button class="btn primary-btn small expand-toggle" aria-expanded="false">
+                                        <span>Expand Details</span> <i class="ph ph-caret-down"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="status-badge completed"><span class="dot"></span> Deployed • Live</span>
-                            </div>
-                            <h3 class="project-title">Portfolio Contact API</h3>
-                            <p class="project-description">
-                                A deployed Spring Boot backend powering my portfolio website’s contact system. Designed to handle real user submissions through REST APIs with database persistence, validation, exception handling, and cloud deployment.
-                            </p>
-
-                            <div class="project-stakes glass">
-                                <div class="stake-item">
-                                    <span class="stake-label">THE PROBLEM:</span>
-                                    <span class="stake-text">Static portfolio contact forms often do nothing or rely entirely on third-party services, offering little backend ownership, database control, or real engineering experience.</span>
+                        
+                        <!-- Expanded Details -->
+                        <div class="project-expanded-details">
+                            <div class="expanded-grid">
+                                <!-- Problem -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-warning-circle text-orange"></i> Problem</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <p>Static portfolio contact forms often rely on third-party mailer services, offering zero ownership over backend pipelines, database storage logs, or security configuration.</p>
+                                    </div>
                                 </div>
-                                <div class="stake-item">
-                                    <span class="stake-label">THE SOLUTION:</span>
-                                    <span class="stake-text">Designed and deployed a Spring Boot REST API that processes portfolio contact submissions, validates incoming requests, stores messages in Neon PostgreSQL, handles exceptions gracefully, and integrates seamlessly with a live frontend.</span>
+                                
+                                <!-- Solution -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-check-circle text-green"></i> Solution</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <p>Developed and deployed a custom Spring Boot REST service that handles form submissions, validates user inputs, and records messages in a secure relational database.</p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="project-architecture">
-                                <span class="arch-title">Backend System Architecture:</span>
-                                <div class="arch-strip">
-                                    <span class="arch-node">Portfolio Frontend (Vercel)</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">REST API Endpoint</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Controller Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Service Layer</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Repository Layer (JPA)</span>
-                                    <i class="ph ph-caret-right"></i>
-                                    <span class="arch-node">Neon PostgreSQL (Render)</span>
+                                
+                                <!-- Key Features -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-list-bullets text-blue"></i> Key Features</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>Strict email formatting & field validation</li>
+                                            <li>Cross-Origin Resource Sharing (CORS) security filters</li>
+                                            <li>Global exception handling for API failures</li>
+                                            <li>Automated health check endpoints</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="tech-stack">
-                                <span>Java</span>
-                                <span>Spring Boot</span>
-                                <span>REST APIs</span>
-                                <span>PostgreSQL</span>
-                                <span>Hibernate</span>
-                                <span>Spring Data JPA</span>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi/portfolio-backend-api" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub Repo</a>
-                                <a href="https://portfolio-backend-api-onqc.onrender.com/health-check" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live API</a>
+                                
+                                <!-- Architecture -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-git-branch text-purple"></i> Architecture</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <div class="arch-strip-vertical">
+                                            <span class="arch-node-small">Portfolio Frontend</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">REST Endpoint (POST)</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">Controller & Service Layers</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">Neon PostgreSQL (Render)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Deployment -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-cloud text-cyan"></i> Deployment</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <p>Deployed as a production web service on Render, integrating seamlessly with a cloud database hosted on Neon serverless PostgreSQL.</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Future Roadmap -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-rocket-launch text-gold"></i> Future Roadmap</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>SMTP integration for instant email forwarding</li>
+                                            <li>Spam prevention via Bucket4j api rate-limiting</li>
+                                            <li>Admin dashboard for viewing submissions</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Project 3 -->
-                    <div class="project-card glass reveal-up">
-                        <div class="project-image">
-                            <img src="assets/Central lock schematic.png" alt="Smart Central Locking System Schematic"
-                                class="project-img" style="object-position: center top;">
+                    <div class="project-card glass reveal-up" id="project-locking-system">
+                        <div class="project-collapsed-layout">
+                            <div class="project-image-column">
+                                <img src="assets/Central lock schematic.png" alt="Smart Central Locking System Schematic" class="project-thumbnail" style="object-position: center top;">
+                            </div>
+                            <div class="project-info-column">
+                                <div class="project-card-header">
+                                    <div class="project-title-wrapper">
+                                        <h3 class="project-title">Smart Central Locking System</h3>
+                                        <span class="status-badge completed"><i class="ph-fill ph-check-circle"></i> Completed</span>
+                                    </div>
+                                </div>
+                                <p class="project-tagline">Embedded Access Control System</p>
+                                <p class="project-description">An independently designed and deployed hardware transceiver system running on ATmega328 logic to actuate driver-door linkages remotely via 433 MHz RF signals.</p>
+                                
+                                <div class="project-highlights">
+                                    <span class="highlight-badge"><i class="ph-fill ph-radio"></i> RF Communication</span>
+                                    <span class="highlight-badge"><i class="ph-fill ph-cpu"></i> Embedded Logic</span>
+                                    <span class="highlight-badge"><i class="ph-fill ph-car"></i> Vehicle Deployed</span>
+                                </div>
+                                
+                                <div class="tech-chips">
+                                    <span class="tech-chip">ATmega328</span>
+                                    <span class="tech-chip">Arduino</span>
+                                    <span class="tech-chip">RF 433 MHz</span>
+                                    <span class="tech-chip">Circuit Design</span>
+                                    <span class="tech-chip">Relay Logic</span>
+                                    <span class="tech-chip">Embedded C++</span>
+                                </div>
+                                
+                                <div class="project-actions">
+                                    <a href="https://github.com/PrashantOmBairagi/Smart-Central-Locking-System" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
+                                    <button class="btn primary-btn small expand-toggle" aria-expanded="false">
+                                        <span>Expand Details</span> <i class="ph ph-caret-down"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="project-content">
-                            <div class="project-header">
-                                <span class="status-badge completed"><i class="ph-fill ph-check-circle"></i>
-                                    Completed</span>
-                            </div>
-                            <h3 class="project-title">Smart Central Locking System</h3>
-                            <p class="project-description">
-                                Independently designed and deployed an embedded security system with ATmega328 microcontroller, RF communication (433 MHz), and actuator control. Installed in a personal vehicle and in continuous daily use for over a year, reliably solving a real-world access control problem.
-                            </p>
-
-                            <div class="project-stakes glass">
-                                <div class="stake-item">
-                                    <span class="stake-label">THE PROBLEM:</span>
-                                    <span class="stake-text">Older car models lack modern wireless entry options, making key-entry manual and vulnerable.</span>
+                        
+                        <!-- Expanded Details -->
+                        <div class="project-expanded-details">
+                            <div class="expanded-grid">
+                                <!-- Problem -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-warning-circle text-orange"></i> Problem</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <p>Older vehicles lack modern wireless entry capabilities, and retail retrofitting kits are expensive, complex, and lack customizations or low-power optimizations.</p>
+                                    </div>
                                 </div>
-                                <div class="stake-item">
-                                    <span class="stake-label">THE SOLUTION:</span>
-                                    <span class="stake-text">Engineered a robust hardware transceiver controller built on ATmega328 logic to actuate driver-door linkages remotely.</span>
+                                
+                                <!-- Solution -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-check-circle text-green"></i> Solution</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <p>Engineered an independent transceiver hardware controller built around ATmega328 logic, actuating driver-door physical locking linkages via RF.</p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="tech-stack">
-                                <span>ATmega328</span>
-                                <span>Arduino</span>
-                                <span>RF 433 MHz</span>
-                                <span>Circuit Design</span>
-                                <span>Embedded Systems</span>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/PrashantOmBairagi/Smart-Central-Locking-System"
-                                    target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i
-                                        class="ph ph-github-logo"></i> GitHub Repo</a>
+                                
+                                <!-- Key Features -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-list-bullets text-blue"></i> Key Features</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>433 MHz RF transmitter/receiver pairs</li>
+                                            <li>Custom signal preamble matching for noise rejection</li>
+                                            <li>High-current relay driver module interface</li>
+                                            <li>Continuous daily reliability for over a year</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <!-- Architecture -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-git-branch text-purple"></i> Architecture</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <div class="arch-strip-vertical">
+                                            <span class="arch-node-small">RF Remote Control</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">ATmega328 Decoder</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">Relay Actuator Drivers</span>
+                                            <i class="ph ph-caret-down"></i>
+                                            <span class="arch-node-small">Mechanical Linkages</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Deployment -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-cloud text-cyan"></i> Deployment</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <p>Installed inside a protective junction box inside the vehicle cabin. Wire-tapped directly into the vehicle's electrical distribution and central locking actuators.</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Future Roadmap -->
+                                <div class="glass-detail-card">
+                                    <div class="detail-card-header">
+                                        <span class="detail-card-title"><i class="ph-fill ph-rocket-launch text-gold"></i> Future Roadmap</span>
+                                        <i class="ph ph-caret-down detail-card-caret"></i>
+                                    </div>
+                                    <div class="detail-card-body">
+                                        <ul>
+                                            <li>AES-128 rolling-code security algorithms</li>
+                                            <li>Smartphone unlocking via Bluetooth module</li>
+                                            <li>Backup physical override key switch</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -657,6 +926,10 @@
                         
                         <!-- Annotation removed from here, moved to message group -->
                         <form id="contact-form" class="contact-form">
+                            <div class="server-status-widget form-status-widget">
+                                <span class="pulse-dot grey" id="server-status-dot"></span>
+                                <span id="server-status-text">API Status: Connecting...</span>
+                            </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="name">Name <span class="required-asterisk">*</span></label>
