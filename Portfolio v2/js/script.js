@@ -48,18 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeIcon('dark');
     }
 
-    let animIndex = 0;
-    const animTypes = ['clip', 'slide', 'scale'];
-
     themeToggleBtn.addEventListener('click', (e) => {
         const currentTheme = htmlElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        const animType = animTypes[animIndex];
-        animIndex = (animIndex + 1) % animTypes.length;
-
-        // Set animation type for CSS
-        htmlElement.setAttribute('data-theme-anim', animType);
         htmlElement.classList.add('theme-transitioning');
 
         // Function to update the actual theme
@@ -76,33 +68,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 htmlElement.classList.remove('theme-transitioning');
             });
 
-            if (animType === 'clip') {
-                // Get the click position, or fallback to center of the screen
-                const x = e?.clientX ?? innerWidth / 2;
-                const y = e?.clientY ?? innerHeight / 2;
-                
-                // Calculate distance to the furthest corner
-                const endRadius = Math.hypot(
-                    Math.max(x, innerWidth - x),
-                    Math.max(y, innerHeight - y)
+            // Start from top-left (0, 0)
+            const x = 0;
+            const y = 0;
+            const endRadius = Math.hypot(innerWidth, innerHeight);
+            
+            transition.ready.then(() => {
+                document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(0px at ${x}px ${y}px)`,
+                            `circle(${endRadius}px at ${x}px ${y}px)`,
+                        ],
+                    },
+                    {
+                        duration: 700,
+                        easing: 'ease-in-out',
+                        pseudoElement: '::view-transition-new(root)',
+                    }
                 );
-                
-                transition.ready.then(() => {
-                    document.documentElement.animate(
-                        {
-                            clipPath: [
-                                `circle(0px at ${x}px ${y}px)`,
-                                `circle(${endRadius}px at ${x}px ${y}px)`,
-                            ],
-                        },
-                        {
-                            duration: 600,
-                            easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-                            pseudoElement: '::view-transition-new(root)',
-                        }
-                    );
-                });
-            }
+            });
         } else {
             // Fallback for browsers that don't support View Transitions
             executeThemeChange();
