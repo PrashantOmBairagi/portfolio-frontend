@@ -2763,8 +2763,8 @@ html.theme-transitioning * {
 
 html::view-transition-old(root),
 html::view-transition-new(root) {
-  animation-duration: 0.5s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
   mix-blend-mode: normal;
 }
 
@@ -2785,14 +2785,14 @@ html::view-transition-new(root) {
   }
   to {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale(1.08);
   }
 }
 
 @keyframes scale-fade-in {
   from {
     opacity: 0;
-    transform: scale(1.04);
+    transform: scale(0.92);
   }
   to {
     opacity: 1;
