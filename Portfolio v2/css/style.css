@@ -2761,19 +2761,19 @@ html.theme-transitioning * {
     transition: none !important;
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
+html::view-transition-old(root),
+html::view-transition-new(root) {
   animation-duration: 0.5s;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root) {
+html::view-transition-old(root) {
     animation-name: scale-fade-out;
     z-index: 1;
 }
 
-::view-transition-new(root) {
+html::view-transition-new(root) {
     animation-name: scale-fade-in;
     z-index: 2;
 }
