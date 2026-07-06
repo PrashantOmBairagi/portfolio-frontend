@@ -67,27 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
             transition.finished.finally(() => {
                 htmlElement.classList.remove('theme-transitioning');
             });
-
-            // Start from top-left (0, 0)
-            const x = 0;
-            const y = 0;
-            const endRadius = Math.hypot(innerWidth, innerHeight);
-            
-            transition.ready.then(() => {
-                document.documentElement.animate(
-                    {
-                        clipPath: [
-                            `circle(0px at ${x}px ${y}px)`,
-                            `circle(${endRadius}px at ${x}px ${y}px)`,
-                        ],
-                    },
-                    {
-                        duration: 700,
-                        easing: 'ease-in-out',
-                        pseudoElement: '::view-transition-new(root)',
-                    }
-                );
-            });
         } else {
             // Fallback for browsers that don't support View Transitions
             executeThemeChange();
