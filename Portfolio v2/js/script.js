@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Set animation type for CSS
         htmlElement.setAttribute('data-theme-anim', animType);
+        htmlElement.classList.add('theme-transitioning');
 
         // Function to update the actual theme
         const executeThemeChange = () => {
@@ -70,6 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (document.startViewTransition) {
             const transition = document.startViewTransition(executeThemeChange);
+
+            transition.finished.finally(() => {
+                htmlElement.classList.remove('theme-transitioning');
+            });
 
             if (animType === 'clip') {
                 // Get the click position, or fallback to center of the screen

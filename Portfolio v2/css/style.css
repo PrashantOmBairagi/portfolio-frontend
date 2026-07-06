@@ -2756,17 +2756,27 @@ ul {
 }
 
 /* --- Theme View Transitions --- */
+html.theme-transitioning,
+html.theme-transitioning * {
+    transition: none !important;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* Disable default mix-blend-mode for all theme animations */
+html[data-theme-anim]::view-transition-old(root),
+html[data-theme-anim]::view-transition-new(root) {
+    mix-blend-mode: normal;
+}
+
 /* 1. Clip */
 html[data-theme-anim="clip"]::view-transition-old(root),
 html[data-theme-anim="clip"]::view-transition-new(root) {
     animation: none;
-    mix-blend-mode: normal;
 }
 html[data-theme-anim="clip"]::view-transition-old(root) {
     z-index: 1;
