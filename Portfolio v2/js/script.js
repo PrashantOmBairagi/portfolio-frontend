@@ -48,13 +48,60 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeIcon('dark');
     }
 
-    themeToggleBtn.addEventListener('click', () => {
+    let animIndex = 0;
+    const animTypes = ['clip', 'slide', 'scale'];
+
+    themeToggleBtn.addEventListener('click', (e) => {
         const currentTheme = htmlElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        htmlElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
+        const animType = animTypes[animIndex];
+        animIndex = (animIndex + 1) % animTypes.length;
+
+        // Set animation type for CSS
+        htmlElement.setAttribute('data-theme-anim', animType);
+
+        // Function to update the actual theme
+        const executeThemeChange = () => {
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        };
+
+        if (document.startViewTransition) {
+            const transition = document.startViewTransition(executeThemeChange);
+
+            if (animType === 'clip') {
+                // Get the click position, or fallback to center of the screen
+                const x = e?.clientX ?? innerWidth / 2;
+                const y = e?.clientY ?? innerHeight / 2;
+                
+                // Calculate distance to the furthest corner
+                const endRadius = Math.hypot(
+                    Math.max(x, innerWidth - x),
+                    Math.max(y, innerHeight - y)
+                );
+                
+                transition.ready.then(() => {
+                    document.documentElement.animate(
+                        {
+                            clipPath: [
+                                `circle(0px at ${x}px ${y}px)`,
+                                `circle(${endRadius}px at ${x}px ${y}px)`,
+                            ],
+                        },
+                        {
+                            duration: 600,
+                            easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                            pseudoElement: '::view-transition-new(root)',
+                        }
+                    );
+                });
+            }
+        } else {
+            // Fallback for browsers that don't support View Transitions
+            executeThemeChange();
+        }
     });
 
     function updateThemeIcon(theme) {
