@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 8000);
             
             try {
-                const response = await fetch('https://43.204.7.243/api/contacts', {
+                const response = await fetch('https://43.204.7.243/contact-api/api/contacts', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
