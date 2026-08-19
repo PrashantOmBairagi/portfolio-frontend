@@ -6,17 +6,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prashant Bairagi | Java Backend Developer</title>
     <meta name="description"
-        content="Portfolio of Prashant Bairagi, a Java Backend Developer in Progress building practical systems with real-world engineering fundamentals.">
+        content="Portfolio of Prashant Bairagi, a Java Backend Developer building high-availability APIs with Spring Boot on real production infrastructure.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Prashant Bairagi">
+    <meta name="theme-color" content="#f5f5f7">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="canonical" href="https://prashant-bairagi-portfolio.vercel.app/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Prashant Bairagi | Java Backend Developer">
+    <meta property="og:title" content="Prashant Bairagi | Java Backend Developer">
+    <meta property="og:description"
+        content="Portfolio of Prashant Bairagi, a Java Backend Developer building high-availability APIs with Spring Boot on real production infrastructure.">
+    <meta property="og:url" content="https://prashant-bairagi-portfolio.vercel.app/">
+    <meta property="og:image" content="https://prashant-bairagi-portfolio.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Prashant Bairagi | Java Backend Developer">
+    <meta name="twitter:description"
+        content="Portfolio of Prashant Bairagi, a Java Backend Developer building high-availability APIs with Spring Boot on real production infrastructure.">
+    <meta name="twitter:image" content="https://prashant-bairagi-portfolio.vercel.app/og-image.png">
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <noscript>
+        <style>
+            .reveal-up { opacity: 1 !important; transform: none !important; transition: none !important; }
+        </style>
+    </noscript>
+
+    <!-- Structured Data: Person -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://prashant-bairagi-portfolio.vercel.app/#person",
+        "name": "Prashant Bairagi",
+        "url": "https://prashant-bairagi-portfolio.vercel.app/",
+        "image": "https://prashant-bairagi-portfolio.vercel.app/og-image.png",
+        "jobTitle": "Java Backend Developer",
+        "email": "hello.prashantbairagi@gmail.com",
+        "alumniOf": "Jabalpur Engineering College",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Jabalpur",
+            "addressRegion": "Madhya Pradesh",
+            "addressCountry": "IN"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/in/prashant-bairagi-kmlpr/",
+            "https://github.com/PrashantOmBairagi",
+            "https://leetcode.com/u/prashantbairagi2018/"
+        ],
+        "knowsAbout": [
+            "Java",
+            "Spring Boot",
+            "Spring Security",
+            "REST APIs",
+            "MySQL",
+            "PostgreSQL",
+            "Docker",
+            "Data Structures and Algorithms"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://prashant-bairagi-portfolio.vercel.app/#website",
+        "name": "Prashant Bairagi | Java Backend Developer",
+        "url": "https://prashant-bairagi-portfolio.vercel.app/",
+        "description": "Portfolio of Prashant Bairagi, a Java Backend Developer building high-availability APIs with Spring Boot on real production infrastructure.",
+        "inLanguage": "en",
+        "author": {
+            "@id": "https://prashant-bairagi-portfolio.vercel.app/#person"
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -45,19 +127,16 @@
         </defs>
     </svg>
 
-    <!-- Background Elements for Glassmorphism -->
-    <div class="bg-gradient bg-blob-1"></div>
-    <div class="bg-gradient bg-blob-2"></div>
-    <div class="bg-gradient bg-blob-3"></div>
-    <div class="bg-gradient bg-blob-4"></div>
+    <!-- Solar System Background Layer (stars + debris) -->
+    <div class="space-bg" aria-hidden="true"></div>
 
     <nav class="navbar glass">
         <div class="nav-container">
-            <a href="#" class="nav-brand">PB.</a>
+            <a href="#" class="nav-brand"><span class="brand-full">PRASHANT BAIRAGI</span><span class="brand-short">PB.</span></a>
             <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -67,7 +146,7 @@
                 </button>
                 <a href="#contact" class="btn nav-btn">Open to Work ↗</a>
 
-                <button class="mobile-menu-toggle icon-btn" aria-label="Toggle Menu">
+                <button class="mobile-menu-toggle icon-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-menu">
                     <i class="ph ph-list"></i>
                 </button>
             </div>
@@ -75,11 +154,11 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu glass">
+    <div class="mobile-menu glass" id="mobile-menu">
         <ul class="mobile-nav-links">
+            <li><a href="#projects">Projects</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
             <li><a href="#certifications">Certifications</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -89,37 +168,23 @@
     <main>
         <!-- Hero Section -->
         <section id="hero" class="hero section">
+            <!-- Hero environment background: day (light) / night (dark) -->
+            <div class="hero-env" aria-hidden="true"></div>
             <div class="container hero-container">
                 <div class="hero-content reveal-up">
-                    <div class="availability-badge glass">
-                        <span class="pulse-dot"></span>
-                        Available for Internships (July–August 2026)
-                    </div>
+                    <h1 class="headline">The server side, <span class="highlight">done right.</span></h1>
 
-                    <h1 class="headline">PRASHANT BAIRAGI</h1>
-
-                    <h2 class="subheadline">
-                        <span class="highlight">Backend Developer building secure, production-grade Java APIs</span>
-                    </h2>
-
-                    <p class="intro-text">
-                        I build practical, high-performance systems through Java, Spring Boot, REST APIs, and strong algorithmic problem-solving fundamentals.
+<p class="intro-text">
+                        I'm a backend developer focused on shipping high-availability Java and Spring Boot APIs. I handle the infrastructure so your products never stop working.
                     </p>
-
-                    <div class="hero-badges">
-                        <span class="hero-badge"><i class="ph ph-terminal"></i> 2+ Years Coding</span>
-                        <span class="hero-badge"><i class="ph ph-trend-up"></i> 200+ LeetCode</span>
-                        <span class="hero-badge"><i class="ph ph-coffee"></i> Java + Spring Boot</span>
-                        <span class="hero-badge"><i class="ph ph-server"></i> Backend Engineering</span>
-                    </div>
 
                     <div class="hero-cta">
                         <a href="#projects" class="btn primary-btn">View Projects</a>
                         <a href="assets/resume.pdf" class="btn secondary-btn" target="_blank"
                             rel="noopener noreferrer">Download Resume</a>
                     </div>
-                    <div class="resume-updated-wrapper reveal-up delay-1" style="margin-bottom: 2.75rem;">
-                        <span class="resume-updated"><i class="ph ph-check-circle" style="margin-right: 4px;"></i> Resume updated: July 2026</span>
+                    <div class="resume-updated-wrapper reveal-up delay-1">
+                        <span class="resume-updated"><i class="ph ph-check-circle"></i> Resume updated: August 2026</span>
                     </div>
                     
                     <div class="hero-social-links reveal-up delay-2">
@@ -145,12 +210,14 @@
                             <span class="dot red"></span>
                             <span class="dot yellow"></span>
                             <span class="dot green"></span>
-                            <span class="code-title">ExpenseController.java</span>
+                            <span class="code-title">KharchaPaniController.java</span>
+                            <span class="code-live"><span class="pulse-dot"></span> LIVE</span>
                         </div>
                         <div class="code-body">
-                            <pre><code><span class="keyword">@RestController</span>
+                            <pre><code><span class="comment">// Kharcha Pani - serving real users · Docker + Nginx on AWS EC2</span>
+<span class="keyword">@RestController</span>
 <span class="keyword">@RequestMapping</span>(<span class="string">"/api/v1/expenses"</span>)
-<span class="keyword">public class</span> <span class="class-name">ExpenseController</span> {
+<span class="keyword">public class</span> <span class="class-name">KharchaPaniController</span> {
 
     <span class="keyword">@PostMapping</span>
     <span class="keyword">public</span> ResponseEntity&lt;ExpenseResponse&gt; <span class="method">createExpense</span>(
@@ -161,229 +228,48 @@
             .body(expenseService.save(req));
     }<span class="code-caret" aria-hidden="true"></span></code></pre>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about section">
-            <div class="container">
-                <h2 class="section-title reveal-up">About Me</h2>
-
-                <div class="about-layout reveal-up">
-                    <div class="about-left">
-                        <div class="about-card glass">
-                            <div class="about-text">
-                                <p>I’m a 7th-semester Electronics & Telecommunication Engineering student at <strong>Jabalpur Engineering College</strong> with a strong focus on Java backend development, Spring Boot, REST APIs, and database design.</p>
-                                <p>My engineering journey began with hardware prototyping, RF communication, and embedded systems — building practical projects that built a solid foundation for structural logic, low-level debugging, and problem-solving. Today, I channel that developer mindset entirely into building robust, scalable backend architectures and mastering algorithmic challenges.</p>
-                                <p class="core-goal" style="margin-bottom: 0;"><strong>At the core of everything is a simple goal: build meaningful systems, achieve financial stability, and create a future where my family never feels limited again.</strong></p>
-                            </div>
-                            
-                            <blockquote class="about-quote" style="margin: 2rem 0 0 0; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 3px solid var(--accent-blue); padding-left: 1.5rem; font-size: 0.95rem; padding-top: 0.25rem; padding-bottom: 0.25rem;">
-                                “Each keystroke I make today is a quiet rebellion — against my past, my fears, and the version of me
-                                that settles. I build not just to create, but to rise.”
-                            </blockquote>
-                        </div>
-                    </div>
-                    
-                    <div class="about-right">
-                        <!-- Education Card (B.Tech) -->
-                        <div class="education-card glass"
-                            style="margin-bottom: 1.25rem; padding: 1.75rem; display: flex; align-items: center; gap: 1.25rem; border-radius: var(--border-radius-lg); border: 1px solid var(--glass-border);">
-                            <div class="edu-icon"
-                                style="font-size: 2.2rem; color: var(--text-primary); display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(134, 134, 139, 0.1); border-radius: 50%; flex-shrink: 0;">
-                                <i class="ph ph-graduation-cap"></i>
-                            </div>
-                            <div class="edu-details">
-                                <h3 style="margin-bottom: 0.25rem; font-size: 1.15rem; font-weight: 600;">B.Tech in Electronics &amp; Telecommunication</h3>
-                                <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 0; line-height: 1.4;">Jabalpur Engineering College (JEC) | 2023–2027<br>CGPA: 6.8</p>
-                            </div>
-                        </div>
-                        
-                        <!-- 2x2 Stats Grid -->
-                        <div class="stats-grid-2x2">
-                            <a href="https://leetcode.com/u/prashantbairagi2018/" target="_blank" rel="noopener noreferrer" class="stat-card glass" style="padding: 1.5rem 1.25rem; text-decoration: none; display: block; border: 1px solid var(--glass-border);">
-                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">200+</h3>
-                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">LeetCode Problems</p>
-                            </a>
-                            <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="stat-card glass" style="padding: 1.5rem 1.25rem; text-decoration: none; display: block; border: 1px solid var(--glass-border);">
-                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">3+</h3>
-                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">Major Projects</p>
-                            </a>
-                            <div class="stat-card glass" style="padding: 1.5rem 1.25rem; border: 1px solid var(--glass-border);">
-                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Java</h3>
-                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">Backend Focus</p>
-                            </div>
-                            <div class="stat-card glass" style="padding: 1.5rem 1.25rem; border: 1px solid var(--glass-border);">
-                                <h3 class="stat-number" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Jul–Aug '26</h3>
-                                <p class="stat-label" style="font-size: 0.82rem; margin: 0;">Internship Ready</p>
-                            </div>
-                        </div>
-                        
-                        <!-- GitHub Activity Strip nested at bottom of right column -->
-                        <div class="github-activity-strip glass" style="margin-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-radius: var(--border-radius-lg); gap: 1rem; flex-wrap: wrap; border: 1px solid var(--glass-border);">
-                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                <div style="font-size: 1.75rem; color: var(--text-primary); display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; background: rgba(134, 134, 139, 0.1); border-radius: 50%; flex-shrink: 0;">
-                                    <i class="ph ph-git-branch"></i>
-                                </div>
-                                <div>
-                                    <h4 style="margin: 0 0 0.1rem 0; font-size: 0.95rem; font-weight: 600;">GitHub Activity</h4>
-                                    <p style="color: var(--text-secondary); font-size: 0.8rem; margin: 0; line-height: 1.3;">Regular commits pushing updates to backend codebases.</p>
-                                </div>
-                            </div>
-                            <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; padding: 0.4rem 0.8rem;"><i class="ph ph-github-logo"></i> Verify Commits</a>
+                        <div class="code-statusbar">
+                            <span class="pulse-dot"></span>
+                            <span>open to internships</span>
+                            <span class="status-user">prashant@bairagi</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="skills section">
-            <div class="container">
-                <div class="skills-header reveal-up">
-                    <h2 class="section-title" style="margin-bottom: 1rem;">Technical Skills</h2>
-                    <div class="title-underline"></div>
-                    <p class="skills-subtitle">Technical foundations built through backend development, problem-solving,
-                        and real-world engineering projects.</p>
-                </div>
-
-                <div class="skills-grid">
-                    <!-- Card 1: Primary -->
-                    <div class="skill-card primary-card glass reveal-up">
-                        <div class="skill-icon-wrapper">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
-                                alt="Java" class="skill-icon">
-                        </div>
-                        <h3 class="skill-title">Java & Backend Development</h3>
-                        <p class="skill-desc">Building backend systems using Java and Spring Boot.</p>
-                        <div class="skill-chips">
-                            <span class="skill-chip">Java</span>
-                            <span class="skill-chip">Spring Boot</span>
-                            <span class="skill-chip">REST APIs</span>
-                            <span class="skill-chip">OOP</span>
-                            <span class="skill-chip">CRUD</span>
-                            <span class="skill-chip">API Design</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="skill-card glass reveal-up delay-1">
-                        <div class="skill-icon-wrapper" style="color: #3b82f6; font-size: 1.8rem;">
-                            <i class="ph-fill ph-code"></i>
-                        </div>
-                        <h3 class="skill-title">Programming Languages</h3>
-                        <p class="skill-desc">Languages I use for backend systems, algorithms, and engineering.</p>
-                        <div class="skill-chips">
-                            <span class="skill-chip">Java</span>
-                            <span class="skill-chip">SQL</span>
-                            <span class="skill-chip">Python</span>
-                            <span class="skill-chip">C++</span>
-                            <span class="skill-chip">OOP</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="skill-card glass reveal-up delay-2">
-                        <div class="skill-icon-wrapper" style="color: #f59e0b; font-size: 1.8rem;">
-                            <i class="ph-fill ph-tree-structure"></i>
-                        </div>
-                        <h3 class="skill-title">Data Structures & Algorithms</h3>
-                        <p class="skill-desc">200+ LeetCode problems. Strong fundamentals in problem-solving.</p>
-                        <div class="skill-chips">
-                            <span class="skill-chip highlight">200+ LeetCode</span>
-                            <span class="skill-chip">Arrays</span>
-                            <span class="skill-chip">Recursion</span>
-                            <span class="skill-chip">Linked Lists</span>
-                            <span class="skill-chip">Trees</span>
-                            <span class="skill-chip">Sorting</span>
-                            <span class="skill-chip">Problem Solving</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="skill-card glass reveal-up">
-                        <div class="skill-icon-wrapper">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-                                alt="MySQL" class="skill-icon">
-                        </div>
-                        <h3 class="skill-title">Database Design & SQL</h3>
-                        <div class="nptel-badge"><i class="ph-fill ph-certificate"></i> ELITE NPTEL DBMS Certified</div>
-                        <p class="skill-desc">Working with relational databases for backend systems.</p>
-                        <div class="skill-chips">
-                            <span class="skill-chip">MySQL</span>
-                            <span class="skill-chip">PostgreSQL</span>
-                            <span class="skill-chip">SQL</span>
-                            <span class="skill-chip">Normalization</span>
-                            <span class="skill-chip">Queries</span>
-                            <span class="skill-chip">DBMS</span>
-                            <span class="skill-chip">Relational Databases</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 5 -->
-                    <div class="skill-card glass reveal-up delay-1">
-                        <div class="skill-icon-wrapper">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
-                                alt="Spring" class="skill-icon">
-                        </div>
-                        <h3 class="skill-title">Backend Security &amp; Architecture</h3>
-                        <p class="skill-desc">Designing secure architectures, API rules, and robust server frameworks.</p>
-                        <div class="skill-chips">
-                            <span class="skill-chip">Spring Security</span>
-                            <span class="skill-chip">JWT Auth</span>
-                            <span class="skill-chip">DTO Design</span>
-                            <span class="skill-chip">Validation</span>
-                            <span class="skill-chip">Exception Handling</span>
-                            <span class="skill-chip">Layered Architecture</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 6: Background context only -->
-                    <div class="skill-card subtle-card--heavy glass reveal-up delay-2">
-                        <div class="skill-icon-wrapper">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original.svg"
-                                alt="Embedded" class="skill-icon">
-                        </div>
-                        <h3 class="skill-title">Embedded Systems & Hardware</h3>
-                        <p class="skill-desc">Built real-world embedded projects using microcontrollers and RF.</p>
-                        <div class="skill-chips">
-                            <span class="skill-chip">Arduino</span>
-                            <span class="skill-chip">ATmega328</span>
-                            <span class="skill-chip">RF Communication</span>
-                            <span class="skill-chip">PCB Design</span>
-                            <span class="skill-chip">Embedded Logic</span>
-                            <span class="skill-chip">Hardware Prototyping</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 7 -->
-                    <div class="skill-card glass reveal-up">
-                        <div class="skill-icon-wrapper">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-                                alt="Git" class="skill-icon">
-                        </div>
-                        <h3 class="skill-title">Developer Tools</h3>
-                        <p class="skill-desc">Tools used in backend development and project workflows.</p>
-                        <div class="skill-chips">
-                            <span class="skill-chip">IntelliJ IDEA</span>
-                            <span class="skill-chip">Git</span>
-                            <span class="skill-chip">GitHub</span>
-                            <span class="skill-chip">VS Code</span>
-                            <span class="skill-chip">Postman</span>
-                            <span class="skill-chip">Maven</span>
-                            <span class="skill-chip">Swagger / OpenAPI</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Tech Ticker — running skills strip bridging hero and projects -->
+        <div class="tech-ticker" aria-hidden="true">
+            <div class="tech-ticker-track">
+                <span class="tech-ticker-item">JAVA</span>
+                <span class="tech-ticker-item">SPRING BOOT</span>
+                <span class="tech-ticker-item">SPRING SECURITY</span>
+                <span class="tech-ticker-item">REST APIs</span>
+                <span class="tech-ticker-item">SPRING DATA JPA</span>
+                <span class="tech-ticker-item">MYSQL</span>
+                <span class="tech-ticker-item">POSTGRESQL</span>
+                <span class="tech-ticker-item">DOCKER</span>
+                <span class="tech-ticker-item">JWT AUTH</span>
+                <span class="tech-ticker-item">AWS EC2</span>
+                <span class="tech-ticker-item">GIT</span>
+                <span class="tech-ticker-item">JAVA</span>
+                <span class="tech-ticker-item">SPRING BOOT</span>
+                <span class="tech-ticker-item">SPRING SECURITY</span>
+                <span class="tech-ticker-item">REST APIs</span>
+                <span class="tech-ticker-item">SPRING DATA JPA</span>
+                <span class="tech-ticker-item">MYSQL</span>
+                <span class="tech-ticker-item">POSTGRESQL</span>
+                <span class="tech-ticker-item">DOCKER</span>
+                <span class="tech-ticker-item">JWT AUTH</span>
+                <span class="tech-ticker-item">AWS EC2</span>
+                <span class="tech-ticker-item">GIT</span>
             </div>
-        </section>
+        </div>
 
         <!-- Projects Section -->
         <section id="projects" class="projects section">
             <div class="container">
-                <h2 class="section-title reveal-up">Projects</h2>
+                <h2 class="section-title">Projects</h2>
 
                 <div class="projects-container">
                     <!-- Project 1 (Flagship) -->
@@ -395,7 +281,7 @@
                         
                         <div class="project-collapsed-layout">
                             <div class="project-image-column">
-                                <img src="assets/kharcha_pani_logo.jpg" alt="Kharcha Pani Logo" class="project-thumbnail" style="object-position: center;">
+                                <img src="assets/kharcha_pani_logo.jpg" alt="Kharcha Pani Logo" class="project-thumbnail" width="190" height="125" loading="lazy" decoding="async" style="object-position: center;">
                             </div>
                             <div class="project-info-column">
                                 <div class="project-card-header">
@@ -419,11 +305,12 @@
                                     <span class="tech-chip">Spring Security</span>
                                     <span class="tech-chip">MySQL</span>
                                     <span class="tech-chip">Docker</span>
-                                    <span class="tech-chip">Railway</span>
+                                    <span class="tech-chip">AWS EC2</span>
+                                    <span class="tech-chip">Nginx</span>
                                 </div>
                                 
                                 <div class="project-actions">
-                                    <a href="https://smart-finance-tracker-v2-1-0.onrender.com/swagger-ui/index.html" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live Demo</a>
+                                    <a href="https://43.204.7.243/swagger-ui/index.html" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live Demo</a>
                                     <a href="https://github.com/PrashantOmBairagi/kharcha-pani" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
                                     <a href="https://github.com/PrashantOmBairagi/kharcha-pani/releases/latest" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-android-logo"></i> Download APK</a>
                                     <button class="btn primary-btn small expand-toggle" aria-expanded="false">
@@ -514,7 +401,7 @@
                                     <div class="detail-card-body">
                                         <ul>
                                             <li>Containerized using multi-stage Docker builds to ensure runtime environment parity.</li>
-                                            <li>Hosted on Railway cloud platform, connected to a remote managed MySQL database.</li>
+                                            <li>Deployed in Docker containers on an AWS EC2 instance, network access managed through security groups, fronted by an Nginx reverse proxy that terminates HTTPS, connected to a remote managed MySQL database.</li>
                                             <li>Exposed Swagger UI sandbox for API route testing alongside extensive Postman suites.</li>
                                         </ul>
                                     </div>
@@ -561,7 +448,7 @@
                     <div class="project-card glass reveal-up" id="project-contact-api">
                         <div class="project-collapsed-layout">
                             <div class="project-image-column">
-                                <img src="assets/contact-api.png" alt="Portfolio Contact API Logo" class="project-thumbnail" style="object-position: center;">
+                                <img src="assets/contact-api.png" alt="Portfolio Contact API Logo" class="project-thumbnail" width="190" height="125" loading="lazy" decoding="async" style="object-position: center;">
                             </div>
                             <div class="project-info-column">
                                 <div class="project-card-header">
@@ -585,11 +472,12 @@
                                     <span class="tech-chip">PostgreSQL</span>
                                     <span class="tech-chip">Spring Data JPA</span>
                                     <span class="tech-chip">Hibernate</span>
-                                    <span class="tech-chip">Render</span>
+                                    <span class="tech-chip">AWS EC2</span>
+                                    <span class="tech-chip">Nginx</span>
                                 </div>
                                 
                                 <div class="project-actions">
-                                    <a href="https://portfolio-backend-api-onqc.onrender.com/health-check" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live API</a>
+                                    <a href="https://43.204.7.243/contact-api/health-check" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-globe"></i> Live API</a>
                                     <a href="https://github.com/PrashantOmBairagi/portfolio-backend-api" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> GitHub</a>
                                     <button class="btn primary-btn small expand-toggle" aria-expanded="false">
                                         <span>Expand Details</span> <i class="ph ph-caret-down"></i>
@@ -691,7 +579,7 @@
                     <div class="project-card glass reveal-up" id="project-locking-system">
                         <div class="project-collapsed-layout">
                             <div class="project-image-column">
-                                <img src="assets/Central lock schematic.png" alt="Smart Central Locking System Schematic" class="project-thumbnail" style="object-position: center top;">
+                                <img src="assets/Central lock schematic.png" alt="Smart Central Locking System Schematic" class="project-thumbnail" width="190" height="125" loading="lazy" decoding="async" style="object-position: center top;">
                             </div>
                             <div class="project-info-column">
                                 <div class="project-card-header">
@@ -819,13 +707,229 @@
             </div>
         </section>
 
+        <!-- About Section -->
+        <section id="about" class="about section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+
+                <div class="about-layout reveal-up">
+                    <div class="about-left">
+                        <div class="about-card glass">
+                            <div class="about-text">
+                                <p>Prashant Bairagi is a 7th-semester Electronics & Telecommunication Engineering student at <strong>Jabalpur Engineering College</strong> with a strong focus on Java backend development, Spring Boot, REST APIs, and database design.</p>
+                                <p>Having started in embedded systems and RF hardware, he brings the rigorous discipline of low-level debugging to every API he designs.</p>
+                                <p class="core-goal"><strong>At the core of everything is a simple goal: build scalable, meaningful systems, drive technological value, and continuously push the boundaries of backend engineering.</strong></p>
+                            </div>
+                            
+                            <blockquote class="about-quote">
+                                “Each keystroke is a deliberate step toward mastering my craft and building systems that last.
+                                I write code not just to solve problems, but to engineer excellence.”
+                            </blockquote>
+                        </div>
+                    </div>
+                    
+                    <div class="about-right">
+                        <!-- Education Card (B.Tech) -->
+                        <div class="education-card glass">
+                            <div class="edu-icon">
+                                <i class="ph ph-graduation-cap"></i>
+                            </div>
+                            <div class="edu-details">
+                                <h3>B.Tech from Jabalpur Engineering College, Jabalpur</h3>
+                                <p class="edu-dept">Electronics &amp; Telecommunication Engineering</p>
+                                <p class="edu-meta">2023-2027 | CGPA 6.8</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 2x2 Stats Grid -->
+                        <div class="stats-grid-2x2">
+                            <a href="https://leetcode.com/u/prashantbairagi2018/" target="_blank" rel="noopener noreferrer" class="stat-card glass">
+                                <h3 class="stat-number">200+</h3>
+                                <p class="stat-label">LeetCode Problems</p>
+                            </a>
+                            <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="stat-card glass">
+                                <h3 class="stat-number">3+</h3>
+                                <p class="stat-label">Major Projects</p>
+                            </a>
+                            <a href="#projects" class="stat-card glass">
+                                <h3 class="stat-number">15+</h3>
+                                <p class="stat-label">REST API Endpoints</p>
+                            </a>
+                            <a href="#certifications" class="stat-card glass">
+                                <h3 class="stat-number">6</h3>
+                                <p class="stat-label">Certifications</p>
+                            </a>
+                        </div>
+                        
+                        <!-- GitHub Activity Strip nested at bottom of right column -->
+                        <div class="github-activity-strip glass">
+                            <div class="github-activity-info">
+                                <div class="github-activity-icon">
+                                    <i class="ph ph-git-branch"></i>
+                                </div>
+                                <div>
+                                    <h4>GitHub Activity</h4>
+                                    <p>Regular commits pushing updates to backend codebases.</p>
+                                </div>
+                            </div>
+                            <a href="https://github.com/PrashantOmBairagi" target="_blank" rel="noopener noreferrer" class="btn secondary-btn small"><i class="ph ph-github-logo"></i> Verify Commits</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills section">
+            <div class="container">
+                <div class="skills-header reveal-up">
+                    <h2 class="section-title">Technical Skills</h2>
+                    <div class="title-underline"></div>
+                    <p class="skills-subtitle">Technical foundations built through backend development, problem-solving,
+                        and real-world engineering projects.</p>
+                </div>
+
+                <div class="skills-grid">
+                    <!-- Card 1: Primary -->
+                    <div class="skill-card primary-card glass reveal-up">
+                        <div class="skill-icon-wrapper">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+                                alt="Java" class="skill-icon">
+                        </div>
+                        <h3 class="skill-title">Java & Backend Development</h3>
+                        <p class="skill-desc">Building backend systems using Java and Spring Boot.</p>
+                        <div class="skill-chips">
+                            <span class="skill-chip">Java</span>
+                            <span class="skill-chip">Spring Boot</span>
+                            <span class="skill-chip">REST APIs</span>
+                            <span class="skill-chip">OOP</span>
+                            <span class="skill-chip">CRUD</span>
+                            <span class="skill-chip">API Design</span>
+                            <span class="skill-chip">Docker</span>
+                            <span class="skill-chip">AWS EC2</span>
+                            <span class="skill-chip">Nginx</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="skill-card glass reveal-up delay-1">
+                        <div class="skill-icon-wrapper icon-blue">
+                            <i class="ph-fill ph-code"></i>
+                        </div>
+                        <h3 class="skill-title">Programming Languages</h3>
+                        <p class="skill-desc">Languages I use for backend systems, algorithms, and engineering.</p>
+                        <div class="skill-chips">
+                            <span class="skill-chip">Java</span>
+                            <span class="skill-chip">SQL</span>
+                            <span class="skill-chip">Python</span>
+                            <span class="skill-chip">C++</span>
+                            <span class="skill-chip">OOP</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="skill-card glass reveal-up delay-2">
+                        <div class="skill-icon-wrapper icon-amber">
+                            <i class="ph-fill ph-tree-structure"></i>
+                        </div>
+                        <h3 class="skill-title">Data Structures & Algorithms</h3>
+                        <p class="skill-desc">200+ LeetCode problems. Strong fundamentals in problem-solving.</p>
+                        <div class="skill-chips">
+                            <span class="skill-chip highlight">200+ LeetCode</span>
+                            <span class="skill-chip">Arrays</span>
+                            <span class="skill-chip">Recursion</span>
+                            <span class="skill-chip">Linked Lists</span>
+                            <span class="skill-chip">Trees</span>
+                            <span class="skill-chip">Sorting</span>
+                            <span class="skill-chip">Problem Solving</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="skill-card glass reveal-up">
+                        <div class="skill-icon-wrapper">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                                alt="MySQL" class="skill-icon">
+                        </div>
+                        <h3 class="skill-title">Database Design & SQL</h3>
+                        <div class="nptel-badge"><i class="ph-fill ph-certificate"></i> ELITE NPTEL DBMS Certified</div>
+                        <p class="skill-desc">Working with relational databases for backend systems.</p>
+                        <div class="skill-chips">
+                            <span class="skill-chip">MySQL</span>
+                            <span class="skill-chip">PostgreSQL</span>
+                            <span class="skill-chip">SQL</span>
+                            <span class="skill-chip">Normalization</span>
+                            <span class="skill-chip">Queries</span>
+                            <span class="skill-chip">DBMS</span>
+                            <span class="skill-chip">Relational Databases</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="skill-card glass reveal-up delay-1">
+                        <div class="skill-icon-wrapper">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
+                                alt="Spring" class="skill-icon">
+                        </div>
+                        <h3 class="skill-title">Backend Security &amp; Architecture</h3>
+                        <p class="skill-desc">Designing secure architectures, API rules, and robust server frameworks.</p>
+                        <div class="skill-chips">
+                            <span class="skill-chip">Spring Security</span>
+                            <span class="skill-chip">JWT Auth</span>
+                            <span class="skill-chip">DTO Design</span>
+                            <span class="skill-chip">Validation</span>
+                            <span class="skill-chip">Exception Handling</span>
+                            <span class="skill-chip">Layered Architecture</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Background context only -->
+                    <div class="skill-card subtle-card--heavy glass reveal-up delay-2">
+                        <div class="skill-icon-wrapper">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original.svg"
+                                alt="Embedded" class="skill-icon">
+                        </div>
+                        <h3 class="skill-title">Embedded Systems & Hardware</h3>
+                        <p class="skill-desc">Built real-world embedded projects using microcontrollers and RF.</p>
+                        <div class="skill-chips">
+                            <span class="skill-chip">Arduino</span>
+                            <span class="skill-chip">ATmega328</span>
+                            <span class="skill-chip">RF Communication</span>
+                            <span class="skill-chip">PCB Design</span>
+                            <span class="skill-chip">Embedded Logic</span>
+                            <span class="skill-chip">Hardware Prototyping</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 7 -->
+                    <div class="skill-card glass reveal-up">
+                        <div class="skill-icon-wrapper">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                                alt="Git" class="skill-icon">
+                        </div>
+                        <h3 class="skill-title">Developer Tools</h3>
+                        <p class="skill-desc">Tools used in backend development and project workflows.</p>
+                        <div class="skill-chips">
+                            <span class="skill-chip">IntelliJ IDEA</span>
+                            <span class="skill-chip">Git</span>
+                            <span class="skill-chip">GitHub</span>
+                            <span class="skill-chip">VS Code</span>
+                            <span class="skill-chip">Postman</span>
+                            <span class="skill-chip">Maven</span>
+                            <span class="skill-chip">Swagger / OpenAPI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Certifications Section -->
         <section id="certifications" class="certifications section">
             <div class="container">
-                <h2 class="section-title reveal-up">Certifications & Progress</h2>
+                <h2 class="section-title">Certifications & Progress</h2>
 
                 <div class="cert-grid">
-                    <div class="cert-card glass clickable reveal-up" data-cert-img="assets/Database Management System.jpg" data-cert-title="Database Management System">
+                    <button type="button" class="cert-card glass clickable reveal-up" data-cert-img="assets/Database Management System.jpg" data-cert-title="Database Management System">
                         <div class="cert-icon"><i class="ph ph-database"></i></div>
                         <div class="cert-content">
                             <div class="cert-meta">ELITE NPTEL • April 2026</div>
@@ -833,9 +937,9 @@
                             <p class="cert-desc">SQL, normalization, relational databases, indexing, and backend database systems.</p>
                             <span class="cert-link-hint"><i class="ph ph-image"></i> View Certificate</span>
                         </div>
-                    </div>
+                    </button>
 
-                    <div class="cert-card glass clickable reveal-up delay-1" data-cert-img="assets/AWS Cloud Practitioner Essentials.jpg" data-cert-title="AWS Cloud Practitioner Essentials">
+                    <button type="button" class="cert-card glass clickable reveal-up delay-1" data-cert-img="assets/AWS Cloud Practitioner Essentials.jpg" data-cert-title="AWS Cloud Practitioner Essentials">
                         <div class="cert-icon"><i class="ph ph-cloud"></i></div>
                         <div class="cert-content">
                             <div class="cert-meta">AWS Training &amp; Certification • August 2026</div>
@@ -843,9 +947,9 @@
                             <p class="cert-desc">Cloud concepts, AWS core services, security, architecture, pricing, and support. Foundation for AWS Cloud journey.</p>
                             <span class="cert-link-hint"><i class="ph ph-image"></i> View Certificate</span>
                         </div>
-                    </div>
+                    </button>
 
-                    <div class="cert-card glass clickable reveal-up delay-1" data-cert-img="assets/Fabrication Techniques for MEMS-Based Sensors.jpg" data-cert-title="Fabrication Techniques for MEMS-Based Sensors">
+                    <button type="button" class="cert-card glass clickable reveal-up delay-1" data-cert-img="assets/Fabrication Techniques for MEMS-Based Sensors.jpg" data-cert-title="Fabrication Techniques for MEMS-Based Sensors">
                         <div class="cert-icon"><i class="ph ph-cpu"></i></div>
                         <div class="cert-content">
                             <div class="cert-meta">ELITE NPTEL • November 2025</div>
@@ -853,9 +957,9 @@
                             <p class="cert-desc">MEMS sensor fabrication, clinical sensor applications and advanced fabrication methods.</p>
                             <span class="cert-link-hint"><i class="ph ph-image"></i> View Certificate</span>
                         </div>
-                    </div>
+                    </button>
 
-                    <div class="cert-card glass clickable reveal-up delay-2" data-cert-img="assets/Nokia Advanced AIML Training.jpg" data-cert-title="Advanced AI/ML Training: Telecom Data Analytics">
+                    <button type="button" class="cert-card glass clickable reveal-up delay-2" data-cert-img="assets/Nokia Advanced AIML Training.jpg" data-cert-title="Advanced AI/ML Training: Telecom Data Analytics">
                         <div class="cert-icon"><i class="ph ph-brain"></i></div>
                         <div class="cert-content">
                             <div class="cert-meta">Nokia • March 2025</div>
@@ -863,9 +967,9 @@
                             <p class="cert-desc">Industry-oriented training on AI/ML for telecom analytics. Skills: Python, NumPy, Data Analytics, Telecom Systems.</p>
                             <span class="cert-link-hint"><i class="ph ph-image"></i> View Certificate</span>
                         </div>
-                    </div>
+                    </button>
 
-                    <div class="cert-card glass clickable reveal-up delay-2" data-cert-img="assets/The Joy of Computing Using Python.jpg" data-cert-title="The Joy of Computing Using Python">
+                    <button type="button" class="cert-card glass clickable reveal-up delay-2" data-cert-img="assets/The Joy of Computing Using Python.jpg" data-cert-title="The Joy of Computing Using Python">
                         <div class="cert-icon"><i class="ph ph-code"></i></div>
                         <div class="cert-content">
                             <div class="cert-meta">NPTEL • October 2024</div>
@@ -873,9 +977,9 @@
                             <p class="cert-desc">Python fundamentals, computational thinking, and programming problem-solving.</p>
                             <span class="cert-link-hint"><i class="ph ph-image"></i> View Certificate</span>
                         </div>
-                    </div>
+                    </button>
 
-                    <div class="cert-card glass clickable reveal-up" data-cert-img="assets/Remote Sensing &amp; GIS for Environmental Studies.png" data-cert-title="Remote Sensing &amp; GIS for Environmental Studies">
+                    <button type="button" class="cert-card glass clickable reveal-up" data-cert-img="assets/Remote Sensing &amp; GIS for Environmental Studies.png" data-cert-title="Remote Sensing &amp; GIS for Environmental Studies">
                         <div class="cert-icon"><i class="ph ph-globe-hemisphere-east"></i></div>
                         <div class="cert-content">
                             <div class="cert-meta">IIRS (ISRO), Dehradun • 2021</div>
@@ -883,7 +987,7 @@
                             <p class="cert-desc">Online summer school on GIS and environmental remote sensing techniques.</p>
                             <span class="cert-link-hint"><i class="ph ph-image"></i> View Certificate</span>
                         </div>
-                    </div>
+                    </button>
 
                     <a href="https://leetcode.com/u/prashantbairagi2018/" target="_blank" rel="noopener noreferrer" class="cert-card glass highlight-card clickable reveal-up delay-1">
                         <div class="cert-icon"><i class="ph ph-trend-up"></i></div>
@@ -987,8 +1091,7 @@
 
     <footer class="footer glass">
         <div class="container">
-            <p>Designed & Built by Prashant Bairagi</p>
-            <span class="resume-updated" style="display: block; margin-top: 0.5rem; opacity: 0.7;"><i class="ph ph-check-circle" style="margin-right: 4px;"></i> Resume updated: July 2026</span>
+            <p>Built with <i class="ph-fill ph-heart" aria-hidden="true"></i> in India by Prashant Bairagi</p>
         </div>
     </footer>
     </div>
@@ -996,7 +1099,7 @@
     <!-- Floating Contact System -->
     <div class="floating-contact-system">
         <!-- Floating Mail Button -->
-        <a href="mailto:prashantbairagi2018@gmail.com" class="floating-mail-btn" aria-label="Send Email" data-tooltip="Email Me">
+        <a href="mailto:hello.prashantbairagi@gmail.com" class="floating-mail-btn" aria-label="Send Email" data-tooltip="Email Me">
             <i class="ph ph-envelope-simple"></i>
         </a>
 
@@ -1035,7 +1138,7 @@
                 <h3 class="contact-modal-title" style="margin-top: 2rem;">Processing Request...</h3>
                 <p id="contact-loading-msg" class="contact-modal-desc">Verifying connection...</p>
                 <div class="contact-transparency-msg">
-                    <p>First request may take a little longer — free hosting sometimes puts the backend to sleep.</p>
+                    <p>The API runs 24/7 in Docker on AWS EC2 - no cold starts.</p>
                     <p>Your message is still being processed.</p>
                 </div>
             </div>
@@ -1058,8 +1161,8 @@
                 <div class="contact-modal-icon error"><i class="ph-fill ph-warning-circle"></i></div>
                 <h3 class="contact-modal-title">Oops. Something broke.</h3>
                 <p class="contact-modal-desc">
-                    Either the backend is sleeping, the cloud is confused, or the developer forgot something.<br><br>
-                    Try again in a bit.
+                    The API is unreachable, the cloud is confused, or the developer forgot something.<br><br>
+                    Check your connection and try again in a moment.
                 </p>
                 <button class="btn secondary-btn contact-modal-close-btn" style="margin-top: 2rem;">Close</button>
             </div>

@@ -14,7 +14,9 @@
   ║    background:       var(--glass-bg)     ← 70% white / 60% dark ║
   ║    backdrop-filter:  blur(20px)          ← the magic number     ║
   ║    border:           1px solid var(--glass-border)              ║
-  ║    box-shadow:       var(--glass-shadow)                        ║
+  ║    box-shadow:       var(--glass-shadow) + inset top highlight  ║
+  ║                     (inset 0 1px 0 rgba(255,255,255,.1) light / ║
+  ║                      .06 dark) — liquid-glass edge refraction   ║
   ║    border-radius:    999px  (pill shape, floating 1rem from top) ║
   ║                                                                  ║
   ║  Any new overlay, modal, or card that wants to feel             ║
@@ -40,9 +42,20 @@
     --status-completed: #10b981;
     --flagship-gold: #fbbf24;
     
-    /* Gradients for background blobs */
-    --blob-1: rgba(0, 113, 227, 0.15);
-    --blob-2: rgba(0, 198, 206, 0.15);
+    /* Gradients for solar system background */
+    --star: rgba(130, 130, 150, 0.4);
+    --star-dim: rgba(130, 130, 150, 0.22);
+    --nebula-blue: rgba(59, 130, 246, 0.10);
+    --nebula-violet: rgba(139, 92, 246, 0.08);
+    --nebula-magenta: rgba(236, 72, 153, 0.06);
+    --nebula-cyan: rgba(34, 211, 238, 0.07);
+    --nebula-amber: rgba(251, 191, 36, 0.09);
+    --nebula-core: rgba(120, 130, 160, 0.12);
+    --debris-amber: rgba(255, 184, 84, 0.28);
+    --debris-cyan: rgba(0, 198, 206, 0.26);
+
+    /* Monospace */
+    --font-mono: 'SFMono-Regular', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
     
     /* Background Watermark Opacity */
     --sukti-opacity: 0.20;
@@ -69,9 +82,17 @@
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     
-    /* Gradients for background blobs (slightly darker) */
-    --blob-1: rgba(0, 113, 227, 0.1);
-    --blob-2: rgba(0, 198, 206, 0.1);
+    /* Gradients for solar system background (dark) */
+    --star: rgba(255, 255, 255, 0.8);
+    --star-dim: rgba(255, 255, 255, 0.38);
+    --nebula-blue: rgba(96, 165, 250, 0.18);
+    --nebula-violet: rgba(167, 139, 250, 0.20);
+    --nebula-magenta: rgba(244, 114, 182, 0.14);
+    --nebula-cyan: rgba(103, 232, 249, 0.13);
+    --nebula-amber: rgba(252, 211, 77, 0.16);
+    --nebula-core: rgba(255, 255, 255, 0.30);
+    --debris-amber: rgba(255, 184, 84, 0.5);
+    --debris-cyan: rgba(0, 198, 206, 0.45);
 
     /* Background Watermark Opacity */
     --sukti-opacity: 0.14;
@@ -124,45 +145,104 @@ body {
     will-change: transform;
 }
 
-/* Background Gradients (Blobs) */
-.bg-gradient {
+/* Solar System Background Layer (stars + debris) — global fixed wrapper behind ALL content.
+   z-index: 0 (never negative: negative z-index + backdrop-filter on content is a known
+   Chromium bug that renders glass cards solid, slicing the glow at card boundaries).
+   Layers are overscanned 25%/60% so nothing ever needs clipping here. */
+.space-bg {
     position: fixed;
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: -1;
-    transition: background-color 0.4s ease;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
 }
 
-.bg-blob-1 {
-    width: 650px;
-    height: 650px;
-    background-color: var(--blob-1);
-    top: -200px;
-    left: -150px;
+/* Starfield — 8 tiled micro-gradient layers on PRIME tile sizes (97/131/167/199/241/293/347/409).
+   Incommensurate periods mean no two layers ever line up, so no grid is perceptible.
+   Sizes vary 1–5px, with soft-falloff layers acting as glowing / defocused stars. */
+.space-bg::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -25%;
+    width: 150%;
+    height: 220%;
+    will-change: transform;
+    transform: translate3d(var(--parallax-stars-x, 0px), var(--parallax-stars-y, 0px), 0);
+    background-image:
+        radial-gradient(circle 1px at 50% 50%, var(--star-dim), transparent),
+        radial-gradient(circle 1px at 50% 50%, var(--star), transparent),
+        radial-gradient(circle 1.5px at 50% 50%, var(--star), transparent),
+        radial-gradient(circle 2px at 50% 50%, var(--star-dim), transparent),
+        radial-gradient(circle 2px at 50% 50%, var(--star), transparent),
+        radial-gradient(circle 3px at 50% 50%, var(--star) 0%, transparent 70%),
+        radial-gradient(circle 3.5px at 50% 50%, var(--star-dim) 0%, transparent 65%),
+        radial-gradient(circle 5px at 50% 50%, var(--star) 0%, transparent 80%);
+    background-size: 97px 97px, 131px 131px, 167px 167px, 199px 199px, 241px 241px, 293px 293px, 347px 347px, 409px 409px;
+    background-position: 11px 53px, 71px 23px, 127px 97px, 43px 157px, 211px 41px, 163px 233px, 307px 127px, 89px 311px;
 }
 
-.bg-blob-2 {
-    width: 500px;
-    height: 500px;
-    background-color: var(--blob-2);
-    bottom: -100px;
-    right: -100px;
+/* Distance gas cloud — a multi-colour nebula centrepiece.
+   Six overlapping colour washes (deep blue base → violet → magenta → cyan → warm
+   star-forming pocket → bright core) drift as one soft cloud, like a distant galaxy
+   seen from a starship deck. Each gradient box exactly matches the oversized element
+   (150vw x 150vh, centred on the viewport), so every box edge lies beyond the
+   transparent falloff stop — edges can never carry colour, at any parallax shift. */
+.space-bg::after {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -25%;
+    width: 150%;
+    height: 220%;
+    will-change: transform;
+    transform: translate3d(var(--parallax-debris-x, 0px), var(--parallax-debris-y, 0px), 0);
+    background-image:
+        radial-gradient(60% 50% at 50% 71%, var(--nebula-blue), transparent 65%),
+        radial-gradient(52% 48% at 56% 77%, var(--nebula-violet), transparent 65%),
+        radial-gradient(44% 40% at 42% 80%, var(--nebula-magenta), transparent 65%),
+        radial-gradient(36% 34% at 48% 75%, var(--nebula-cyan), transparent 60%),
+        radial-gradient(20% 18% at 54% 77%, var(--nebula-amber), transparent 60%),
+        radial-gradient(12% 10% at 52% 76%, var(--nebula-core), transparent 55%),
+        radial-gradient(circle 2px at 50% 50%, var(--debris-amber), transparent 92%),
+        radial-gradient(circle 1px at 50% 50%, var(--debris-cyan), transparent 92%);
+    background-size: 150vw 150vh, 150vw 150vh, 150vw 150vh, 150vw 150vh, 150vw 150vh, 150vw 150vh, 173px 173px, 257px 257px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 37px 21px, 83px 57px;
 }
 
-.bg-blob-3 {
-    width: 600px;
-    height: 600px;
-    background-color: var(--blob-2);
-    top: 30%;
-    right: -150px;
+/* Hero Environment Background — day (light theme) / night (dark theme) */
+#hero {
+    position: relative;
 }
 
-.bg-blob-4 {
-    width: 550px;
-    height: 550px;
-    background-color: var(--blob-1);
-    top: 60%;
-    left: -150px;
+.hero-env {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.08);
+    animation: env-drift 32s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+/* Readability scrim over the hero image */
+.hero-env::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(245, 245, 247, 0.88) 0%, rgba(245, 245, 247, 0.35) 60%, rgba(245, 245, 247, 0.15) 100%);
+}
+
+[data-theme="dark"] .hero-env::after {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 60%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+[data-theme="light"] .hero-env { background-image: url('../assets/hero-day.webp'); }
+[data-theme="dark"] .hero-env { background-image: url('../assets/hero-night.webp'); }
+
+@keyframes env-drift {
+    from { transform: scale(1.08) translate3d(0, 0, 0); }
+    to   { transform: scale(1.14) translate3d(0, -1.2%, 0); }
 }
 
 /* Center Sanskrit Watermark Background */
@@ -175,7 +255,7 @@ body {
     max-width: 1000px;
     text-align: center;
     pointer-events: none;
-    z-index: -2; /* behind content and blobs */
+    z-index: 1; /* behind content at rest; the intro animation raises it in front, then drops it behind the hero glass as it shrinks */
     opacity: var(--sukti-opacity);
     transition: opacity 0.4s ease;
     display: flex;
@@ -208,15 +288,12 @@ body {
 
 /* 3-Step Million Dollar Intro Page Load Transitions */
 body.intro-active .sanskrit-motto-bg {
-    animation: intro-sanskrit 3.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: intro-sanskrit 3.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     will-change: transform, opacity;
 }
 
-body.intro-active .availability-badge,
 body.intro-active .headline,
-body.intro-active .subheadline,
 body.intro-active .intro-text,
-body.intro-active .hero-badges,
 body.intro-active .hero-cta,
 body.intro-active .resume-updated-wrapper,
 body.intro-active .hero-social-links,
@@ -226,41 +303,49 @@ body.intro-active .hero-visual {
     will-change: transform, opacity;
 }
 
-body.intro-active .availability-badge { animation-delay: 1.4s; }
-body.intro-active .headline { animation-delay: 1.55s; }
-body.intro-active .subheadline { animation-delay: 1.7s; }
-body.intro-active .intro-text { animation-delay: 1.85s; }
-body.intro-active .hero-badges { animation-delay: 2.0s; }
-body.intro-active .hero-cta { animation-delay: 2.15s; }
-body.intro-active .resume-updated-wrapper { animation-delay: 2.15s; }
-body.intro-active .hero-social-links { animation-delay: 2.3s; }
-body.intro-active .hero-visual { animation-delay: 2.45s; }
+body.intro-active .headline { animation-delay: 1.4s; }
+body.intro-active .intro-text { animation-delay: 1.6s; }
+body.intro-active .hero-cta { animation-delay: 1.8s; }
+body.intro-active .resume-updated-wrapper { animation-delay: 1.8s; }
+body.intro-active .hero-social-links { animation-delay: 1.95s; }
+body.intro-active .hero-visual { animation-delay: 2.1s; }
 
 @keyframes intro-sanskrit {
     0% {
         opacity: 0;
         transform: translate(-50%, -50%) scale(1.3);
         color: var(--text-primary);
+        z-index: 3; /* in front of everything below the navbar */
     }
-    25% {
+    22% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1.3);
         color: var(--text-primary);
+        z-index: 3;
     }
     50% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.3);
+        transform: translate(-50%, -50%) scale(1.18);
         color: var(--text-primary);
+        z-index: 3;
     }
-    75% {
+    80% {
         opacity: var(--sukti-opacity);
         transform: translate(-50%, -50%) scale(1.0);
         color: var(--text-secondary);
+        z-index: 3; /* fully washed out BEFORE dropping behind */
+    }
+    88% {
+        opacity: var(--sukti-opacity);
+        transform: translate(-50%, -50%) scale(1.0);
+        color: var(--text-secondary);
+        z-index: 1; /* slips behind the hero glass at near-final opacity — no visible pop */
     }
     100% {
         opacity: var(--sukti-opacity);
         transform: translate(-50%, -50%) scale(1.0);
         color: var(--text-secondary);
+        z-index: 1;
     }
 }
 
@@ -295,39 +380,26 @@ body.intro-active .hero-visual { animation-delay: 2.45s; }
     color: var(--text-primary);
 }
 
-/* Glassmorphism Utility */
+/* Content wrapper: sits above the fixed starfield (space-bg) and below nav/modals.
+   Relative + z-index 1 keeps ALL content (including non-positioned text) above the background. */
+#scroll-stretch-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Glassmorphism Utility — liquid glass: blur + hairline border + inset top highlight simulating edge refraction */
 .glass {
     position: relative;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1), background 0.4s ease, border-color 0.4s ease;
 }
 
-/* Glass interactive spotlight hover overlay */
-.glass:not(.hero-social-icon)::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    background: radial-gradient(400px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(255, 255, 255, 0.05), transparent 70%);
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-[data-theme="dark"] .glass:not(.hero-social-icon)::before {
-    background: radial-gradient(450px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(0, 113, 227, 0.08), transparent 70%);
-}
-
-.glass:not(.hero-social-icon):hover::before {
-    opacity: 1;
+[data-theme="dark"] .glass {
+    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* Typography specifics */
@@ -339,10 +411,19 @@ p {
     color: var(--text-secondary);
 }
 
+.resume-updated-wrapper {
+    margin-bottom: 2.75rem;
+}
+
 .resume-updated {
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.resume-updated i {
+    margin-right: 4px;
+    color: var(--text-primary);
 }
 
 a {
@@ -388,7 +469,7 @@ ul {
 .secondary-btn {
     background-color: transparent;
     color: var(--text-primary);
-    border: 1px solid var(--glass-border);
+    border: 1.5px solid var(--text-primary);
     backdrop-filter: blur(10px);
 }
 
@@ -442,6 +523,21 @@ ul {
     font-weight: 700;
     font-size: 1.25rem;
     letter-spacing: -0.03em;
+}
+
+.brand-full {
+    display: none;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+}
+
+@media (min-width: 640px) {
+    .brand-full {
+        display: inline;
+    }
+    .brand-short {
+        display: none;
+    }
 }
 
 .nav-links {
@@ -520,6 +616,8 @@ ul {
 }
 
 .hero-container {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -540,7 +638,7 @@ ul {
     flex: 1;
     max-width: 480px;
     width: 100%;
-    margin-top: 7.2rem; /* Adjusted downwards for absolute layout balance */
+    margin-top: 1rem;
 }
 
 .code-window {
@@ -595,6 +693,31 @@ ul {
     margin-left: 0.5rem;
 }
 
+.code-live {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--status-completed);
+}
+
+.code-live .pulse-dot {
+    width: 6px;
+    height: 6px;
+}
+
+.code-body .comment {
+    color: #6e7781;
+}
+
+[data-theme="dark"] .code-body .comment {
+    color: #8b949e;
+}
+
 .code-body {
     padding: 1.5rem;
     overflow-x: auto;
@@ -640,15 +763,28 @@ ul {
 [data-theme="dark"] .code-body .class-name { color: #8be9fd; }
 [data-theme="dark"] .code-body .method { color: #50fa7b; }
 
-.availability-badge {
-    display: inline-flex;
+.code-statusbar {
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 999px;
-    font-size: 0.85rem;
+    gap: 0.55rem;
+    padding: 0.65rem 1.1rem;
+    border-top: 1px solid var(--glass-border);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
     font-weight: 500;
-    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    background: rgba(134, 134, 139, 0.04);
+}
+
+.code-statusbar .pulse-dot {
+    width: 6px;
+    height: 6px;
+}
+
+.code-statusbar .status-user {
+    margin-left: auto;
+    opacity: 0.65;
 }
 
 .pulse-dot {
@@ -668,52 +804,22 @@ ul {
 
 .headline {
     font-size: clamp(3rem, 5vw, 4.5rem);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.25rem;
     letter-spacing: -0.03em;
 }
 
-.subheadline {
-    font-size: 1.35rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    margin-bottom: 1.8rem;
-}
-
-.subheadline .highlight {
-    font-weight: 700;
-    color: var(--text-primary);
+.headline .highlight {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .intro-text {
     font-size: 1.05rem;
     margin-bottom: 2rem;
-}
-
-.hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 3rem;
-}
-
-.hero-badge {
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 0.4rem 1rem;
-    border-radius: 999px;
-    background: rgba(134, 134, 139, 0.08);
-    color: var(--text-primary);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.hero-badge i {
-    color: var(--text-secondary);
 }
 
 .hero-cta {
@@ -874,6 +980,63 @@ ul {
 .core-goal {
     color: var(--text-primary);
     font-size: 1.15rem;
+    margin-bottom: 0;
+}
+
+.about-quote {
+    margin: 2rem 0 0 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    border-left: 3px solid var(--accent-blue);
+    padding-left: 1.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 0.95rem;
+}
+
+.education-card {
+    margin-bottom: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--glass-border);
+}
+
+.edu-icon {
+    font-size: 1.9rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(134, 134, 139, 0.1);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.edu-details h3 {
+    margin-bottom: 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.edu-details .edu-dept {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    line-height: 1.4;
+}
+
+.edu-details .edu-meta {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 0;
+    line-height: 1.4;
 }
 
 .stats-grid-2x2 {
@@ -889,7 +1052,7 @@ ul {
 }
 
 .stat-card {
-    padding: 2rem;
+    padding: 1.25rem 1.5rem;
     border-radius: var(--border-radius-md);
     text-align: center;
     cursor: pointer;
@@ -897,34 +1060,92 @@ ul {
     display: block;
     text-decoration: none;
     color: inherit;
+    border: 1px solid var(--glass-border);
 }
 
 .stat-card:hover {
     transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .stat-card:hover {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .stat-number {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 0.4rem;
-    line-height: 1.2;
+    margin-bottom: 0.1rem;
+    line-height: 1.15;
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: var(--text-secondary);
+    margin: 0;
+}
+
+.github-activity-strip {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--border-radius-lg);
+    gap: 1rem;
+    flex-wrap: wrap;
+    border: 1px solid var(--glass-border);
+}
+
+.github-activity-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.github-activity-icon {
+    font-size: 1.9rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(134, 134, 139, 0.1);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.github-activity-strip h4 {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.github-activity-strip p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.github-activity-strip .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
 }
 
 /* Skills Section */
 .skills-header {
     margin-bottom: 3rem;
+}
+
+.skills-header .section-title {
+    margin-bottom: 1rem;
 }
 
 .title-underline {
@@ -985,6 +1206,16 @@ ul {
 
 [data-theme="dark"] .skill-icon-wrapper {
     background-color: rgba(255, 255, 255, 0.9);
+}
+
+.skill-icon-wrapper.icon-blue {
+    color: var(--accent-blue);
+    font-size: 1.8rem;
+}
+
+.skill-icon-wrapper.icon-amber {
+    color: var(--status-progress);
+    font-size: 1.8rem;
 }
 
 .skill-icon {
@@ -1626,9 +1857,15 @@ ul {
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.cert-card.clickable:hover .cert-link-hint {
+.cert-card.clickable:hover .cert-link-hint,
+.cert-card.clickable:focus-visible .cert-link-hint {
     opacity: 1;
     transform: translateX(0);
+}
+
+.cert-card.clickable:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 3px;
 }
 
 .highlight-card {
@@ -1996,6 +2233,11 @@ ul {
     border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
 }
 
+.footer .ph-heart {
+    color: #ff3b5c;
+    vertical-align: -1px;
+}
+
 /* Animations */
 .reveal-up {
     opacity: 0;
@@ -2091,7 +2333,7 @@ ul {
         align-items: center;
     }
     
-    .hero-badges, .hero-social-links, .resume-updated-wrapper {
+    .hero-social-links, .resume-updated-wrapper {
         justify-content: center !important;
         text-align: center;
     }
@@ -2121,6 +2363,7 @@ ul {
 /* ===== CERTIFICATE LIGHTBOX =====
    Backdrop and panel INTENTIONALLY match the navbar's glass recipe:
    blur(20px) · var(--glass-bg) · var(--glass-border) · var(--glass-shadow)
+   + inset 0 1px 0 top highlight (liquid-glass refraction, see .glass)
    See the DESIGN MASTERPIECE note at the top of this file.
    ================================================================== */
 .cert-lightbox {
@@ -2233,6 +2476,8 @@ ul {
     .cert-lightbox-title {
         font-size: 0.85rem;
     }
+}
+
 .status-badge.completed .dot {
     background-color: var(--status-completed);
 }
@@ -2329,13 +2574,6 @@ ul {
         word-break: break-all;
         overflow-wrap: anywhere;
         font-size: clamp(0.8rem, 3.5vw, 0.95rem);
-    }
-
-    /* Prevent availability badge from stretching the hero horizontally */
-    .availability-badge {
-        white-space: normal;
-        text-align: center;
-        line-height: 1.4;
     }
 
     .floating-contact-system {
@@ -2445,27 +2683,6 @@ ul {
     .headline {
         font-size: 2.15rem;
         margin-bottom: 1rem;
-    }
-
-    .subheadline {
-        font-size: 1.15rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .availability-badge {
-        font-size: 0.78rem;
-        padding: 0.4rem 0.85rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .hero-badges {
-        margin-bottom: 1.75rem;
-        gap: 0.5rem;
-    }
-
-    .hero-badge {
-        font-size: 0.8rem;
-        padding: 0.35rem 0.75rem;
     }
 
     .resume-updated-wrapper {
@@ -2798,4 +3015,101 @@ html::view-transition-new(root) {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   TECH TICKER — running skills strip between hero and about
+   Blends the hero environment image into the solar-system backdrop
+   ════════════════════════════════════════════════════════════════ */
+.tech-ticker {
+    position: relative;
+    overflow: hidden;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+.tech-ticker-track {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    width: max-content;
+    animation: ticker-scroll 36s linear infinite;
+    will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .tech-ticker:hover .tech-ticker-track { animation-play-state: paused; }
+}
+
+.tech-ticker-item {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.tech-ticker-item::after {
+    content: '//';
+    color: var(--accent-cyan);
+    opacity: 0.8;
+}
+
+@keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* Accessibility: reset cert-card button UA styles so it matches the glass card look */
+button.cert-card {
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+    color: inherit;
+    width: 100%;
+}
+
+/* Reduced motion: disable decorative animation, parallax, reveals and overscroll */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .hero-env,
+    .space-bg::before,
+    .space-bg::after,
+    .tech-ticker-track {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    .reveal-up {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* Mobile: gentler intro scale so the Sanskrit watermark never overflows small screens */
+@media (max-width: 768px) {
+    @keyframes intro-sanskrit {
+        from { opacity: 0; transform: translate(-50%, -50%) scale(1.12); }
+        to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
 }

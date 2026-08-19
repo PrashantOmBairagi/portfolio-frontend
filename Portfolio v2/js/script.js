@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Reduced Motion Support ---
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // --- Intro Animation Cleanup ---
-    if (window.scrollY > 50 || document.documentElement.scrollTop > 50) {
+    if (prefersReducedMotion || window.scrollY > 50 || document.documentElement.scrollTop > 50) {
         document.body.classList.remove('intro-active');
     } else {
         setTimeout(() => {
             document.body.classList.remove('intro-active');
-        }, 3200);
+        }, 3400);
     }
 
     // --- Scroll Progress Indicator ---
@@ -38,14 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const htmlElement = document.documentElement;
     const themeIcon = themeToggleBtn.querySelector('i');
 
-    // Check for saved theme preference or use system preference
+    // Check for a saved theme preference; otherwise default to LIGHT (ignore OS dark mode)
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
+    if (savedTheme === 'dark' || savedTheme === 'light') {
         htmlElement.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        htmlElement.setAttribute('data-theme', 'dark');
-        updateThemeIcon('dark');
     }
 
     themeToggleBtn.addEventListener('click', (e) => {
@@ -90,8 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuIcon = mobileMenuToggleBtn.querySelector('i');
 
     mobileMenuToggleBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-        if (mobileMenu.classList.contains('active')) {
+        const isActive = mobileMenu.classList.toggle('active');
+        mobileMenuToggleBtn.setAttribute('aria-expanded', String(isActive));
+        document.body.style.overflow = isActive ? 'hidden' : '';
+        if (isActive) {
             menuIcon.classList.remove('ph-list');
             menuIcon.classList.add('ph-x');
         } else {
@@ -104,31 +106,49 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
+            mobileMenuToggleBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
             menuIcon.classList.remove('ph-x');
             menuIcon.classList.add('ph-list');
         });
     });
 
+    // Close mobile menu on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            mobileMenuToggleBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            menuIcon.classList.remove('ph-x');
+            menuIcon.classList.add('ph-list');
+            mobileMenuToggleBtn.focus();
+        }
+    });
+
     // --- Scroll Reveal Animations ---
     const revealElements = document.querySelectorAll('.reveal-up');
 
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                // Optional: stop observing once revealed
-                // observer.unobserve(entry.target);
-            }
+    if (prefersReducedMotion) {
+        revealElements.forEach(el => el.classList.add('active'));
+    } else {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: stop observing once revealed
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.1, // Trigger when 10% of element is visible
+            rootMargin: "0px 0px -50px 0px"
         });
-    }, {
-        root: null,
-        threshold: 0.1, // Trigger when 10% of element is visible
-        rootMargin: "0px 0px -50px 0px"
-    });
 
-    revealElements.forEach(el => {
-        revealObserver.observe(el);
-    });
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+    }
     // --- Certificate Lightbox ---
     const lightbox       = document.getElementById('cert-lightbox');
     const lightboxImg    = document.getElementById('cert-lightbox-img');
@@ -136,16 +156,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxClose  = document.getElementById('cert-lightbox-close');
     const lightboxBack   = lightbox.querySelector('.cert-lightbox-backdrop');
 
+    let lastFocusedElement = null;
+
+    // Trap Tab focus inside an open modal panel so keyboard users can't tab out behind it
+    function enableFocusTrap(container, event) {
+        const focusableEls = container.querySelectorAll('button, a[href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (!focusableEls.length) return;
+        const firstEl = focusableEls[0];
+        const lastEl = focusableEls[focusableEls.length - 1];
+        if (event.shiftKey && document.activeElement === firstEl) {
+            event.preventDefault();
+            lastEl.focus();
+        } else if (!event.shiftKey && document.activeElement === lastEl) {
+            event.preventDefault();
+            firstEl.focus();
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            const activePanel = document.querySelector('.cert-lightbox.active .cert-lightbox-panel');
+            if (activePanel) enableFocusTrap(activePanel, e);
+        }
+    });
+
     function openLightbox(imgSrc, title) {
+        lastFocusedElement = document.activeElement;
         lightboxImg.src   = imgSrc;
         lightboxTitle.textContent = title;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+        lightboxClose.focus();
     }
 
     function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
+        if (lastFocusedElement) lastFocusedElement.focus();
         // Clear image after fade-out so there's no flash on next open
         setTimeout(() => {
             lightboxImg.src = '';
@@ -174,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Smooth Elastic Overscroll Stretch Effect ---
     const stretchWrapper = document.getElementById('scroll-stretch-wrapper');
-    if (stretchWrapper) {
+    if (!prefersReducedMotion && stretchWrapper) {
         let currentOverscroll = 0;
         let velocity = 0;
         let isTouchActive = false;
@@ -410,13 +457,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (contactModalError) contactModalError.style.display = 'block';
         }
 
-        if (contactModal) contactModal.classList.add('active');
+        if (contactModal) {
+            const wasActive = contactModal.classList.contains('active');
+            if (!wasActive) lastFocusedElement = document.activeElement;
+            contactModal.classList.add('active');
+            const firstFocusable = contactModal.querySelector('.cert-lightbox-panel button');
+            if (firstFocusable) firstFocusable.focus();
+        }
         document.body.style.overflow = 'hidden';
     }
 
     function closeContactModal() {
         if (contactModal) contactModal.classList.remove('active');
         document.body.style.overflow = '';
+        if (lastFocusedElement) lastFocusedElement.focus();
         clearInterval(loadingInterval);
         isMinimized = false;
         if (minimizedProgressUI) minimizedProgressUI.style.display = 'none';
@@ -425,6 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function minimizeContactModal() {
         if (contactModal) contactModal.classList.remove('active');
         document.body.style.overflow = '';
+        if (lastFocusedElement) lastFocusedElement.focus();
         clearInterval(loadingInterval);
         isMinimized = true;
         if (minimizedProgressUI) {
@@ -562,9 +617,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const errDesc = document.querySelector('#contact-modal-error .contact-modal-desc');
                     if (errDesc) {
                         if (isMinimized) {
-                            errDesc.innerHTML = 'Looks like the backend is still waking up — give it another moment and try again.<br><br>The cloud is a little slow today.';
+                            errDesc.innerHTML = 'The API is unreachable - check your connection and try again in a moment.';
                         } else {
-                            errDesc.innerHTML = 'Either the backend is sleeping, the cloud is confused, or the developer forgot something.<br><br>Try again in a bit.';
+                            errDesc.innerHTML = 'The API is unreachable, the cloud is confused, or the developer forgot something.<br><br>Check your connection and try again in a moment.';
                         }
                     }
                     if (isMinimized) {
@@ -578,9 +633,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errDesc = document.querySelector('#contact-modal-error .contact-modal-desc');
                 if (errDesc) {
                     if (isMinimized) {
-                        errDesc.innerHTML = 'Looks like the backend is still waking up — give it another moment and try again.<br><br>Connection timed out or failed.';
+                        errDesc.innerHTML = 'The API is unreachable - connection timed out. Check your connection and try again in a moment.';
                     } else {
-                        errDesc.innerHTML = 'Either the backend is sleeping, the cloud is confused, or the developer forgot something.<br><br>Try again in a bit.';
+                        errDesc.innerHTML = 'The API is unreachable, the cloud is confused, or the developer forgot something.<br><br>Check your connection and try again in a moment.';
                     }
                 }
                 if (isMinimized) {
@@ -650,18 +705,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Magnetic Hover Effect on Floating Button & Socials ---
     const magneticElements = document.querySelectorAll('.floating-mail-btn, .hero-social-icon');
-    magneticElements.forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            el.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px) scale(1.05)`;
+    if (!prefersReducedMotion) {
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px) scale(1.05)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
         });
-        
-        el.addEventListener('mouseleave', () => {
-            el.style.transform = '';
-        });
-    });
+    }
 
     // --- Expandable Projects Cards ---
     const expandButtons = document.querySelectorAll('.expand-toggle');
@@ -743,27 +800,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('server-status-text');
     if (statusDot && statusText) {
         const startTime = performance.now();
-        fetch('https://portfolio-backend-api-onqc.onrender.com/health-check', { mode: 'no-cors' })
-            .then(() => {
+        fetch('https://43.204.7.243/contact-api/health-check')
+            .then(res => {
+                if (!res.ok) throw new Error('unhealthy');
                 const duration = Math.round(performance.now() - startTime);
                 statusDot.className = 'pulse-dot green';
                 statusText.innerHTML = `API Status: <strong>Online</strong> <span style="opacity: 0.65; font-size: 0.82em; font-weight: normal;">(Ping: ${duration}ms)</span>`;
             })
-            .catch(err => {
+            .catch(() => {
                 statusDot.className = 'pulse-dot red';
                 statusText.innerHTML = `API Status: <strong>Offline</strong>`;
             });
     }
 
-    // --- Interactive Card Spotlight Effect ---
-    const glassCards = document.querySelectorAll('.glass:not(.hero-social-icon)');
-    glassCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-    });
+    // --- Space Background Parallax ---
+    // Stars drift faster than the nebula/debris layer, so scrolling feels physical
+    const spaceBg = document.querySelector('.space-bg');
+    if (!prefersReducedMotion && spaceBg) {
+        const maxShift = () => Math.round(window.innerHeight * 0.5);
+        let targetX = 0, targetY = 0, curX = 0, curY = 0, raf = null;
+
+        const applyParallax = () => {
+            curX += (targetX - curX) * 0.09;
+            curY += (targetY - curY) * 0.09;
+            spaceBg.style.setProperty('--parallax-stars-x', `${curX.toFixed(2)}px`);
+            spaceBg.style.setProperty('--parallax-stars-y', `${curY.toFixed(2)}px`);
+            spaceBg.style.setProperty('--parallax-debris-x', `${(curX * 0.42).toFixed(2)}px`);
+            spaceBg.style.setProperty('--parallax-debris-y', `${(curY * 0.42).toFixed(2)}px`);
+            if (Math.abs(targetX - curX) > 0.4 || Math.abs(targetY - curY) > 0.4) {
+                raf = requestAnimationFrame(applyParallax);
+            } else {
+                raf = null;
+            }
+        };
+
+        const updateParallax = () => {
+            const y = window.scrollY || document.documentElement.scrollTop;
+            const m = maxShift();
+            targetY = Math.min(y * 0.1, m);
+            // Cap the horizontal drift (20vw max vs 25% overscan buffer) so the star layer always covers
+            targetX = Math.min(y * 0.04, m * 0.5, window.innerWidth * 0.2);
+            if (!raf) raf = requestAnimationFrame(applyParallax);
+        };
+
+        window.addEventListener('scroll', updateParallax, { passive: true });
+        window.addEventListener('resize', updateParallax, { passive: true });
+        updateParallax();
+    }
 });

@@ -14,7 +14,9 @@ background:       var(--glass-bg);          /* rgba(255,255,255,0.7) light | rgb
 backdrop-filter:  blur(20px);               /* ← the magic number — do not go higher or lower */
 -webkit-backdrop-filter: blur(20px);
 border:           1px solid var(--glass-border);  /* rgba(255,255,255,0.4) light | rgba(255,255,255,0.08) dark */
-box-shadow:       var(--glass-shadow);      /* 0 8px 32px rgba(0,0,0,0.04) light | 0 8px 32px rgba(0,0,0,0.2) dark */
+box-shadow:       var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.1);
+/* dark theme: inset 0 1px 0 rgba(255,255,255,0.06) — the inset top highlight is the liquid-glass
+   edge refraction; apply it to every glass surface (see .glass utility rule) */
 border-radius:    999px;                    /* pill shape */
 
 /* Layout: floating 1rem from the top, centered, 90% width, max 900px */
@@ -39,7 +41,7 @@ max-width: 900px;
 > 1. Use `backdrop-filter: blur(20px)` — not more, not less
 > 2. Use `var(--glass-bg)` as the background
 > 3. Use `var(--glass-border)` as the border
-> 4. Use `var(--glass-shadow)` as the box-shadow
+> 4. Use `var(--glass-shadow)` as the box-shadow, plus the inset top highlight (`inset 0 1px 0 rgba(255,255,255,0.1)` light / `0.06` dark) for edge refraction
 > 5. Keep backgrounds as **overlays** (e.g. `rgba(0,0,0,0.18)`), never opaque dark curtains
 
 The certificate lightbox backdrop is a deliberate example of this:
