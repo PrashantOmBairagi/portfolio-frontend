@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Projects</h2>
+        <ul>
+            <li><a href="project.html?name=Project1">Project 1</a></li>
+            <li><a href="project.html?name=Project2">Project 2</a></li>
+            <li><a href="project.html?name=Project3">Project 3</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1 id="project-title">Project Name</h1>
+        <div class="image-placeholder">Image Placeholder</div>
+        <div class="video-section">
+            <h3>Project Video</h3>
+            <iframe id="youtube-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById("project-title").innerText = params.get("name") || "Project Name";
+        document.getElementById("youtube-video").src = "https://www.youtube.com/embed/sb-yv86PoH0?si=rUWfxp40m1SDxsl8";
+    </script>
+</body>
+</html>
