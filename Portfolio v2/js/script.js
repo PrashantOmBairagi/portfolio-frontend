@@ -799,13 +799,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusDot = document.getElementById('server-status-dot');
     const statusText = document.getElementById('server-status-text');
     if (statusDot && statusText) {
+        const healthUrl = 'https://43.204.7.243/contact-api/health-check';
         const startTime = performance.now();
-        fetch('https://43.204.7.243/contact-api/health-check')
+        fetch(healthUrl, { cache: 'no-store' })
             .then(res => {
                 if (!res.ok) throw new Error('unhealthy');
                 const duration = Math.round(performance.now() - startTime);
+                const entries = performance.getEntriesByName(healthUrl);
+                const entry = entries[entries.length - 1];
+                let detail = `Round trip: ${duration}ms`;
+                if (entry && entry.requestStart > 0) {
+                    const server = Math.round(entry.responseStart - entry.requestStart);
+                    const download = Math.round(entry.responseEnd - entry.responseStart);
+                    const total = Math.round(entry.responseEnd - entry.startTime);
+                    detail = `Server: ${server}ms - Download: ${download}ms - Total: ${total}ms`;
+                }
                 statusDot.className = 'pulse-dot green';
-                statusText.innerHTML = `API Status: <strong>Online</strong> <span style="opacity: 0.65; font-size: 0.82em; font-weight: normal;">(Ping: ${duration}ms)</span>`;
+                statusText.innerHTML = `API Status: <strong>Online</strong> <span style="opacity: 0.65; font-size: 0.82em; font-weight: normal;">(${detail})</span>`;
             })
             .catch(() => {
                 statusDot.className = 'pulse-dot red';

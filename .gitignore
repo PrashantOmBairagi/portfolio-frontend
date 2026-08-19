@@ -1,6 +1,10 @@
-# Never track the Portfolio v3 folder
+# Never track the Portfolio v1 and v3 folders
+Portfolio v1/
 Portfolio v3/
 SEO_CHANGES.md
+
+# Design notes (local only)
+Portfolio v2/DESIGN_NOTES.md
 
 # Vercel local artifacts
 .vercel/
