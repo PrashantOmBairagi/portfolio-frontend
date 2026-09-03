@@ -122,13 +122,94 @@ body {
   100% { background-position: 0 0; }
 }
 
+/* Vignette — structural depth. Darkens edges subtly, draws eye inward. */
+.bg-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+/* Ambient glow — slow-drifting radial gradients for atmospheric liveliness.
+   Two large, very soft color washes that slowly drift in opposite directions.
+   One warm coral, one cool slate — gives cinematic light-direction depth. */
+.ambient-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-glow::before,
+.ambient-glow::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+}
+
+.ambient-glow::before {
+  width: 800px;
+  height: 800px;
+  top: 10%;
+  left: 15%;
+  background: rgba(255, 107, 82, 0.035);
+  animation: glow-drift-1 45s ease-in-out infinite;
+}
+
+.ambient-glow::after {
+  width: 700px;
+  height: 700px;
+  bottom: 20%;
+  right: 10%;
+  background: rgba(100, 120, 160, 0.025);
+  animation: glow-drift-2 55s ease-in-out infinite;
+}
+
+@keyframes glow-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(80px, -60px) scale(1.1); }
+  66% { transform: translate(-40px, 40px) scale(0.95); }
+}
+
+@keyframes glow-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-60px, 40px) scale(1.05); }
+  66% { transform: translate(50px, -50px) scale(0.9); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .ambient-glow::before,
+  .ambient-glow::after {
+    animation: none;
+  }
   .film-grain {
     animation: none;
   }
 }
 
 /* Reduced motion */
+/* Subtle grid — fixed, pointer-events-none, very low opacity.
+   Adds depth without noise. Uses the existing border token (#3f3f46) at ~6% opacity.
+   Cells are ~140px (3.5× bigger than original). Rotated 15° to form a subtle X pattern. */
+.depth-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.11;
+  background-image:
+    linear-gradient(to right, #3f3f46 1px, transparent 1px),
+    linear-gradient(to bottom, #3f3f46 1px, transparent 1px);
+  background-size: 140px 140px;
+  transform: rotate(15deg);
+  transform-origin: center;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black 40%, transparent 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

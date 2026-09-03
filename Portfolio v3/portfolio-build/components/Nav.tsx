@@ -53,79 +53,74 @@ export default function Nav() {
   const handleLinkClick = () => setMenuOpen(false);
 
   return (
-    <>
-      {/* -- Scroll Progress Line -- */}
+    <header className="fixed top-0 left-0 right-0 z-50">
       <motion.div
         style={{ scaleX }}
-        className="fixed top-0 left-0 right-0 h-[2px] bg-[#ff6b52] origin-left z-[60]"
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#ff6b52] origin-left z-[60]"
         aria-hidden="true"
       />
-
-      {/* -- Fixed Navbar -- */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <motion.div
-          style={{ opacity: bgOpacity }}
-          className="absolute inset-0 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md"
-          aria-hidden="true"
-        />
-        <nav
-          className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4"
-          aria-label="Primary navigation"
+      <motion.div
+        style={{ opacity: bgOpacity }}
+        className="absolute inset-0 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md"
+        aria-hidden="true"
+      />
+      <nav
+        className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4"
+        aria-label="Primary navigation"
+      >
+        {/* Brand Name */}
+        <a
+          href="#"
+          className="flex items-center gap-2 group focus-visible:outline-none"
+          aria-label="Prashant Bairagi -- Home"
         >
-          {/* Brand Name */}
-          <a
-            href="#"
-            className="flex items-center gap-2 group focus-visible:outline-none"
-            aria-label="Prashant Bairagi -- Home"
+          <span className="font-mono text-[16px] sm:text-[18px] font-extrabold tracking-[0.18em] text-zinc-100 uppercase transition-colors group-hover:text-white">
+            PRASHANT BAIRAGI
+          </span>
+        </a>
+
+        {/* Desktop Links with Active State Wayfinding */}
+        <ul className="hidden md:flex items-center gap-8 font-mono text-[16px] text-zinc-400" role="list">
+          {NAV_LINKS.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`transition-colors duration-150 relative py-1 ${
+                    isActive ? "text-[#ff6b52] font-semibold" : "hover:text-zinc-100"
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ff6b52] rounded-full" />
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Action CTA & Mobile Toggle */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleResumeClick}
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 px-4 py-1.5 font-mono text-[16px] font-medium text-zinc-200 transition-all duration-200 hover:border-[#ff6b52] hover:text-white hover:bg-zinc-800 active:scale-[0.97]"
           >
-            <span className="font-mono text-xs sm:text-sm font-extrabold tracking-[0.18em] text-zinc-100 uppercase transition-colors group-hover:text-white">
-              PRASHANT BAIRAGI
-            </span>
-          </a>
+            <DownloadSimple size={14} className="text-[#ff6b52]" weight="bold" />
+            <span>Resume</span>
+          </button>
 
-          {/* Desktop Links with Active State Wayfinding */}
-          <ul className="hidden md:flex items-center gap-8 font-mono text-xs text-zinc-400" role="list">
-            {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.id;
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className={`transition-colors duration-150 relative py-1 ${
-                      isActive ? "text-[#ff6b52] font-semibold" : "hover:text-zinc-100"
-                    }`}
-                  >
-                    <span>{link.label}</span>
-                    {isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ff6b52] rounded-full" />
-                    )}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Action CTA & Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleResumeClick}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 px-4 py-1.5 font-mono text-xs font-medium text-zinc-200 transition-all duration-200 hover:border-[#ff6b52] hover:text-white hover:bg-zinc-800 active:scale-[0.97]"
-            >
-              <DownloadSimple size={14} className="text-[#ff6b52]" weight="bold" />
-              <span>Resume</span>
-            </button>
-
-            <button
-              className="md:hidden p-2 text-zinc-400 hover:text-white active:scale-[0.97]"
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
-            </button>
-          </div>
-        </nav>
-      </header>
+          <button
+            className="md:hidden p-2 text-zinc-400 hover:text-white active:scale-[0.97]"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+          </button>
+        </div>
+      </nav>
 
       {/* -- Mobile Drawer -- */}
       <motion.div
@@ -137,7 +132,7 @@ export default function Nav() {
         }`}
         aria-hidden={!menuOpen}
       >
-        <ul className="flex flex-col gap-5 font-mono text-sm" role="list">
+        <ul className="flex flex-col gap-5 font-mono text-[18px]" role="list">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
@@ -157,7 +152,7 @@ export default function Nav() {
                 handleResumeClick(e);
                 handleLinkClick();
               }}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-[#ff6b52] px-5 py-2.5 text-xs font-mono text-[#ff6b52]"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-[#ff6b52] px-5 py-2.5 text-[16px] font-mono text-[#ff6b52]"
             >
               <DownloadSimple size={15} weight="bold" />
               <span>Download & Open Resume</span>
@@ -165,6 +160,6 @@ export default function Nav() {
           </li>
         </ul>
       </motion.div>
-    </>
+    </header>
   );
 }

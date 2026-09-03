@@ -11,6 +11,9 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="min-h-[100dvh] bg-zinc-950 text-zinc-100 relative">
+      <div className="depth-grid" aria-hidden="true" />
+      <div className="ambient-glow" aria-hidden="true" />
+      <div className="bg-vignette" aria-hidden="true" />
       <div className="film-grain" aria-hidden="true" />
       <div className="relative z-10">
         <Nav />

@@ -120,7 +120,7 @@ export default function Hero() {
           <div className="flex flex-wrap items-center gap-4 mb-3">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#ff6b52] text-zinc-950 font-semibold text-xs sm:text-sm tracking-tight transition-all duration-200 hover:bg-[#ff816b] hover:shadow-[0_0_28px_rgba(255,107,82,0.3)] active:scale-[0.97]"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#ff6b52] text-zinc-950 font-semibold text-[16px] tracking-tight transition-all duration-200 hover:bg-[#ff816b] hover:shadow-[0_0_28px_rgba(255,107,82,0.3)] active:scale-[0.97]"
             >
               <span>See what I&apos;ve shipped</span>
               <ArrowUpRight size={16} weight="bold" />
@@ -128,7 +128,7 @@ export default function Hero() {
 
             <button
               onClick={handleResumeClick}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-zinc-200 font-mono font-medium text-xs sm:text-sm transition-all duration-200 hover:border-[#ff6b52] hover:text-white hover:bg-zinc-800 active:scale-[0.97]"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-zinc-200 font-mono font-medium text-[16px] transition-all duration-200 hover:border-[#ff6b52] hover:text-white hover:bg-zinc-800 active:scale-[0.97]"
             >
               <DownloadSimple size={16} className="text-[#ff6b52]" weight="bold" />
               <span>Resume</span>
@@ -296,7 +296,7 @@ export default function Hero() {
                           <span className="text-zinc-600">·</span>
                           <span className="text-zinc-500">Kharcha Pani</span>
                         </div>
-                        <pre className="text-zinc-300 text-[11px] leading-relaxed whitespace-pre-wrap break-words">
+                        <pre className="text-zinc-300 text-[15px] leading-relaxed whitespace-pre-wrap break-words">
                           <JsonHighlight json={apiResponse} />
                         </pre>
                       </div>
