@@ -83,7 +83,7 @@ export default function Contact() {
     };
 
     try {
-      const response = await fetch("https://43.204.7.243/contact-api/api/contacts", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -276,9 +276,9 @@ export default function Contact() {
                   <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-700 text-[#ff6b52] flex items-center justify-center mx-auto">
                     <WarningCircle size={28} weight="bold" />
                   </div>
-                  <h3 className="text-base font-bold text-zinc-100">Couldn&apos;t send directly</h3>
+                  <h3 className="text-base font-bold text-zinc-100">Couldn&apos;t send</h3>
                   <p className="text-xs text-zinc-400 max-w-[44ch] mx-auto font-mono leading-relaxed">
-                    The browser blocked the request (SSL/CORS issue with the raw IP). Use the email fallback below — it goes to the same inbox.
+                    Something went wrong reaching the server. Use the email fallback below — it goes to the same inbox.
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
                     <a

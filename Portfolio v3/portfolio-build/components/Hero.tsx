@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import {
   ArrowUpRight,
   GithubLogo,
@@ -23,13 +23,6 @@ export default function Hero() {
   const [apiError, setApiError] = useState<string>("");
   const [apiStatus, setApiStatus] = useState<number | null>(null);
   const [apiLatency, setApiLatency] = useState<number | null>(null);
-
-  // Scroll-tied ambient glow — the coral glow gently rises/cools as you scroll
-  // down the page, then returns to rest when back at the hero. Purposeful,
-  // motivated motion: it tracks scroll position, never free-running.
-  const { scrollY } = useScroll();
-  const glowY = useTransform(scrollY, [0, 800], [0, 140]);
-  const glowOpacity = useTransform(scrollY, [0, 600, 1400], [0.15, 0.08, 0.02]);
 
   const handleResumeClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -82,20 +75,15 @@ export default function Hero() {
         </svg>
       </div>
 
-      {/* Scroll-tied Coral Glow — outer drives scroll, inner breathes locally */}
-      <motion.div
-        className="absolute top-1/3 left-1/4 pointer-events-none"
-        style={{ y: glowY, opacity: glowOpacity }}
+      {/* Floating Coral Blob — organic drift */}
+      <div
+        className="absolute top-1/3 left-1/4 w-[480px] h-[480px] md:w-[550px] md:h-[550px] rounded-full blur-[140px] pointer-events-none opacity-15"
+        style={{
+          background: "radial-gradient(circle, #ff6b52 0%, transparent 70%)",
+          animation: "hero-blob-float 18s ease-in-out infinite",
+        }}
         aria-hidden="true"
-      >
-        <div
-          className="w-[480px] h-[480px] md:w-[550px] md:h-[550px] rounded-full blur-[140px]"
-          style={{
-            background: "radial-gradient(circle, #ff6b52 0%, transparent 70%)",
-            animation: "hero-blob-float 18s ease-in-out infinite",
-          }}
-        />
-      </motion.div>
+      />
 
       <div className="relative mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         {/* Left Column */}
