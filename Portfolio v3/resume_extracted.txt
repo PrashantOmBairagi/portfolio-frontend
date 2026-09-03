@@ -1,0 +1,65 @@
+=== PAGE 1 ===
+PRASHANT BAIRAGI 
+hello.prashantbairagi@gmail.com | +91-9981100383 | Live Portfolio | LinkedIn | GitHub | LeetCode | Jabalpur, MP 
+ 
+PROFESSIONAL SUMMARY 
+Backend-focused engineering student who designed, built, and deployed a production Java/Spring Boot application serving real 
+Android users, hosted on AWS EC2 with Docker. Hands-on across the full backend lifecycle — JWT authentication, REST API 
+design, MySQL data modeling, and cloud deployment. Strong DSA foundation. Seeking to contribute to real engineering work in 
+a product team. 
+TECHNICAL SKILLS 
+Languages: Java, SQL, C++, Python 
+Backend Development: Java, Spring Boot, Spring Security, Spring Data JPA, Hibernate, REST APIs, JSON, JWT Authentication, 
+DTO Design, Validation, Exception Handling 
+Databases: MySQL, PostgreSQL 
+Cloud & Deployment: AWS EC2, Docker, Vercel 
+Developer Tools: Git, GitHub, Maven, Postman API Testing, Swagger / OpenAPI, IntelliJ IDEA, VS Code 
+Core Concepts: OOP, Data Structures, Algorithms, Problem Solving 
+Additional: Embedded Systems, PCB Design, RF Communication 
+PROJECTS 
+Kharcha Pani  —  Personal Finance Tracker for Modern India.   GitHub Repository  Live Documentation   LIVE · IN PRODUCTION 
+Production backend powering a live Android finance app with 40+ real-user installs, built with Java, Spring Boot, Spring 
+Security, MySQL, and Docker. [Android Releases]  
+● 
+Production Deployment: Deployed Dockerized backend to AWS EC2 — configured security groups, networking, and 
+environment secrets for 24/7 availability serving real mobile clients. 
+● 
+Security Architecture: Stateless JWT auth + Spring Security across 12+ REST endpoints, with per-user data isolation 
+enforced at the query layer on every resource. 
+● 
+Domain Modeling: Normalized multi-entity schema (User → FinancialMonth → Expense) via JPA/Hibernate; month-
+wise budgets with automatic financial-period creation carrying forward prior budget. 
+● 
+API Design: Paginated/sortable endpoints (Spring Data Pageable) hardened with field allowlists against parameter 
+injection; Swagger/OpenAPI documented. 
+Portfolio Contact API  —  GitHub Repository    LIVE 
+Backend service powering the contact form of my live portfolio website — Java, Spring Boot, REST APIs, containerised 
+application deployed on EC2, frontend integrated via Vercel. 
+● 
+Built and Postman-tested validated REST endpoints; submissions delivered instantly as email notifications via Spring 
+Mail (SMTP integration) for zero-maintenance operation. 
+● 
+Originally persisted to managed PostgreSQL (Neon); migrated to zero-maintenance SMTP delivery via Spring Mail, 
+keeping the complete JPA persistence layer in source for on-demand re-enablement. 
+Smart Central Locking System  —  GitHub Repository   IN DAILY USE · 1+ YR 
+Independently designed and deployed an embedded access security system with ATmega328 microcontroller, RF 
+communication (433 MHz), and actuator control. Installed in a personal vehicle and in continuous daily use for over a year. 
+● 
+Problem Solving : Demonstrated and solved real-world access control problem by designing custom solution, 
+firmware, reducing reliance on commercial systems. 
+EDUCATION 
+B.Tech in Electronics and Telecommunication Engineering 
+Jabalpur Engineering College, Jabalpur | 2023–2027  
+CERTIFICATIONS AND ACHIEVEMENTS 
+● 
+NPTEL Certifications — Database Management Systems (Elite, 2026), MEMS Fabrication Techniques (Elite, 2025), The 
+Joy of Computing Using Python (2024) 
+● 
+AWS Cloud Practitioner Essentials (AWS Training & Certification) 
+● 
+Data Structures & Algorithms — 200+ LeetCode problems solved 
+● 
+Independent Hardware Deployment — solo-designed embedded security system (ATmega328, RF 433 MHz), running 
+in a real vehicle for 1+ years 
+
+
