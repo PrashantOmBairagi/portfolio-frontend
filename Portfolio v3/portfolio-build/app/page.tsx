@@ -7,12 +7,10 @@ import About from "@/components/About";
 import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import NetworkCanvas from "@/components/NetworkCanvas";
 
 export default function Home() {
   return (
     <main className="min-h-[100dvh] bg-zinc-950 text-zinc-100 relative">
-      <NetworkCanvas />
       <div className="film-grain" aria-hidden="true" />
       <div className="relative z-10">
         <Nav />
