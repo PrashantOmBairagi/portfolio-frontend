@@ -96,7 +96,6 @@ const PROJECTS: Project[] = [
     links: [
       { label: "Swagger UI", href: "https://43.204.7.243/swagger-ui/index.html", icon: "docs" },
       { label: "GitHub", href: "https://github.com/PrashantOmBairagi/kharcha-pani", icon: "github" },
-      { label: "Download APK", href: "https://github.com/PrashantOmBairagi/kharcha-pani/releases/latest", icon: "apk" },
     ],
     callout: "Hardened against SQL and parameter injection with Spring Data Pageable field allowlists.",
   },
@@ -293,13 +292,28 @@ export default function ProjectStack() {
                           />
                         </div>
 
-                        <div>
-                          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-50">
-                            {project.title}
-                          </h3>
-                          <p className="text-sm font-medium text-[#ff6b52] mt-1">
-                            {project.tagline}
-                          </p>
+                        {/* Title + Download row */}
+                        <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div>
+                            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-50">
+                              {project.title}
+                            </h3>
+                            <p className="text-sm font-medium text-[#ff6b52] mt-1">
+                              {project.tagline}
+                            </p>
+                          </div>
+
+                          {project.id === "kharcha-pani" && (
+                            <a
+                              href="https://github.com/PrashantOmBairagi/kharcha-pani/releases/latest/download/Kharcha_Pani_v2.6.0_by_Prashant_Bairagi.apk"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-2 shrink-0 self-start sm:self-center max-w-full whitespace-nowrap px-[18px] py-[9px] rounded-lg text-lg font-semibold font-mono text-white bg-[#FF6B35] shadow-lg shadow-[#FF6B35]/20 transition-all duration-200 hover:bg-[#ff7d4a] hover:shadow-[#FF6B35]/30 active:scale-[0.97]"
+                            >
+                              <span>Download App</span>
+                              <DownloadSimple size={18} weight="bold" />
+                            </a>
+                          )}
                         </div>
                       </div>
 
