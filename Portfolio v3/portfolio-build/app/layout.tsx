@@ -42,6 +42,11 @@ export const metadata: Metadata = {
     "Jabalpur",
   ],
   category: "Portfolio",
+  icons: {
+    icon: "/assets/favicon.ico",
+    shortcut: "/assets/favicon.ico",
+    apple: "/assets/favicon.ico",
+  },
   alternates: {
     canonical: "./",
   },
